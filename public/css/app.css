@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-turquoise: #17A398;
+    --primary-gold: #CBB57F;
+
+    --neutral-white: #FFFFFF;
+    --neutral-light-gray: #F5F5F5;
+    --neutral-medium-gray: #AAAAAB;
+    --neutral-dark-gray: #222222;
+
+    --extra-soft-gray: #EFEFEF;
+    --extra-accent-gray: #818181;
+    --extra-almost-black: #191919;
+    
+}
