@@ -1,0 +1,33 @@
+.information-container{
+    background-color: var(--neutral-dark-gray);
+    color: var(--neutral-white);
+    padding: 1rem 1.5rem;
+}
+body{
+    padding: 0;
+    margin: 0;
+    background-color: var(--neutral-light-gray);
+}
+/* NAV */
+
+nav{
+    background-color: var(--neutral-dark-gray);
+}
+.nav-link, .navbar-brand{
+    color: var(--neutral-white);
+    font-weight: 700;
+    transition: all .5s;
+}
+.nav-link:visited, .navbar-brand:visited{
+    color: var(--neutral-white);
+
+}
+.nav-link:hover, .navbar-brand:hover{
+    color: var(--primary-gold);
+
+}
+.active{
+    text-decoration: underline;
+    color: var(--primary-gold) !important;
+}
+/* END NAV */
