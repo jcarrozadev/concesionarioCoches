@@ -1,0 +1,130 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--neutral-light-gray);
+}
+
+/* NAV */
+
+nav {
+    background-color: var(--neutral-dark-gray);
+}
+
+.nav-link,
+.navbar-brand {
+    color: var(--neutral-white);
+    font-weight: 700;
+    transition: all .5s;
+}
+
+.nav-link:visited,
+.navbar-brand:visited {
+    color: var(--neutral-white);
+
+}
+
+.nav-link:hover,
+.navbar-brand:hover {
+    color: var(--primary-gold);
+
+}
+
+.active {
+    text-decoration: underline;
+    color: var(--primary-gold) !important;
+}
+
+/* END NAV */
+
+/* FILTER */
+
+.filter {
+    background-color: var(--extra-almost-black);
+    padding: 20px;
+}
+
+.double_range_slider_box {
+    display: inline;
+    width: 100%;
+    max-width: 300px; /* Ajusta según necesidad */
+    padding: 20px;
+}
+
+.double_range_slider_box > label {
+    color: var(--neutral-white);
+}
+
+.double_range_slider {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background: #ccc;
+    border-radius: 5px;
+}
+
+.range_track {
+    position: absolute;
+    height: 5px;
+    background: var(--primary-gold);
+    border-radius: 5px;
+}
+
+.slider_range {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: none;
+    -webkit-appearance: none;
+    pointer-events: none; /* Evita interacción directa */
+}
+
+.slider_range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-gold);
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto; /* Permite mover los controles */
+    position: relative;
+}
+
+.slider_range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--neutral-dark-gray);
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.minvalue,
+.maxvalue {
+    position: absolute;
+    top: 15px;
+    font-size: 14px;
+    color: var(--neutral-white);
+    font-weight: bold;
+}
+
+.minvalue {
+    left: 0;
+}
+
+.maxvalue {
+    right: 0;
+}
+
+/* END FILTER */
+
+.title-section {
+    background-color: var(--neutral-medium-gray);
+    padding: 20px;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1.01);
+    transition: all 0.3s;
+}

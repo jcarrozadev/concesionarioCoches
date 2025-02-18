@@ -7,7 +7,7 @@
     --primary-gold: #CBB57F;
 
     --neutral-white: #FFFFFF;
-    --neutral-light-gray: #F5F5F5;
+    --neutral-light-gray: #F5F5F5; /* Background */
     --neutral-medium-gray: #AAAAAB;
     --neutral-dark-gray: #222222;
 
@@ -16,3 +16,4 @@
     --extra-almost-black: #191919;
     
 }
+
