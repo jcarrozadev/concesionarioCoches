@@ -30,4 +30,7 @@ nav{
     text-decoration: underline;
     color: var(--primary-gold) !important;
 }
+.navbar-toggler:focus{
+    box-shadow: none;
+}
 /* END NAV */

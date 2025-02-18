@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    @include('user.components.nav')
+    @include('user.components.header')
 
     @yield('content')
 
