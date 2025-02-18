@@ -16,6 +16,7 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <div class="img-placeholder" style="background: #ddd; height: 150px;">IMG</div>
+                            {{-- <img src="{{ asset('img/6kfondo.jpeg') }}" alt="Seat Arona" style="height: 150px; width: 100%; object-fit: cover;"> --}}
                             <h5 class="card-title mt-2 fs-4">Seat Arona</h5>
                             <div class="row">
                                 <div class="col-6">
