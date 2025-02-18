@@ -6,25 +6,45 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form id="form-addColor" action="" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+                <form id="form-addColor" class="row g-3 needs-validation" action="" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
                     @csrf
-                    <div class="mb-3">
-                        <label class="form-label" for="typeName">Nombre del color *</label>
-                        <input class="form-control" type="text" placeholder="Añade el nombre del color">
+                    <div class="col-12">
+                        <label class="form-label" for="colorName">Nombre del color *</label>
+                        <input id="colorName" name="colorName" class="form-control" type="text" placeholder="Añade el nombre del color" required>
+                        <div class="valid-feedback">¡Se ve bien!</div>
+                        <div class="invalid-feedback">Por favor, introduce el nombre del color.</div>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label" for="typeName">Color *</label>
-                        <input type="color" class="form-control w-25" id="colorHex" name="codigo_hex" value="#000000" required> 
+                    <div class="col-12">
+                        <label class="form-label" for="colorHex">Color *</label>
+                        <input type="color" class="form-control form-control-color" id="colorHex" name="codigo_hex" value="#000000" required>
+                        <div class="valid-feedback">¡Se ve bien!</div>
+                        <div class="invalid-feedback">Por favor, selecciona un color.</div>
                     </div>        
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">Añadir Color</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <script>
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
     document.getElementById('colorHex').addEventListener('input', function(event) {
         console.log(document.getElementById('colorHex').value);
-        
     });
 </script>

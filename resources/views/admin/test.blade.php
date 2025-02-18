@@ -9,9 +9,13 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addColor">
         COLOR
     </button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCar">
+        CAR
+    </button>
 
     @include('admin.components.type-add')
     @include('admin.components.brand-add')
     @include('admin.components.color-add')
+    @include('admin.components.car-add')
 @endsection
 
