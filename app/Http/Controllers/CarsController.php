@@ -19,4 +19,8 @@ class CarsController extends Controller
 
         return view('user.home', ['cars' => $cars, 'carsOffers' => $carsOffers, 'carsNotOffers' => $carsNotOffers, 'brands' => $brands, 'colors' => $colors]);
     }
+
+    public static function getColors() {
+        return view('admin.colors', ['colors' => Colors::getColorsAll()]);
+    }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarsController;
+use App\Models\Cars;
 
 Route::get('/', function () {
     return CarsController::getCars();
@@ -20,7 +21,7 @@ Route::get('/admin/types', function () {
 })->name('types');
 
 Route::get('/admin/colors', function () {
-    return view('admin.colors');
+    return CarsController::getColors();
 })->name('colors');
 
 Route::get('/testModals', function () {
