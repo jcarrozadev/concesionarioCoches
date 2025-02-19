@@ -18,8 +18,9 @@
 
     @yield('content')
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @stack('js')
+    
 </body>
 </html>

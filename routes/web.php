@@ -27,3 +27,7 @@ Route::get('/testModals', function () {
     return view('admin.test_modals');
 });
 
+Route::get('/datasheet/{id}', function ($id) {
+    return CarsController::getCar($id);
+})->name('datasheet');
+
