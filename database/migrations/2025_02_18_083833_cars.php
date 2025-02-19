@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('type_id');
             $table->unsignedInteger('color_id');
             $table->year('year');
-            $table->string('main_img', 50);
+            $table->string('main_img', 150);
             $table->decimal('horsepower', 5, 2);
             $table->decimal('price', 9, 2);
             $table->boolean('sale');
