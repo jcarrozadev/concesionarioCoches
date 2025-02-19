@@ -20,6 +20,7 @@ return new class extends Migration
             $table->year('year');
             $table->string('main_img', 50);
             $table->decimal('horsepower', 5, 2);
+            $table->decimal('price', 9, 2);
             $table->boolean('sale');
             $table->boolean('enabled');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');;
