@@ -7,6 +7,7 @@ Route::get('/', function () {
     return CarsController::getCars();
 });
 
-Route::get('/dataSheet', function () {
-    return view('user.data-sheet');
+Route::get('/testModals', function () {
+    return view('admin.test_modals');
 });
+
