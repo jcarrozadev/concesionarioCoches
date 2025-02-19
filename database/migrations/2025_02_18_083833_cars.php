@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement()->primary();
             $table->string('name', 100);
-            $table->integer('brand_id');
-            $table->integer('type_id');
-            $table->integer('color_id');
+            $table->unsignedInteger('brand_id');
+            $table->unsignedInteger('type_id');
+            $table->unsignedInteger('color_id');
             $table->year('year');
             $table->string('main_img', 50);
             $table->decimal('horsepower', 5, 2);
