@@ -50,20 +50,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>C3</td>
-                        <td>Citroen</td>
-                        <td>SUV</td>
-                        <td>Grey</td>
-                        <td>2021</td>
-                        <td>110CV</td>
-                        <td>Yes</td>
-                        <td id="buttonFields">
-                            <button class="btn btn-secondary">Editar</button>
-                            <button class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
+                    @foreach ($cars as $car)
+                        <tr>
+                            <td>{{ $car->id }}</td>
+                            <td>{{ $car->name }}</td>
+                            <td>{{ $car->brand_name }}</td>
+                            <td>{{ $car->type_name }}</td>
+                            <td>{{ $car->color_name }}</td>
+                            <td>{{ $car->year }}</td>
+                            <td>{{ $car->horsepower }} CV</td>
+                            <td>
+                                @if ($car->sale == 1)
+                                    Si
+                                @else
+                                    No
+                                @endif
+                            </td>
+                            <td id="buttonFields">
+                                <button class="btn btn-secondary">Editar</button>
+                                <button class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
