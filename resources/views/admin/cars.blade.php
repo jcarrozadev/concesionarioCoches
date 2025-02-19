@@ -7,6 +7,7 @@
 @section('content')
     <div class="containerTable">
         @include('admin.components.button_add')
+        @include('admin.components.modals.add.car_add')
         <div class="table-wrapper">
             <table id="table" class="display text-center datatable">
                 <thead>

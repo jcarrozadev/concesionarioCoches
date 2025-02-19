@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cars extends Model
 {
     protected $table = 'cars';
-    protected $fillable = ['name', 'year', 'horsepower', 'sale', 'enabled', 'main_img'];
+    protected $fillable = ['name', 'year', 'brand_id', 'type_id', 'color_id','horsepower', 'enabled', 'sale', 'price', 'main_img'];
 
     public static function getCarsAll():Collection {
         return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name')
@@ -36,5 +36,20 @@ class Cars extends Model
                     ->where('cars.sale', 0)
                     ->where('cars.enabled', 1)
                     ->get();
+    }
+
+    public static function addCar($data) {
+        return self::create([
+            'name' => $data['name'],
+            'year' => $data['year'],
+            'horsepower' => $data['horsepower'],
+            'sale' => $data['sale'],
+            'brand_id' => $data['brand_id'],
+            'type_id' => $data['type_id'],
+            'color_id' => $data['color_id'],
+            'price' => $data['price'],
+            'enabled' => 1,
+            'main_img' => $data['main_img']
+        ]);
     }
 }

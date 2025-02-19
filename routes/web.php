@@ -28,3 +28,4 @@ Route::get('/testModals', function () {
     return view('admin.test_modals');
 });
 
+Route::post('/admin/addCar', [CarsController::class, 'addCar'])->name('addCar');
