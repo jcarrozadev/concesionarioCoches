@@ -8,7 +8,7 @@
     @include('user.components.filter')
     <section id="carsOffers" name="carsOffers">
         <div class="text-center fs-3 title-section">
-            <strong>SALE</strong>
+            <strong>OFERTAS</strong>
         </div>
         <div class="container my-5">
             <div class="row">
@@ -38,7 +38,7 @@
     </section>
     <section id="carsAll" name="carsAll">
         <div class="text-center fs-3 title-section">
-            <strong>All Vehicles</strong>
+            <strong>Vehículos</strong>
         </div>
         <div class="container my-5">
             <div class="row">
