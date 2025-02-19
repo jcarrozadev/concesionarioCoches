@@ -14,7 +14,8 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('hex', 7);
             $table->boolean('enabled')->default(true);
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 
