@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-md-2 mt-2">
             <select class="form-select">
-                <option selected hidden disabled>Brand</option>
+                <option selected hidden disabled>Marca</option>
                 @foreach ($brands as $brand)
                     <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                 @endforeach
             </select>
         </div>
         <div class="col-md-2 mt-2">
-            <input type="text" class="form-control" placeholder="Model">
+            <input type="text" class="form-control" placeholder="Modelo">
         </div>
         <div class="col-md-2 mt-2">
             <select class="form-select">

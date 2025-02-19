@@ -1,0 +1,170 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--neutral-light-gray);
+}
+
+/* NAV */
+
+nav{
+    background-color: var(--neutral-dark-gray);
+}
+.nav-link, .navbar-brand{
+    color: var(--neutral-white);
+    font-weight: 700;
+    margin-left: 20px;
+    margin-right: 20px;
+    transition: all 0.3s;
+}
+.nav-link:visited, .navbar-brand:visited{
+    color: var(--neutral-white);
+
+}
+.nav-link:hover, .navbar-brand:hover{
+    color: var(--primary-gold);
+
+}
+.active{
+    text-decoration: underline;
+    color: var(--primary-gold) !important;
+}
+.navbar-toggler:focus{
+    box-shadow: none;
+}
+
+/* END NAV */
+
+.containerTable {
+    width: 96%; 
+    max-width: 100%; 
+    margin: 40px auto; 
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hacer que la tabla no se desborde */
+.table-wrapper {
+    overflow-x: auto; 
+}
+
+#table {
+    width: 100%;
+    max-width: 100%; 
+    border-collapse: collapse;
+    font-size: 0.8rem; 
+}
+
+/* Encabezados Tabla */
+#table thead tr:first-child {
+    background-color: var(--neutral-dark-gray);
+    color: var(--neutral-white);
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Inputs de búsqueda */
+#table thead tr:nth-child(2) input {
+    width: 85%;
+    padding: 0.3rem;
+    font-size: 0.75rem;
+    border: 0.0625rem solid var(--neutral-medium-gray);
+    border-radius: 4px;
+}
+
+#buttonFields {
+    width: 12rem;
+}
+
+.addWidthButton {
+    width: 30%;
+}
+
+/* Botones */
+.btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+}
+
+/* Estilos para la paginación */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    font-size: 0.875rem;
+    border: 0.0625rem solid transparent;
+    padding: 0.3125rem 0.75rem;
+    margin: 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dataTables_info {
+    font-size: 0.875rem;
+    color: var(--neutral-dark-gray);
+    margin: 1rem;
+    text-align: right;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    transform: scale(1.05);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: var(--primary-blue) !important;
+}
+
+/* Estilo para la información de paginación */
+.dataTables_info {
+    font-size: 0.8125rem;
+    color: var(--neutral-medium-gray);
+    margin-top: 0.625rem;
+}
+
+/* Buscar general del Datatable */
+.dataTables_filter {
+    margin: 1rem;
+}
+
+.dataTables_filter label {
+    font-size: 0.875rem;
+    color: var(--neutral-dark-gray);
+}
+
+.dataTables_filter input {
+    width: 12.5rem;
+    padding: 0.5rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.25rem;
+    outline: none;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.dataTables_filter input:focus, #table thead tr:nth-child(2) input:focus {
+    border-color: var(--neutral-medium-gray);
+    box-shadow: 0 0 0.125rem var(--neutral-medium-gray);
+}
+
+/* Mostrar X registros */
+.dataTables_length {
+    margin: 1rem;
+}
+
+.dataTables_length label {
+    font-size: 0.875rem;
+    color: var(--neutral-dark-gray);
+}
+
+.dataTables_length select {
+    padding: 0.3125rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: var(--border-radius);
+    outline: none;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.dataTables_length select:focus {
+    border-color: var(--neutral-medium-gray);
+    box-shadow: 0 0 0.125rem var(--neutral-medium-gray);
+}
