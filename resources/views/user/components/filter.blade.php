@@ -3,9 +3,9 @@
         <div class="col-md-2 mt-2">
             <select class="form-select">
                 <option selected hidden disabled>Brand</option>
-                <option value="1">Toyota</option>
-                <option value="2">Ford</option>
-                <option value="3">BMW</option>
+                @foreach ($brands as $brand)
+                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col-md-2 mt-2">
@@ -14,9 +14,9 @@
         <div class="col-md-2 mt-2">
             <select class="form-select">
                 <option selected hidden disabled>Color</option>
-                <option value="1">Red</option>
-                <option value="2">Blue</option>
-                <option value="3">Black</option>
+                @foreach ($colors as $color)
+                    <option value="{{ $color->id }}">{{ $color->name }}</option>
+                @endforeach
             </select>
         </div>
 
