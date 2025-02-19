@@ -14,18 +14,19 @@ return new class extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement()->primary();
             $table->string('name', 100);
-            $table->integer('brand_id');
-            $table->integer('type_id');
-            $table->integer('color_id');
+            $table->unsignedInteger('brand_id');
+            $table->unsignedInteger('type_id');
+            $table->unsignedInteger('color_id');
             $table->year('year');
             $table->string('main_img', 50);
             $table->decimal('horsepower', 5, 2);
             $table->boolean('sale');
             $table->boolean('enabled');
-            $table->foreign('brand_id')->references('id')->on('brands');
-            $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('color_id')->references('id')->on('colors');
-            $table->timestamps();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade')->onUpdate('cascade');;
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

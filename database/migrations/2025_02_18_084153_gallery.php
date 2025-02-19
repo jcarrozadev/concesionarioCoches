@@ -15,7 +15,8 @@ return new class extends Migration
             $table->unsignedInteger('id')->autoIncrement()->primary();
             $table->unsignedInteger('car_id');
             $table->string('img', 50);
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 
