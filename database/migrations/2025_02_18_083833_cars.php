@@ -22,10 +22,11 @@ return new class extends Migration
             $table->decimal('horsepower', 5, 2);
             $table->boolean('sale');
             $table->boolean('enabled');
-            $table->foreign('brand_id')->references('id')->on('brands');
-            $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('color_id')->references('id')->on('colors');
-            $table->timestamps();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade')->onUpdate('cascade');;
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 
