@@ -21,7 +21,7 @@ Route::get('/admin/types', function () {
 })->name('types');
 
 Route::get('/admin/colors', function () {
-    return view('admin.colors');
+    return CarsController::getColors();
 })->name('colors');
 
 Route::get('/testModals', function () {

@@ -21,9 +21,12 @@ class CarsController extends Controller
     }
 
     public static function getCarsAdmin() {
-
         $cars = Cars::getCarsAll();
 
         return view('admin.cars', ['cars' => $cars]);
     }
+  
+      public static function getColors() {
+        return view('admin.colors', ['colors' => Colors::getColorsAll()]);
+      }
 }

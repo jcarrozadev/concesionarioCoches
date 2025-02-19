@@ -30,15 +30,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Negro</td>
-                        <td>#000000</td>
-                        <td id="buttonFields">
-                            <button class="btn btn-secondary">Editar</button>
-                            <button class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
+                    @foreach ($colors as $color)
+                        <tr>
+                            <td>{{ $color->id }}</td>
+                            <td>{{ $color->name }}</td>
+                            <td>{{ $color->hex }}</td>
+                            <td id="buttonFields">
+                                <button class="btn btn-secondary">Editar</button>
+                                <button class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
