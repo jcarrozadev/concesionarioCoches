@@ -1,0 +1,76 @@
+@extends('user.layout')
+
+@section('title')
+    Home
+@endsection
+
+@section('content')
+    @include('user.components.filter')
+    <section id="carsOffers" name="carsOffers">
+        <div class="text-center fs-3 title-section">
+            <strong>SALE</strong>
+        </div>
+        <div class="container my-5">
+            <div class="row">
+                @foreach ($carsOffers as $car)
+                    <div class="col-md-3" v-for="i in 4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="{{ asset('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" style="height: 150px; width: 100%; object-fit: cover;">
+                                <h5 class="card-title mt-2 fs-4">{{ $car->name }}</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="card-text">Color: {{ $car->color_name }}</p>
+                                        <p class="card-text">Año: {{ $car->year }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="card-text">Marca: {{ $car->brand_name }}</p>
+                                        <p class="card-text">CV: {{ $car->horsepower }}</p>
+                                    </div>
+                                </div>
+                                <p class="fw-bold fs-5 mt-2">16.100€</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <section id="carsAll" name="carsAll">
+        <div class="text-center fs-3 title-section">
+            <strong>All Vehicles</strong>
+        </div>
+        <div class="container my-5">
+            <div class="row">
+                @foreach ($carsNotOffers as $car)
+                    <div class="col-md-3" v-for="i in 4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="{{ asset('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" style="height: 150px; width: 100%; object-fit: cover;">
+                                <h5 class="card-title mt-2 fs-4">{{ $car->name }}</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="card-text">Color: {{ $car->color_name }}</p>
+                                        <p class="card-text">Año: {{ $car->year }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="card-text">Marca: {{ $car->brand_name }}</p>
+                                        <p class="card-text">CV: {{ $car->horsepower }}</p>
+                                    </div>
+                                </div>
+                                <p class="fw-bold fs-5 mt-2">16.100€</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+@endsection
+
+@push('style')
+@endpush
+
+@push('js')
+    <script src="{{ asset('js/user.js') }}"></script>
+@endpush
