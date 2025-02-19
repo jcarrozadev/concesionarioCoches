@@ -9,7 +9,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/admin', function () {
-    return view('admin.cars');
+    return CarsController::getCarsAdmin();
 })->name('admin');
 
 Route::get('/admin/brands', function () {
