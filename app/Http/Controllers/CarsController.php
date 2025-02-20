@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cars;
 use App\Models\Brands;
 use App\Models\Colors;
+use App\Models\Types;
 use App\Models\Gallery;
 use Illuminate\Contracts\View\View;
 
@@ -34,14 +35,17 @@ class CarsController extends Controller
 
         return view('admin.cars', ['cars' => $cars]);
     }
+  
+    public static function getColors(): View {
+        return view('admin.colors', ['colors' => Colors::getColorsAll()]);
+      }
+    
+    public static function getTypes(): View {
+      return view('admin.types', ['types' => Types::getTypesAll()]);
+    }
     
     public static function getBrands() {
       return view('admin.brands', ['brands' => Brands::getBrands()]);
     }
-
-    public static function getColors() {
-      return view('admin.colors', ['colors' => Colors::getColorsAll()]);
-    }
-
 
 }
