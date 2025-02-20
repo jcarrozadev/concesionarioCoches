@@ -32,7 +32,7 @@
                             <td>{{ $brand->name }}</td>
                             <td id="buttonFields">
                                 <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button class="btn btn-danger delete-brand" data-brand-id="{{ $brand->id }}" data-brand-name="{{ $brand->name }}">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach
@@ -40,13 +40,17 @@
             </table>
         </div>
     </div>
-    
+
+    @include('admin.components.modals.add.brand_add')
+    @include('admin.components.sweet_alert')
         
 @endsection
 
 @push('style')
+    <link rel="stylesheet" href="{{ asset('css/views/brands.css') }}">
 @endpush
 
 @push('js')
     <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="{{ asset('js/views/brands.js') }}"></script>
 @endpush
