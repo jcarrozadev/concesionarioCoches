@@ -30,6 +30,7 @@ Route::get('/testModals', function () {
 Route::post('/admin/addCar', [CarsController::class, 'addCar'])->name('addCar');
 
 Route::post('/admin/delete_car', [CarsController::class, 'removeCar'])->name('delete_car');
+Route::post('/admin/delete_color', [CarsController::class, 'removeColor'])->name('delete_color');
 
 Route::get('/datasheet/{id}', function ($id) {
     return CarsController::getCar($id);

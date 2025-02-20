@@ -37,7 +37,7 @@
                             <td>{{ $color->hex }}</td>
                             <td id="buttonFields">
                                 <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button class="btn btn-danger delete-color" data-color-id="{{ $color->id }}">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach
@@ -53,5 +53,6 @@
 @endpush
 
 @push('js')
+    <script src="{{ asset('js/views/color.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 @endpush

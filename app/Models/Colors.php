@@ -10,6 +10,11 @@ class Colors extends Model
     protected $fillable = ['name', 'enabled'];
 
     public static function getColorsAll() {
-        return self::all();
+        return self::where('enabled', 1)
+                    ->get();
+    }
+
+    public static function removeColor($id): bool {
+        return self::where('id', $id)->update(['enabled' => 0]);
     }
 }

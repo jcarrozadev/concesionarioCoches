@@ -57,6 +57,7 @@ class Cars extends Model
     public static function removeCar($id): bool {
         return self::where('id', $id)->update(['enabled' => 0]);
     }
+
     public static function getCar($id): Cars {
         return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name', 'colors.hex as hex')
             ->join('brands', 'cars.brand_id', '=', 'brands.id')
