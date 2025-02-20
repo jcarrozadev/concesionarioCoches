@@ -62,4 +62,14 @@ document.addEventListener("DOMContentLoaded", function () {
         0,
         500
     );
+
+
+    // Take info to show data sheet
+
+    document.querySelectorAll('.card').forEach(function(card) {
+        card.addEventListener('click', function() {
+            let id = this.getAttribute('data-car-id');
+            window.location.href = '/datasheet/' + id;
+        });
+    });
 });

@@ -168,3 +168,25 @@ nav{
     border-color: var(--neutral-medium-gray);
     box-shadow: 0 0 0.125rem var(--neutral-medium-gray);
 }
+
+/* MODALS */
+
+.modal_required {
+    color: red;
+}
+
+.addCar {
+    font-size: 0.9rem;
+    background-color: var(--neutral-dark-gray);
+    color: var(--neutral-white);
+    border: 1px solid var(--neutral-medium-gray);
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.addCar:hover {
+    background-color: var(--neutral-dark-gray);
+    color: var(--neutral-white);
+    transform: scale(1.02);
+    transition: all 0.3s;
+}

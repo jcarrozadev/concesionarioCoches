@@ -26,14 +26,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Citroen</td>
-                        <td id="buttonFields">
-                            <button class="btn btn-secondary">Editar</button>
-                            <button class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
+                    @foreach ($brands as $brand)
+                        <tr>
+                            <td>{{ $brand->id }}</td>
+                            <td>{{ $brand->name }}</td>
+                            <td id="buttonFields">
+                                <button class="btn btn-secondary">Editar</button>
+                                <button class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
