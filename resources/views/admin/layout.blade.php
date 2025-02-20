@@ -7,7 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- Funcionamiento de DataTable --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -26,7 +25,7 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-
+    
     @stack('js')
 </body>
 </html>

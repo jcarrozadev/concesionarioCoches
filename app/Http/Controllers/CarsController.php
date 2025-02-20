@@ -10,6 +10,7 @@ use App\Models\Types;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\Redirect;
 
 class CarsController extends Controller
 {
@@ -31,7 +32,7 @@ class CarsController extends Controller
         return view('user.data_sheet')->with(['car' => $car])->with('images', $images);
     }
 
-    public static function getCarsAdmin() {
+    public static function getCarsAdmin(): View {
         $cars = Cars::getCarsAll();
         $brands = Brands::getBrandsAll();
         $colors = Colors::getColorsAll();
@@ -77,15 +78,53 @@ class CarsController extends Controller
     }
         
     public static function getColors(): View {
-      return view('admin.colors', ['colors' => Colors::getColorsAll()]);
+        return view('admin.colors', ['colors' => Colors::getColorsAll()]);
     }  
-  
+
     public static function getTypes(): View {
-      return view('admin.types', ['types' => Types::getTypesAll()]);
+        return view('admin.types', ['types' => Types::getTypesAll()]);
     }
     
-    public static function getBrands() {
-      return view('admin.brands', ['brands' => Brands::getBrands()]);
+    public static function getBrands(): View {
+        return view('admin.brands', ['brands' => Brands::getBrandsAll()]);
     }
 
+    public static function removeBrand(Request $request): mixed {
+        $brandDeleted = Brands::removeBrand($request->brand_id);
+        $carsDeleted = Cars::removeCarsWithBrand($request->brand_id);
+        
+        if ($brandDeleted && ($carsDeleted !== false)) {
+            return response()->json(['success' => 'Coches y marca eliminados correctamente.']);
+        } else {
+            return response()->json(['error' => 'Error al eliminar los coches o la marca.'], 500);
+        }
+
+    }
+    
+    public static function getCarsWithBrand(Request $request): mixed {
+        $carsDeleted = Cars::getCarsWithBrand($request->brand_id);
+        return ($carsDeleted)
+            ? response()->json([
+                'success' => 'Coches y marca eliminados correctamente.',
+                'carsDeleted' => $carsDeleted
+            ])
+            : response()->json(['error' => 'Error al eliminar los coches o la marca.'], 500);
+    }
+    
+    public static function addBrand(Request $request): RedirectResponse {
+
+        $validatedData = self::validateBrand($request);
+    
+        if (Brands::addBrand($validatedData)) {
+            return redirect()->route('brands')->with('success', 'Marca añadida correctamente');
+        } else {
+            return redirect()->route('brands')->with('error', 'Error al añadir la marca');
+        }
+    }
+    
+    private static function validateBrand(Request $request): array {
+        return $request->validate([
+            'name' => 'required|string',
+        ]);
+    }    
 }
