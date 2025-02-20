@@ -9,7 +9,7 @@ class Brands extends Model
     protected $table = 'brands';
     protected $fillable = ['name', 'enabled'];
 
-    public static function getBrandsAll() {
+    public static function getBrands() {
         return self::all();
     }
 }
