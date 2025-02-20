@@ -9,6 +9,7 @@ use App\Models\Colors;
 use App\Models\Types;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Gallery;
 
 class CarsController extends Controller
 {
@@ -23,17 +24,20 @@ class CarsController extends Controller
         return view('user.home', ['cars' => $cars, 'carsOffers' => $carsOffers, 'carsNotOffers' => $carsNotOffers, 'brands' => $brands, 'colors' => $colors]);
     }
 
-    public static function getCarsAdmin(): View {
+    public static function getCar($id): View {
+
+        $car = Cars::getCar($id);
+        $images = Gallery::getImages($id);
+        return view('user.data_sheet')->with(['car' => $car])->with('images', $images);
+    }
+
+    public static function getCarsAdmin() {
         $cars = Cars::getCarsAll();
         $brands = Brands::getBrandsAll();
         $colors = Colors::getColorsAll();
         $types = Types::getTypesAll();
 
         return view('admin.cars', ['cars' => $cars, 'brands' => $brands, 'colors' => $colors, 'types' => $types]);
-    }
-  
-    public static function getColors(): View {
-      return view('admin.colors', ['colors' => Colors::getColorsAll()]);
     }
 
     public static function addCar(Request $request): RedirectResponse {
@@ -71,4 +75,17 @@ class CarsController extends Controller
                     ? response()->json(['success' => 'Coche eliminado correctamente.'])
                     : response()->json(['error' => 'Error al eliminar el coche.'], 500);
     }
+        
+    public static function getColors(): View {
+      return view('admin.colors', ['colors' => Colors::getColorsAll()]);
+    }  
+  
+    public static function getTypes(): View {
+      return view('admin.types', ['types' => Types::getTypesAll()]);
+    }
+    
+    public static function getBrands() {
+      return view('admin.brands', ['brands' => Brands::getBrands()]);
+    }
+
 }

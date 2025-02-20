@@ -12,11 +12,11 @@ Route::get('/admin', function () {
 })->name('admin');
 
 Route::get('/admin/brands', function () {
-    return view('admin.brands');
+    return CarsController::getBrands();
 })->name('brands');
 
 Route::get('/admin/types', function () {
-    return view('admin.types');
+    return CarsController::getTypes();
 })->name('types');
 
 Route::get('/admin/colors', function () {
@@ -30,3 +30,8 @@ Route::get('/testModals', function () {
 Route::post('/admin/addCar', [CarsController::class, 'addCar'])->name('addCar');
 
 Route::post('/admin/delete_car', [CarsController::class, 'removeCar'])->name('delete_car');
+
+Route::get('/datasheet/{id}', function ($id) {
+    return CarsController::getCar($id);
+})->name('datasheet');
+

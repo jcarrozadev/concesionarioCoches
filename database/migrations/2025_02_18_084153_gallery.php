@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('gallery', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement()->primary();
             $table->unsignedInteger('car_id');
-            $table->string('img', 50);
+            $table->string('img', 255);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
