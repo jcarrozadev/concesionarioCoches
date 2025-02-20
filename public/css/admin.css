@@ -175,7 +175,7 @@ nav{
     color: red;
 }
 
-.addCar {
+.btn-changes {
     font-size: 0.9rem;
     background-color: var(--neutral-dark-gray);
     color: var(--neutral-white);
@@ -184,7 +184,7 @@ nav{
     width: 100%;
 }
 
-.addCar:hover {
+.btn-changes:hover {
     background-color: var(--neutral-dark-gray);
     color: var(--neutral-white);
     transform: scale(1.02);
