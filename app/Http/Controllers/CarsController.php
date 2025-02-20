@@ -40,18 +40,16 @@ class CarsController extends Controller
 
         $data = $request->all();
 
-        // $data = $request->validate([
-        //     'name' => 'required|string',
-        //     'brand_id' => 'required|integer',
-        //     'type_id' => 'required|integer',
-        //     'color_id' => 'required|integer',
-        //     'year' => 'required|string',
-        //     'main_img' => 'required|string',
-        //     'horsepower' => 'required|numeric',
-        //     'price' => 'required|numeric',
-        //     'sale' => 'required|boolean',
-        //     'enabled' => 'required|boolean'
-        // ]);
+        $data = $request->validate([
+            'name' => 'required|string',
+            'brand_id' => 'required|integer',
+            'type_id' => 'required|integer',
+            'color_id' => 'required|integer',
+            'year' => 'required|integer',
+            'main_img' => 'required|file',
+            'horsepower' => 'required|numeric',
+            'price' => 'required|numeric'
+        ]);
 
         if(!isset($data['sale'])) {
             $data['sale'] = 0;
@@ -63,8 +61,14 @@ class CarsController extends Controller
         $request->file('main_img')->storeAs('img', $data['main_img'], 'public');
 
         return Cars::addCar($data) 
-                    ? redirect()->route('admin')->with('success', 'Car added successfully') 
-                    : redirect()->route('admin')->with('error', 'Error adding car');
+                    ? redirect()->route('admin')->with('success', 'Vehículo añadido correctamente') 
+                    : redirect()->route('admin')->with('error', 'Error al añadir el vehículo');
 
+    }
+
+    public static function removeCar(Request $request): mixed {
+        return Cars::removeCar($request->car_id) 
+                    ? response()->json(['success' => 'Coche eliminado correctamente.'])
+                    : response()->json(['error' => 'Error al eliminar el coche.'], 500);
     }
 }

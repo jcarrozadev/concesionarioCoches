@@ -15,6 +15,7 @@ class Cars extends Model
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
                     ->join('types', 'cars.type_id', '=', 'types.id')
                     ->join('colors', 'cars.color_id', '=', 'colors.id')
+                    ->where('cars.enabled', 1)
                     ->get();
     }
 
@@ -38,7 +39,7 @@ class Cars extends Model
                     ->get();
     }
 
-    public static function addCar($data) {
+    public static function addCar($data): Cars {
         return self::create([
             'name' => $data['name'],
             'year' => $data['year'],
@@ -51,5 +52,9 @@ class Cars extends Model
             'enabled' => 1,
             'main_img' => $data['main_img']
         ]);
+    }
+
+    public static function removeCar($id): bool {
+        return self::where('id', $id)->update(['enabled' => 0]);
     }
 }

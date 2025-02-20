@@ -7,7 +7,6 @@
 @section('content')
     <div class="containerTable">
         @include('admin.components.button_add')
-        @include('admin.components.modals.add.car_add')
         <div class="table-wrapper">
             <table id="table" class="display text-center datatable">
                 <thead>
@@ -69,7 +68,7 @@
                             </td>
                             <td id="buttonFields">
                                 <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button class="btn btn-danger delete-car" data-car-id="{{ $car->id }}">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach
@@ -77,13 +76,14 @@
             </table>
         </div>
     </div>
-    
-        
+    @include('admin.components.modals.add.car_add')
+    @include('admin.components.sweet_alert')
 @endsection
 
 @push('style')
 @endpush
 
 @push('js')
+    <script src="{{ asset('js/admin_add.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 @endpush
