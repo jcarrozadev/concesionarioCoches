@@ -13,7 +13,7 @@ Route::get('/admin', function () {
 })->name('admin');
 
 Route::get('/admin/brands', function () {
-    return view('admin.brands');
+    return CarsController::getBrands();
 })->name('brands');
 
 Route::get('/admin/types', function () {
@@ -27,4 +27,8 @@ Route::get('/admin/colors', function () {
 Route::get('/testModals', function () {
     return view('admin.test_modals');
 });
+
+Route::get('/datasheet/{id}', function ($id) {
+    return CarsController::getCar($id);
+})->name('datasheet');
 

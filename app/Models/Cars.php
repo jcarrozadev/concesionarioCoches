@@ -37,4 +37,13 @@ class Cars extends Model
                     ->where('cars.enabled', 1)
                     ->get();
     }
+
+    public static function getCar($id): Cars {
+        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name', 'colors.hex as hex')
+            ->join('brands', 'cars.brand_id', '=', 'brands.id')
+            ->join('types', 'cars.type_id', '=', 'types.id')
+            ->join('colors', 'cars.color_id', '=', 'colors.id')
+            ->where('cars.id', $id)
+            ->first();
+    }
 }

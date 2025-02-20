@@ -7,11 +7,12 @@ use App\Models\Cars;
 use App\Models\Brands;
 use App\Models\Colors;
 use App\Models\Types;
+use App\Models\Gallery;
 use Illuminate\Contracts\View\View;
 
 class CarsController extends Controller
 {
-    public static function getCars() {
+    public static function getCars(): View {
 
         $cars = Cars::getCarsAll();
         $carsOffers = Cars::getCarsOffers();
@@ -22,7 +23,14 @@ class CarsController extends Controller
         return view('user.home', ['cars' => $cars, 'carsOffers' => $carsOffers, 'carsNotOffers' => $carsNotOffers, 'brands' => $brands, 'colors' => $colors]);
     }
 
-    public static function getCarsAdmin(): View {
+    public static function getCar($id): View {
+
+        $car = Cars::getCar($id);
+        $images = Gallery::getImages($id);
+        return view('user.data_sheet')->with(['car' => $car])->with('images', $images);
+    }
+
+    public static function getCarsAdmin() {
         $cars = Cars::getCarsAll();
 
         return view('admin.cars', ['cars' => $cars]);
@@ -32,7 +40,12 @@ class CarsController extends Controller
         return view('admin.colors', ['colors' => Colors::getColorsAll()]);
       }
     
-      public static function getTypes(): View {
-        return view('admin.types', ['types' => Types::getTypesAll()]);
-      }
+    public static function getTypes(): View {
+      return view('admin.types', ['types' => Types::getTypesAll()]);
+    }
+    
+    public static function getBrands() {
+      return view('admin.brands', ['brands' => Brands::getBrands()]);
+    }
+
 }
