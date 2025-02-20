@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="containerTable">
-        @include('admin.components.button_add')
+        @include('admin.components.button_add', ['action' => 'addBrand'])
         <div class="table-wrapper">
             <table id="table" class="display text-center datatable">
                 <thead>

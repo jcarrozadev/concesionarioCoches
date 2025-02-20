@@ -1,13 +1,12 @@
-const delete_car = document.querySelectorAll('.delete-car');
-    
+const delete_car = document.querySelectorAll('.delete-color');
 
 delete_car.forEach(btn => {
     btn.addEventListener('click', function (e) {
-        let id = this.getAttribute('data-car-id');
-        console.log(id);
+        let id = this.getAttribute('data-color-id');
+        //console.log(id);
         let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
         swal({
-            title: "¿Estás seguro de eliminar el vehículo?",
+            title: "¿Estás seguro de eliminar este color?",
             text: "Esta acción no se puede remover.",
             icon: "warning",
             buttons: {
@@ -28,13 +27,13 @@ delete_car.forEach(btn => {
             },
             }).then(function(result) {
                 if (result) {
-                    fetch("/admin/delete_car", {  // No pasamos ID en la URL
+                    fetch("/admin/delete_color", {  // No pasamos ID en la URL
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
                             "X-CSRF-TOKEN": token
                         },
-                        body: JSON.stringify({ car_id: id }) 
+                        body: JSON.stringify({ color_id: id }) 
                     })
                     .then(response => response.json()) 
                     .then(data => {

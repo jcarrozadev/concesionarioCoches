@@ -10,6 +10,10 @@ class Cars extends Model
     protected $table = 'cars';
     protected $fillable = ['name', 'year', 'brand_id', 'type_id', 'color_id','horsepower', 'enabled', 'sale', 'price', 'main_img'];
 
+    /**
+     * Summary of getCarsAll
+     * @return Collection<int, Cars>
+     */
     public static function getCarsAll():Collection {
         return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name')
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
@@ -19,6 +23,10 @@ class Cars extends Model
                     ->get();
     }
 
+    /**
+     * Summary of getCarsOffers
+     * @return Collection<int, Cars>
+     */
     public static function getCarsOffers():Collection{
         return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name')
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
@@ -29,6 +37,10 @@ class Cars extends Model
                     ->get();
     }
 
+    /**
+     * Summary of getCarsNotOffers
+     * @return Collection<int, Cars>
+     */
     public static function getCarsNotOffers():Collection{
         return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name')
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
@@ -39,6 +51,25 @@ class Cars extends Model
                     ->get();
     }
 
+    /**
+     * Summary of getCar
+     * @param mixed $id
+     * @return Cars|null
+     */
+    public static function getCar($id): Cars {
+        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name', 'colors.hex as hex')
+            ->join('brands', 'cars.brand_id', '=', 'brands.id')
+            ->join('types', 'cars.type_id', '=', 'types.id')
+            ->join('colors', 'cars.color_id', '=', 'colors.id')
+            ->where('cars.id', $id)
+            ->first();
+    }
+
+    /**
+     * Summary of addCar
+     * @param mixed $data
+     * @return Cars
+     */
     public static function addCar($data): Cars {
         return self::create([
             'name' => $data['name'],
@@ -54,15 +85,13 @@ class Cars extends Model
         ]);
     }
 
+    /**
+     * Summary of removeCar
+     * @param mixed $id
+     * @return bool
+     */
     public static function removeCar($id): bool {
         return self::where('id', $id)->update(['enabled' => 0]);
     }
-    public static function getCar($id): Cars {
-        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name', 'colors.hex as hex')
-            ->join('brands', 'cars.brand_id', '=', 'brands.id')
-            ->join('types', 'cars.type_id', '=', 'types.id')
-            ->join('colors', 'cars.color_id', '=', 'colors.id')
-            ->where('cars.id', $id)
-            ->first();
-    }
+
 }
