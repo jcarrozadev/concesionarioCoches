@@ -86,4 +86,5 @@
 @push('js')
     <script src="{{ asset('js/admin_add.js') }}"></script>
     <script src="{{ asset('js/views/car.js') }}"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
 @endpush
