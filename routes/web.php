@@ -30,10 +30,17 @@ Route::get('/testModals', function () {
 Route::post('/admin/addCar', [CarsController::class, 'addCar'])->name('addCar');
 Route::post('/admin/addColor', [CarsController::class, 'addColor'])->name('addColor');
 
+Route::post('/admin/addBrand', [CarsController::class, 'addBrand'])->name('addBrand');
+
 Route::post('/admin/delete_car', [CarsController::class, 'removeCar'])->name('delete_car');
 Route::post('/admin/delete_color', [CarsController::class, 'removeColor'])->name('delete_color');
+
+Route::post('/admin/delete_brand', [CarsController::class, 'removeBrand'])->name('delete_brand');
+
+Route::post('/admin/sub_delete_brand', [CarsController::class, 'getCarsWithBrand'])->name('sub_delete_brand');
 
 Route::get('/datasheet/{id}', function ($id) {
     return CarsController::getCar($id);
 })->name('datasheet');
+
 
