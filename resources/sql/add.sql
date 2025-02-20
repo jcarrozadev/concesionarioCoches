@@ -11,7 +11,7 @@ INSERT INTO types (name, enabled) VALUES ('Deportivo', 1);
 INSERT INTO types (name, enabled) VALUES ('Pick Up', 1);
 INSERT INTO types (name, enabled) VALUES ('Caravana', 1);
 
-INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('A1', 1, 1, 1, 2019, 'audi_a1.jpg', 150, 25000, 1);
-INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('A3', 1, 2, 2, 2018, 'audi_a3.jpg', 200, 30000, 1);
-INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('A4', 1, 3, 3, 2017, 'audi_a4.jpg', 250, 35000, 1);
-INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('Cordoba', 3, 2, 2, 2002, 'cordoba.jpg', 93, 5000, 1);
+INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('A1', 1, 1, 1, 2019, 'audi_a1.jpg', 150, 1, 1);
+INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('A3', 1, 2, 2, 2018, 'audi_a3.jpg', 200, 1, 1);
+INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('A4', 1, 3, 3, 2017, 'audi_a4.jpg', 250, 0, 1);
+INSERT INTO cars (name, brand_id, color_id, type_id, year, main_img, horsepower, sale, enabled) VALUES ('Cordoba', 3, 2, 2, 2002, 'cordoba.jpg', 93, 0, 1);
