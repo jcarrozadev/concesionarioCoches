@@ -10,7 +10,7 @@ class Brands extends Model
     protected $table = 'brands';
     protected $fillable = ['name', 'enabled'];
 
-    public static function getBrands(): Collection {
+    public static function getBrandsAll(): Collection {
         return self::where('enabled', 1)
                     ->get();
     }

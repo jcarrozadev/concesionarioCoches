@@ -85,7 +85,7 @@ class CarsController extends Controller
     }
     
     public static function getBrands() {
-      return view('admin.brands', ['brands' => Brands::getBrands()]);
+      return view('admin.brands', ['brands' => Brands::getBrandsAll()]);
     }
 
 }
