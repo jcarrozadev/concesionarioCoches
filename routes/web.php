@@ -13,7 +13,7 @@ Route::get('/admin', function () {
 })->name('admin');
 
 Route::get('/admin/brands', function () {
-    return view('admin.brands');
+    return CarsController::getBrands();
 })->name('brands');
 
 Route::get('/admin/types', function () {

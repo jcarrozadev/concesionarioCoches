@@ -34,9 +34,14 @@ class CarsController extends Controller
 
         return view('admin.cars', ['cars' => $cars]);
     }
-  
-      public static function getColors() {
-        return view('admin.colors', ['colors' => Colors::getColorsAll()]);
-      }
+    
+    public static function getBrands() {
+      return view('admin.brands', ['brands' => Brands::getBrands()]);
+    }
+
+    public static function getColors() {
+      return view('admin.colors', ['colors' => Colors::getColorsAll()]);
+    }
+
 
 }
