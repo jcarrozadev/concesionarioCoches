@@ -28,4 +28,15 @@ class CarsController extends Controller
         $images = Gallery::getImages($id);
         return view('user.data_sheet')->with(['car' => $car])->with('images', $images);
     }
+
+    public static function getCarsAdmin() {
+        $cars = Cars::getCarsAll();
+
+        return view('admin.cars', ['cars' => $cars]);
+    }
+  
+      public static function getColors() {
+        return view('admin.colors', ['colors' => Colors::getColorsAll()]);
+      }
+
 }
