@@ -26,14 +26,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Deportivo</td>
-                        <td id="buttonFields">
-                            <button class="btn btn-secondary">Editar</button>
-                            <button class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
+                    @foreach ($types as $type)
+                        <tr>
+                            <td>{{ $type->id }}</td>
+                            <td>{{ $type->name }}</td>
+                            <td id="buttonFields">
+                                <button class="btn btn-secondary">Editar</button>
+                                <button class="btn btn-danger" data-type-id="{{ $type->id }}">Eliminar</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                        
+                    
                 </tbody>
             </table>
         </div>

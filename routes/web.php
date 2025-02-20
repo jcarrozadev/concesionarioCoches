@@ -17,7 +17,7 @@ Route::get('/admin/brands', function () {
 })->name('brands');
 
 Route::get('/admin/types', function () {
-    return view('admin.types');
+    return CarsController::getTypes();
 })->name('types');
 
 Route::get('/admin/colors', function () {
