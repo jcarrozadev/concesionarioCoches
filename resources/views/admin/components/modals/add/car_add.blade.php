@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn addCar">Agregar</button>
+                        <button type="submit" class="btn btn-changes">Agregar</button>
                     </div>
                 </form>
             </div>

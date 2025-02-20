@@ -6,7 +6,8 @@
 
 @section('content')
     <div class="containerTable">
-        @include('admin.components.button_add')
+        @include('admin.components.modals.add.color_add')
+        @include('admin.components.button_add', ['action' => 'addColor'])
         <div class="table-wrapper">
             <table id="table" class="display text-center datatable">
                 <thead>
@@ -45,7 +46,7 @@
             </table>
         </div>
     </div>
-    
+    @include('admin.components.sweet_alert')
         
 @endsection
 
@@ -53,6 +54,7 @@
 @endpush
 
 @push('js')
+    <script src="{{ asset('js/views/color_add.js') }}"></script>
     <script src="{{ asset('js/views/color.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 @endpush

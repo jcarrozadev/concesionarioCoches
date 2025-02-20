@@ -13,6 +13,10 @@ use App\Models\Gallery;
 
 class CarsController extends Controller
 {
+    /**
+     * Summary of getCars
+     * @return View
+     */
     public static function getCars(): View {
 
         $cars = Cars::getCarsAll();
@@ -24,6 +28,11 @@ class CarsController extends Controller
         return view('user.home', ['cars' => $cars, 'carsOffers' => $carsOffers, 'carsNotOffers' => $carsNotOffers, 'brands' => $brands, 'colors' => $colors]);
     }
 
+    /**
+     * Summary of getCar
+     * @param mixed $id
+     * @return View
+     */
     public static function getCar($id): View {
 
         $car = Cars::getCar($id);
@@ -31,6 +40,10 @@ class CarsController extends Controller
         return view('user.data_sheet')->with(['car' => $car])->with('images', $images);
     }
 
+    /**
+     * Summary of getCarsAdmin
+     * @return View
+     */
     public static function getCarsAdmin(): View {
         $cars = Cars::getCarsAll();
         $brands = Brands::getBrandsAll();
@@ -40,6 +53,11 @@ class CarsController extends Controller
         return view('admin.cars', ['cars' => $cars, 'brands' => $brands, 'colors' => $colors, 'types' => $types]);
     }
 
+    /**
+     * Summary of addCar
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
     public static function addCar(Request $request): RedirectResponse {
 
         $data = $request->all();
@@ -70,26 +88,67 @@ class CarsController extends Controller
 
     }
 
+    /**
+     * Summary of removeCar
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
     public static function removeCar(Request $request): mixed {
         return Cars::removeCar($request->car_id) 
                     ? response()->json(['success' => 'Coche eliminado correctamente.'])
                     : response()->json(['error' => 'Error al eliminar el coche.'], 500);
     }
 
+    /**
+     * Summary of addColor
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
+    public static function addColor(Request $request): RedirectResponse {
+        $data = $request->all();
+
+        $data = $request->validate([
+            'name' => 'required|string',
+            'hex' => 'required|string'
+        ]);
+
+        return Colors::addColor($data) 
+                    ? redirect()->route('colors')->with('success', 'Color añadido correctamente') 
+                    : redirect()->route('colors')->with('error', 'Error al añadir el color');
+
+    }
+
+    /**
+     * Summary of removeColor
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
     public static function removeColor(Request $request): mixed {
         return Colors::removeColor($request->color_id) 
                     ? response()->json(['success' => 'Color eliminado correctamente.'])
                     : response()->json(['error' => 'Error al eliminar el color.'], 500);
     }
-        
+    
+    /**
+     * Summary of getColors
+     * @return View
+     */
     public static function getColors(): View {
       return view('admin.colors', ['colors' => Colors::getColorsAll()]);
     }  
   
+    /**
+     * Summary of getTypes
+     * @return View
+     */
     public static function getTypes(): View {
       return view('admin.types', ['types' => Types::getTypesAll()]);
     }
     
+    /**
+     * Summary of getBrands
+     * @return View
+     */
     public static function getBrands(): View {
       return view('admin.brands', ['brands' => Brands::getBrandsAll()]);
     }
