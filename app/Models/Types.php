@@ -10,6 +10,10 @@ class Types extends Model
     protected $table = 'types';
     protected $fillable = ['name', 'enabled'];
 
+    /**
+     * Summary of getTypesAll
+     * @return Collection<int, Types>
+     */
     public static function getTypesAll(): Collection {
         return self::where('enabled', 1)
                     ->get();

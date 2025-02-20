@@ -6,7 +6,8 @@
 
 @section('content')
     <div class="containerTable">
-        @include('admin.components.button_add')
+        @include('admin.components.modals.add.color_add')
+        @include('admin.components.button_add', ['action' => 'addColor'])
         <div class="table-wrapper">
             <table id="table" class="display text-center datatable">
                 <thead>
@@ -37,7 +38,7 @@
                             <td>{{ $color->hex }}</td>
                             <td id="buttonFields">
                                 <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger">Eliminar</button>
+                                <button class="btn btn-danger delete-color" data-color-id="{{ $color->id }}">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach
@@ -45,7 +46,7 @@
             </table>
         </div>
     </div>
-    
+    @include('admin.components.sweet_alert')
         
 @endsection
 
@@ -53,5 +54,7 @@
 @endpush
 
 @push('js')
+    <script src="{{ asset('js/views/color_add.js') }}"></script>
+    <script src="{{ asset('js/views/color.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 @endpush
