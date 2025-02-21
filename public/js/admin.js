@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             paging: true,
             searching: true,
-            ordering: true,
-            autoFill: true
+            ordering: true
         });
 
         const filterInputs = table.querySelectorAll('thead tr:nth-child(2) th input');
