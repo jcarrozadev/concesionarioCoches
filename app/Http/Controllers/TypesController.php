@@ -23,9 +23,9 @@ class TypesController extends Controller
         $validatedData = self::validateType($request);
     
         if (Types::addType($validatedData)) {
-            return redirect()->route('brands')->with('success', 'Marca añadida correctamente');
+            return redirect()->route('types')->with('success', 'Tipo añadido correctamente');
         } else {
-            return redirect()->route('brands')->with('error', 'Error al añadir la marca');
+            return redirect()->route('types')->with('error', 'Error al añadir el tipo');
         }
     }
 
