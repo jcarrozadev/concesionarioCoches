@@ -43,7 +43,7 @@
         </div>
     </div>
     
-        
+    @include('admin.components.modals.add.type_add')
 @endsection
 
 @push('style')

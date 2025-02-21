@@ -27,15 +27,13 @@ Route::get('/admin/colors', function () {
     return ColorsController::getColors();
 })->name('colors');
 
-Route::get('/testModals', function () {
-    return view('admin.test_modals');
-});
 
 // Routes Add
 
 Route::post('/admin/addCar', [CarsController::class, 'addCar'])->name('addCar');
 Route::post('/admin/addColor', [ColorsController::class, 'addColor'])->name('addColor');
 Route::post('/admin/addBrand', [BrandsController::class, 'addBrand'])->name('addBrand');
+Route::post('/admin/addType', [TypesController::class, 'addType'])->name('addType');
 
 // Routes Delete
 
