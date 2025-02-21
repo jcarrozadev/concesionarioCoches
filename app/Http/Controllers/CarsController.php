@@ -57,7 +57,7 @@ class CarsController extends Controller
      * Summary of validateCar
      * @param mixed $request
      */
-    public function validateCar($request) {
+    private function validateCar($request) {
         return $request->validate([
             'name' => 'required|string',
             'brand_id' => 'required|integer',
@@ -70,7 +70,7 @@ class CarsController extends Controller
         ]);
     }
 
-    public function parseImg($img) {
+    private function parseImg($img) {
         $timestamp = now()->format('Y-m-d_H-i-s') . '_' . round(microtime(true) * 1000);
         return $timestamp . '_' . $img->getClientOriginalName();
     }

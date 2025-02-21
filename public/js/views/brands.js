@@ -99,6 +99,22 @@ deleteBrand.forEach(btn => {
     });
 });
 
+//Edit brand
+const editBrand = document.querySelectorAll('.edit-btn');
+editBrand.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        let id = this.getAttribute('data-id');
+        let name = this.getAttribute('data-name');
+
+        let input = document.getElementById('editBrandName');
+        let inputID = document.getElementById('id');
+
+        inputID.value = id;
+        input.value = name;
+
+    });
+});
+
 
 (function () {
     'use strict'

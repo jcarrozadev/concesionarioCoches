@@ -31,7 +31,7 @@
                             <td>{{ $brand->id }}</td>
                             <td>{{ $brand->name }}</td>
                             <td id="buttonFields">
-                                <button class="btn btn-secondary">Editar</button>
+                                @include('admin.components.button_edit', ['action' => 'editBrand', 'id' => $brand->id], ['name' => $brand->name])
                                 <button class="btn btn-danger delete-brand" data-brand-id="{{ $brand->id }}" data-brand-name="{{ $brand->name }}">Eliminar</button>
                             </td>
                         </tr>
@@ -42,6 +42,7 @@
     </div>
 
     @include('admin.components.modals.add.brand_add')
+    @include('admin.components.modals.edit.brand_edit')
     @include('admin.components.sweet_alert')
         
 @endsection
@@ -51,6 +52,7 @@
 @endpush
 
 @push('js')
+    <script src="{{ asset('js/views/brand_edit.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
     <script src="{{ asset('js/views/brands.js') }}"></script>
 @endpush
