@@ -32,7 +32,7 @@
                             <td>{{ $type->name }}</td>
                             <td id="buttonFields">
                                 <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger" data-type-id="{{ $type->id }}">Eliminar</button>
+                                <button class="btn btn-danger" data-type-id="{{ $type->id }}" data-type-name="{{ $type->name }}>Eliminar</button>
                             </td>
                         </tr>
                     @endforeach

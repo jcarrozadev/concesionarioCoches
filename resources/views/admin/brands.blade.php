@@ -43,6 +43,8 @@
 
     @include('admin.components.modals.add.brand_add')
     @include('admin.components.sweet_alert')
+
+    
         
 @endsection
 
@@ -51,6 +53,10 @@
 @endpush
 
 @push('js')
+    <script>
+        const takeCarsToDeleteBrand = "{{ route('sub_delete_brand') }}"; 
+        const deleteBrandRoute = "{{ route('delete_brand') }}"; 
+    </script>
     <script src="{{ asset('js/admin.js') }}"></script>
     <script src="{{ asset('js/views/brands.js') }}"></script>
 @endpush
