@@ -15,7 +15,7 @@
                         <div class="invalid-feedback">Por favor, introduce el nombre de la marca.</div>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-changes">Añadir Marca</button>
+                        <button type="submit" class="btn btn-changes" id="btn-addbrand">Añadir Marca</button>
                     </div>
                 </form>
             </div>

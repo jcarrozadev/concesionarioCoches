@@ -190,3 +190,13 @@ nav{
     transform: scale(1.02);
     transition: all 0.3s;
 }
+
+.is-valid {
+    border-color: green;
+}
+
+.is-invalid {
+    border-color: red;
+}
+
+/* END MODALS */
