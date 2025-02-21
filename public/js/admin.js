@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('admin.js cargado...');
-
+    
     const tables = document.querySelectorAll('.datatable');
 
     tables.forEach(table => {

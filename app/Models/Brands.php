@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Expr\Cast\Bool_;
 
 class Brands extends Model
 {
@@ -21,15 +20,38 @@ class Brands extends Model
                     ->get();
     }
     
+    /**
+     * Summary of removeBrand
+     * @param mixed $id
+     * @return bool
+     */
     public static function removeBrand($id): bool {
         return self::where('id', $id)
                     ->update(['enabled' => 0]) >= 0;
     }
     
+    /**
+     * Summary of addBrand
+     * @param mixed $data
+     * @return Brands
+     */
     public static function addBrand($data): Brands {
         return self::create([
             'name' => $data['name'],
             'enabled' => 1
         ]);
+    }
+
+    /**
+     * Summary of editBrand
+     * @param mixed $data
+     * @return bool
+     */
+    public static function editBrand($data) {
+        $id = $data['id'];
+        unset($data['id']);
+        
+        return self::where('id', $id)
+        ->update($data);
     }
 }

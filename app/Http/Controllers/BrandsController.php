@@ -48,6 +48,17 @@ class BrandsController extends Controller
             return redirect()->route('brands')->with('error', 'Error al añadir la marca');
         }
     }
+
+    public static function addType(Request $request): RedirectResponse {
+
+        $validatedData = self::validateBrand($request);
+    
+        if (Brands::addBrand($validatedData)) {
+            return redirect()->route('brands')->with('success', 'Marca añadida correctamente');
+        } else {
+            return redirect()->route('brands')->with('error', 'Error al añadir la marca');
+        }
+    }
     
     /**
      * Summary of validateBrand
@@ -58,5 +69,44 @@ class BrandsController extends Controller
         return $request->validate([
             'name' => 'required|string',
         ]);
+    }
+
+    /**
+     * Summary of compareBrand
+     * @param mixed $request
+     * @param mixed $validatedData
+     * @return array
+     */
+    private static function compareBrand($request, $validatedData) {
+        $data = $request->all();
+        $dataDB = Brands::find($data['id']);
+    
+        $dataNew = [];
+
+        $dataNew['id'] = $data['id'];
+    
+        if ($validatedData['name'] !== $dataDB->name) {
+            $dataNew['name'] = $validatedData['name'];
+        }
+    
+        return $dataNew;
+    }    
+
+    /**
+     * Summary of editBrand
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
+    public static function editBrand(Request $request): RedirectResponse {
+        $validatedData = self::validateBrand($request);
+        $validatedData['id'] = $request->id;
+
+        $data = self::compareBrand($request, $validatedData);
+
+        if (Brands::editBrand($data)) {
+            return redirect()->route('brands')->with('success', 'Marca editada correctamente');
+        } else {
+            return redirect()->route('brands')->with('error', 'Error al editar la marca');
+        }
     }
 }

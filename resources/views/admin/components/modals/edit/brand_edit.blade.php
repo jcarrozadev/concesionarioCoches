@@ -6,35 +6,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form id="form-editBrand" class="row g-3 needs-validation" action="" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
+                <form id="form-editBrand" class="row g-3 needs-validation" action="{{ route('editBrand') }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
+                    @method('PUT')
                     @csrf
                     <div class="col-12">
                         <label class="form-label" for="editBrandName">Marca de coche *</label>
-                        <input id="editBrandName" name="brandName" class="form-control" type="text" placeholder="Añade la marca de coche" required>
+                        <input id="id" name="id" class="form-control" type="text" value="" hidden>
+                        <input id="editBrandName" name="name" class="form-control" type="text" value="" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el nombre de la marca.</div>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-primary">Editar Marca</button>
+                        <button type="submit" class="btn btn-changes">Editar Marca</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script>
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>

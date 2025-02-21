@@ -57,7 +57,7 @@ class CarsController extends Controller
      * Summary of validateCar
      * @param mixed $request
      */
-    public function validateCar($request) {
+    private function validateCar($request) {
         return $request->validate([
             'name' => 'required|string',
             'brand_id' => 'required|integer',
@@ -70,7 +70,7 @@ class CarsController extends Controller
         ]);
     }
 
-    public function parseImg($img) {
+    private function parseImg($img) {
         $timestamp = now()->format('Y-m-d_H-i-s') . '_' . round(microtime(true) * 1000);
         return $timestamp . '_' . $img->getClientOriginalName();
     }
@@ -119,7 +119,17 @@ class CarsController extends Controller
         $carsDeleted = Cars::getCarsWithBrand($request->brand_id);
         return ($carsDeleted)
             ? response()->json([
-                'success' => 'Coches y marca eliminados correctamente.',
+                'success' => 'Info obtenida',
+                'carsDeleted' => $carsDeleted
+            ])
+            : response()->json(['error' => 'Sin datos.'], 500);
+    }
+    
+    public static function getCarsWithType(Request $request): mixed {
+        $carsDeleted = Cars::getCarsWithType($request->type_id);
+        return ($carsDeleted)
+            ? response()->json([
+                'success' => 'Info obtenida.',
                 'carsDeleted' => $carsDeleted
             ])
             : response()->json(['error' => 'Error al eliminar los coches o la marca.'], 500);
