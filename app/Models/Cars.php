@@ -64,17 +64,12 @@ class Cars extends Model
             ->where('cars.id', $id)
             ->first();
     }
-  
+
     public static function getCarsWithBrand($id): Collection {
         return self::select('brands.name as brand_name', 'cars.name as name')
                     ->where('brand_id', $id) 
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
                     ->get();
-    }
-  
-    public static function removeCarsWithBrand($id): bool {
-        return self::where('brand_id', $id)
-                    ->update(['enabled' => 0]) >= 0;
     }
 
     /**

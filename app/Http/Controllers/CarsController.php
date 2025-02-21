@@ -151,17 +151,16 @@ class CarsController extends Controller
      * @return View
      */
     public static function getBrands(): View {
-      return view('admin.brands', ['brands' => Brands::getBrandsAll()]);
+        return view('admin.brands', ['brands' => Brands::getBrandsAll()]);
     }
 
     public static function removeBrand(Request $request): mixed {
         $brandDeleted = Brands::removeBrand($request->brand_id);
-        $carsDeleted = Cars::removeCarsWithBrand($request->brand_id);
         
-        if ($brandDeleted && ($carsDeleted !== false)) {
-            return response()->json(['success' => 'Coches y marca eliminados correctamente.']);
+        if ($brandDeleted) {
+            return response()->json(['success' => 'Marca eliminada correctamente.']);
         } else {
-            return response()->json(['error' => 'Error al eliminar los coches o la marca.'], 500);
+            return response()->json(['error' => 'Error al eliminar la marca.'], 500);
         }
 
     }

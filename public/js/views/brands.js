@@ -33,7 +33,7 @@ deleteBrand.forEach(btn => {
                             innerHTML: `
                                 <p style="text-align: center; margin: 1px 0;">
                                     ${data.carsDeleted.length > 0 
-                                        ? "Se eliminarán los siguientes coches:" 
+                                        ? "Esta marca tiene los siguientes coches asociados:" 
                                         : "Esta marca no tiene coches asociados."}
                                 </p>
                                 <p style="text-align: center; font-weight: bold; margin: 1px 0;">
@@ -75,7 +75,7 @@ deleteBrand.forEach(btn => {
                             .then(response => response.json()) 
                             .then(data => {
                                 if (data.success) {
-                                    swal("¡Eliminado!", data.success, "success")
+                                    swal("¡Eliminada!", data.success, "success")
                                     .then(() => location.reload());
                                 } else if (data.error) {
                                     swal("Error", data.error, "error");
