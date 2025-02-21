@@ -44,6 +44,10 @@ Route::post('/admin/sub_delete_brand', [CarsController::class, 'getCarsWithBrand
 Route::post('/admin/delete_type', [TypesController::class, 'removeType'])->name('delete_type');
 Route::post('/admin/sub_delete_type', [CarsController::class, 'getCarsWithType'])->name('sub_delete_type');
 
+// Routes Edit
+
+Route::put('/admin/edit_brand', [BrandsController::class, 'editBrand'])->name('editBrand');
+
 // Other routes
 
 Route::get('/datasheet/{id}', function ($id) {
