@@ -6,11 +6,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form id="formAddType" class="row g-3 needs-validation" action="" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
+                <form id="formAddType" class="row g-3 needs-validation" action="{{ route('addType') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="col-12">
                         <label class="form-label" for="addTypeName">Tipo de coche *</label>
-                        <input id="addTypeName" name="typeName" class="form-control" type="text" placeholder="Añade el tipo de coche" required>
+                        <input id="addTypeName" name="name" class="form-control" type="text" placeholder="Añade el tipo de coche" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el tipo de coche.</div>
                     </div>

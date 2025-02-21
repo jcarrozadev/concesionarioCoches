@@ -14,7 +14,6 @@
 })()
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("admin_add.js cargado...");
 
     let addImageButton = document.getElementById("addImage");
     let mainImageInput = document.getElementById("addFormFile");
