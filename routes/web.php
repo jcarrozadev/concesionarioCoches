@@ -27,15 +27,13 @@ Route::get('/admin/colors', function () {
     return ColorsController::getColors();
 })->name('colors');
 
-Route::get('/testModals', function () {
-    return view('admin.test_modals');
-});
 
 // Routes Add
 
 Route::post('/admin/addCar', [CarsController::class, 'addCar'])->name('addCar');
 Route::post('/admin/addColor', [ColorsController::class, 'addColor'])->name('addColor');
 Route::post('/admin/addBrand', [BrandsController::class, 'addBrand'])->name('addBrand');
+Route::post('/admin/addType', [TypesController::class, 'addType'])->name('addType');
 
 // Routes Delete
 
@@ -43,6 +41,8 @@ Route::post('/admin/delete_car', [CarsController::class, 'removeCar'])->name('de
 Route::post('/admin/delete_color', [ColorsController::class, 'removeColor'])->name('delete_color');
 Route::post('/admin/delete_brand', [BrandsController::class, 'removeBrand'])->name('delete_brand');
 Route::post('/admin/sub_delete_brand', [CarsController::class, 'getCarsWithBrand'])->name('sub_delete_brand');
+Route::post('/admin/delete_type', [TypesController::class, 'removeType'])->name('delete_type');
+Route::post('/admin/sub_delete_type', [CarsController::class, 'getCarsWithType'])->name('sub_delete_type');
 
 // Routes Edit
 

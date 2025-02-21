@@ -48,6 +48,17 @@ class BrandsController extends Controller
             return redirect()->route('brands')->with('error', 'Error al añadir la marca');
         }
     }
+
+    public static function addType(Request $request): RedirectResponse {
+
+        $validatedData = self::validateBrand($request);
+    
+        if (Brands::addBrand($validatedData)) {
+            return redirect()->route('brands')->with('success', 'Marca añadida correctamente');
+        } else {
+            return redirect()->route('brands')->with('error', 'Error al añadir la marca');
+        }
+    }
     
     /**
      * Summary of validateBrand

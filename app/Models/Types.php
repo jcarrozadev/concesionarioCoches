@@ -18,4 +18,16 @@ class Types extends Model
         return self::where('enabled', 1)
                     ->get();
     }
+
+    public static function addType($data): Types {
+        return self::create([
+            'name' => $data['name'],
+            'enabled' => 1
+        ]);
+    }
+
+    public static function removeType($id): bool {
+        return self::where('id', $id)
+                    ->update(['enabled' => 0]) >= 0;
+    }
 }

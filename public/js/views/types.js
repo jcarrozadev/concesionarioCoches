@@ -1,21 +1,20 @@
-//Delete brand
-const deleteBrand = document.querySelectorAll('.delete-btn');
-
+//Delete Type
+const deleteType = document.querySelectorAll('.delete-btn');
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-deleteBrand.forEach(btn => {
+deleteType.forEach(btn => {
     btn.addEventListener('click', function (e) {
-        let id = this.getAttribute('data-brand-id');
-        let name = this.getAttribute('data-brand-name');
+        let id = this.getAttribute('data-type-id');
+        let name = this.getAttribute('data-type-name');
         
 
         //Take cars to show information to user
-        fetch(takeCars, {
+        fetch('/admin/sub_delete_type', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 "X-CSRF-TOKEN": token
             },
-            body: JSON.stringify({ brand_id: id }) 
+            body: JSON.stringify({ type_id: id }) 
         })
         .then(response => response.json()) 
         .then(data => {
@@ -23,19 +22,19 @@ deleteBrand.forEach(btn => {
             if (data.success) {
                 
                 let carsList = data.carsDeleted.length > 0 
-                    ? data.carsDeleted.map(car => `${car.brand_name} ${car.name}`).join(" | ")
-                    : "No hay ningún coche asociado a esta marca.";
+                    ? data.carsDeleted.map(car => `${car.type_name} ${car.name}`).join(" | ")
+                    : "No hay ningún coche asociado a este tipo.";
 
                 swal({
-                    title: `¿Estás seguro que quieres eliminar la marca ${name}?`,
+                    title: `¿Estás seguro que quieres eliminar el tipo ${name}?`,
                     content: {
                         element: "div",
                         attributes: {
                             innerHTML: `
                                 <p style="text-align: center; margin: 1px 0;">
                                     ${data.carsDeleted.length > 0 
-                                        ? "Esta marca tiene los siguientes coches asociados:" 
-                                        : "Esta marca no tiene coches asociados."}
+                                        ? "Este tipo tiene los siguientes coches asociados:" 
+                                        : "Este tipo no tiene coches asociados."}
                                 </p>
                                 <p style="text-align: center; font-weight: bold; margin: 1px 0;">
                                     ${carsList.replace(/\n/g, "<br>")}
@@ -65,18 +64,18 @@ deleteBrand.forEach(btn => {
                     }
                     }).then(function(result) {
                         if (result) {
-                            fetch(deleteRoute, {
+                            fetch('/admin/delete_type', {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
                                     "X-CSRF-TOKEN": token
                                 },
-                                body: JSON.stringify({ brand_id: id }) 
+                                body: JSON.stringify({ type_id: id }) 
                             })
                             .then(response => response.json()) 
                             .then(data => {
                                 if (data.success) {
-                                    swal("¡Eliminada!", data.success, "success")
+                                    swal("¡Eliminado!", data.success, "success")
                                     .then(() => location.reload());
                                 } else if (data.error) {
                                     swal("Error", data.error, "error");
@@ -96,22 +95,6 @@ deleteBrand.forEach(btn => {
             swal("Error", "Hubo un problema en el servidor.", "error");
             console.error("Error:", error);
         });
-
-    });
-});
-
-//Edit brand
-const editBrand = document.querySelectorAll('.edit-btn');
-editBrand.forEach(btn => {
-    btn.addEventListener('click', function (e) {
-        let id = this.getAttribute('data-id');
-        let name = this.getAttribute('data-name');
-
-        let input = document.getElementById('editBrandName');
-        let inputID = document.getElementById('id');
-
-        inputID.value = id;
-        input.value = name;
 
     });
 });
