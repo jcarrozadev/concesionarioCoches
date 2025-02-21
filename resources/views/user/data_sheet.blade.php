@@ -11,7 +11,8 @@
     <div id="carouselExampleControlsNoTouching" class="carousel slide w-75 mx-auto my-1" data-bs-touch="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('img/' . $car->main_img) }}" class="d-block w-100" alt="..." style="height: 400px; object-fit: cover; object-position: center;">            
+                {{-- <img src="{{ url('/images/example.jpg') }}" alt="Example Image"> --}}
+                <img src="{{ url('/img/'.$car->main_img) }}" class="d-block w-100" alt="..." style="height: 400px; object-fit: cover; object-position: center;">            
             </div>
             @foreach ($images as $image) 
                 <div class="carousel-item">
