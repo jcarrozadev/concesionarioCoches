@@ -8,13 +8,13 @@
     @include('user.components.filter')
     <section id="carsOffers" name="carsOffers">
         <div class="text-center fs-3 title-section">
-            <strong>OFERTAS</strong>
+            <strong>Ofertas</strong>
         </div>
         <div class="container my-5">
-            <div class="row">
+            <div class="row g-3">
                 @foreach ($carsOffers as $car)
                     <div class="col-md-3" v-for="i in 4">
-                        <div class="card" data-car-id="{{ $car->id }}"">
+                        <div class="card card-offer" data-car-id="{{ $car->id }}"">
                             <div class="card-body text-center">
                                 <img src="{{ url('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" style="height: 150px; width: 100%; object-fit: cover;">
                                 <h5 class="card-title mt-2 fs-4">{{ $car->name }}</h5>
@@ -41,8 +41,8 @@
             <strong>Vehículos</strong>
         </div>
         <div class="container my-5">
-            <div class="row">
-                @foreach ($carsNotOffers as $car)
+            <div class="row g-3">
+                @foreach ($cars as $car)
                     <div class="col-md-3" v-for="i in 4">
                         <div class="card" data-car-id="{{ $car->id }}"">
                             <div class="card-body text-center">
