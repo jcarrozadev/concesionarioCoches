@@ -32,7 +32,7 @@
                             <td>{{ $brand->name }}</td>
                             <td id="buttonFields">
                                 @include('admin.components.button_edit', ['action' => 'editBrand', 'id' => $brand->id], ['name' => $brand->name])
-                                <button class="btn btn-danger delete-brand" data-brand-id="{{ $brand->id }}" data-brand-name="{{ $brand->name }}">Eliminar</button>
+                                <button class="btn btn-danger delete-btn" data-brand-id="{{ $brand->id }}" data-brand-name="{{ $brand->name }}">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach

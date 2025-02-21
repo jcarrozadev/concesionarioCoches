@@ -44,6 +44,8 @@
     </div>
     
     @include('admin.components.modals.add.type_add')
+    @include('admin.components.sweet_alert')
+
 @endsection
 
 @push('style')
