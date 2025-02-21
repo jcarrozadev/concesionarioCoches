@@ -14,10 +14,10 @@
                         <input id="id" name="id" class="form-control" type="text" value="" hidden>
                         <input id="editBrandName" name="name" class="form-control" type="text" value="" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
-                        <div class="invalid-feedback">Por favor, introduce el nombre de la marca.</div>
+                        <div class="invalid-feedback">Esta marca contiene un caracter no permitido.</div>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-changes">Editar Marca</button>
+                        <button type="submit" class="btn btn-changes" id="btn-editbrand">Editar Marca</button>
                     </div>
                 </form>
             </div>

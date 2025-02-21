@@ -45,8 +45,6 @@
     @include('admin.components.modals.edit.brand_edit')
     @include('admin.components.sweet_alert')
 
-    
-        
 @endsection
 
 @push('style')
@@ -54,7 +52,6 @@
 @endpush
 
 @push('js')
-    <script src="{{ asset('js/views/brand_edit.js') }}"></script>
     <script>
         const takeCars = "{{ route('sub_delete_brand') }}"; 
         const deleteRoute = "{{ route('delete_brand') }}"; 
