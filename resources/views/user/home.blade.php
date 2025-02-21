@@ -16,7 +16,7 @@
                     <div class="col-md-3" v-for="i in 4">
                         <div class="card" data-car-id="{{ $car->id }}"">
                             <div class="card-body text-center">
-                                <img src="{{ asset('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" style="height: 150px; width: 100%; object-fit: cover;">
+                                <img src="{{ url('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" style="height: 150px; width: 100%; object-fit: cover;">
                                 <h5 class="card-title mt-2 fs-4">{{ $car->name }}</h5>
                                 <div class="row">
                                     <div class="col-6">
