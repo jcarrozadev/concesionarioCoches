@@ -1,5 +1,5 @@
 //Delete brand
-const deleteBrand = document.querySelectorAll('.delete-brand');
+const deleteBrand = document.querySelectorAll('.delete-btn');
 
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 deleteBrand.forEach(btn => {
@@ -9,7 +9,7 @@ deleteBrand.forEach(btn => {
         
 
         //Take cars to show information to user
-        fetch(takeCarsToDeleteBrand, {
+        fetch(takeCars, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ deleteBrand.forEach(btn => {
                     }
                     }).then(function(result) {
                         if (result) {
-                            fetch(deleteBrandRoute, {
+                            fetch(deleteRoute, {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',

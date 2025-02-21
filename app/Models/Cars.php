@@ -100,6 +100,13 @@ class Cars extends Model
     public static function removeCar($id): bool {
         return self::where('id', $id)->update(['enabled' => 0]);
     }
+
+    public static function getCarsWithType($id): Collection {
+        return self::select('types.name as type_name', 'cars.name as name')
+                    ->where('type_id', $id) 
+                    ->join('types', 'cars.type_id', '=', 'types.id')
+                    ->get();
+    }
     
     
 }

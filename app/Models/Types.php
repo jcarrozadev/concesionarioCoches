@@ -18,4 +18,9 @@ class Types extends Model
         return self::where('enabled', 1)
                     ->get();
     }
+
+    public static function removeType($id): bool {
+        return self::where('id', $id)
+                    ->update(['enabled' => 0]) >= 0;
+    }
 }

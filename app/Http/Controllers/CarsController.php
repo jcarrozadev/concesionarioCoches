@@ -119,7 +119,17 @@ class CarsController extends Controller
         $carsDeleted = Cars::getCarsWithBrand($request->brand_id);
         return ($carsDeleted)
             ? response()->json([
-                'success' => 'Coches y marca eliminados correctamente.',
+                'success' => 'Info obtenida',
+                'carsDeleted' => $carsDeleted
+            ])
+            : response()->json(['error' => 'Sin datos.'], 500);
+    }
+    
+    public static function getCarsWithType(Request $request): mixed {
+        $carsDeleted = Cars::getCarsWithType($request->type_id);
+        return ($carsDeleted)
+            ? response()->json([
+                'success' => 'Info obtenida.',
                 'carsDeleted' => $carsDeleted
             ])
             : response()->json(['error' => 'Error al eliminar los coches o la marca.'], 500);

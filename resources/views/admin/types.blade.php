@@ -32,7 +32,7 @@
                             <td>{{ $type->name }}</td>
                             <td id="buttonFields">
                                 <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger" data-type-id="{{ $type->id }}" data-type-name="{{ $type->name }}>Eliminar</button>
+                                <button class="btn btn-danger delete-btn" data-type-id="{{ $type->id }}" data-type-name="{{ $type->name }}">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach
@@ -50,5 +50,10 @@
 @endpush
 
 @push('js')
+    <script>
+        const takeCars = "{{ route('sub_delete_type') }}"; 
+        const deleteRoute = "{{ route('delete_type') }}"; 
+    </script>
     <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="{{ asset('js/views/types.js') }}"></script>
 @endpush

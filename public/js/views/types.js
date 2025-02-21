@@ -1,5 +1,5 @@
 //Delete Type
-const deleteType = document.querySelectorAll('.delete-type');
+const deleteType = document.querySelectorAll('.delete-btn');
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 deleteType.forEach(btn => {
     btn.addEventListener('click', function (e) {

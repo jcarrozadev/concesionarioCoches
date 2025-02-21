@@ -43,8 +43,8 @@ Route::post('/admin/delete_car', [CarsController::class, 'removeCar'])->name('de
 Route::post('/admin/delete_color', [ColorsController::class, 'removeColor'])->name('delete_color');
 Route::post('/admin/delete_brand', [BrandsController::class, 'removeBrand'])->name('delete_brand');
 Route::post('/admin/sub_delete_brand', [CarsController::class, 'getCarsWithBrand'])->name('sub_delete_brand');
-Route::post('/admin/delete_type', [BrandsController::class, 'removeBrand'])->name('delete_type');
-Route::post('/admin/sub_delete_brand', [CarsController::class, 'getCarsWithBrand'])->name('sub_delete_brand');
+Route::post('/admin/delete_type', [TypesController::class, 'removeType'])->name('delete_type');
+Route::post('/admin/sub_delete_type', [CarsController::class, 'getCarsWithType'])->name('sub_delete_type');
 
 // Other routes
 

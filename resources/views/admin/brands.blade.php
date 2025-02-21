@@ -32,7 +32,7 @@
                             <td>{{ $brand->name }}</td>
                             <td id="buttonFields">
                                 <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger delete-brand" data-brand-id="{{ $brand->id }}" data-brand-name="{{ $brand->name }}">Eliminar</button>
+                                <button class="btn btn-danger delete-btn" data-brand-id="{{ $brand->id }}" data-brand-name="{{ $brand->name }}">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach
@@ -54,8 +54,8 @@
 
 @push('js')
     <script>
-        const takeCarsToDeleteBrand = "{{ route('sub_delete_brand') }}"; 
-        const deleteBrandRoute = "{{ route('delete_brand') }}"; 
+        const takeCars = "{{ route('sub_delete_brand') }}"; 
+        const deleteRoute = "{{ route('delete_brand') }}"; 
     </script>
     <script src="{{ asset('js/admin.js') }}"></script>
     <script src="{{ asset('js/views/brands.js') }}"></script>
