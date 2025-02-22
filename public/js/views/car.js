@@ -1,5 +1,6 @@
+////////////////// Delete car //////////////////
+
 const delete_car = document.querySelectorAll('.delete-car');
-    
 
 delete_car.forEach(btn => {
     btn.addEventListener('click', function (e) {
@@ -53,3 +54,172 @@ delete_car.forEach(btn => {
             });
     });
 });
+
+////////////////// Add car //////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("admin_add.js cargado...");
+
+    let addImageButton = document.getElementById("addImage");
+    let mainImageInput = document.getElementById("addFormFile");
+    let extraImagesDiv = document.getElementById("addExtraImages");
+
+    addImageButton.disabled = true;
+
+    let addingImage = false;
+
+    mainImageInput.addEventListener("change", function () {
+        addImageButton.disabled = mainImageInput.files.length === 0;
+    });
+
+    addImageButton.addEventListener("click", function () {
+        if (addingImage || addImageButton.disabled) return;
+        addingImage = true;
+
+        let newInputDiv = document.createElement("div");
+        newInputDiv.classList.add("col-12", "mt-2", "image-input");
+
+        let newInput = document.createElement("input");
+        newInput.classList.add("form-control");
+        newInput.type = "file";
+        newInput.name = "img[]";
+        newInput.accept = "image/*";
+        newInput.required = true;
+
+        newInput.addEventListener("change", function () {
+            addImageButton.disabled = newInput.files.length === 0;
+        });
+
+        let removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.classList.add("btn", "btn-danger", "mt-2");
+        removeButton.innerHTML = "Eliminar";
+        removeButton.addEventListener("click", function () {
+            extraImagesDiv.removeChild(newInputDiv);
+            if (extraImagesDiv.children.length === 0) {
+                addImageButton.disabled = mainImageInput.files.length === 0;
+            }
+        });
+
+        newInputDiv.appendChild(newInput);
+        newInputDiv.appendChild(removeButton);
+
+        extraImagesDiv.appendChild(newInputDiv);
+        addImageButton.disabled = true;
+        addingImage = false;
+        });
+});
+
+////////////////// Edit car //////////////////
+
+const editCar = document.querySelectorAll('.edit-btn');
+let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+editCar.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        let id = this.getAttribute('data-id');
+        let name = this.getAttribute('data-name');
+        let brandId = this.getAttribute('data-brand-id');
+        let typeId = this.getAttribute('data-type-id');
+        let colorId = this.getAttribute('data-color-id');
+        let year = this.getAttribute('data-year');
+        let horsepower = this.getAttribute('data-horsepower');
+        let price = this.getAttribute('data-price');
+        let mainImg = this.getAttribute('data-mainImg');
+        let sale = this.getAttribute('data-sale');
+        
+        document.getElementById('editIdCar').value = id;
+        document.getElementById('editNameCar').value = name;
+        document.getElementById('editBrandCar').value = brandId;
+        document.getElementById('editTypeCar').value = typeId;
+        document.getElementById('editColorCar').value = colorId;
+        document.getElementById('editYearCar').value = year;
+        document.getElementById('editCvCar').value = horsepower;
+        document.getElementById('editPriceCar').value = price;
+        document.getElementById('mainImg').src = mainImg;
+        sale==1 ? document.getElementById('editOfferCar').checked = true : document.getElementById('editOfferCar').checked = false;
+
+    });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const addImageButton = document.getElementById('editAddImage');
+    const extraImagesDiv = document.getElementById('editExtraImages');
+
+    if (!addImageButton || !extraImagesDiv) {
+        console.error("No se encontraron los elementos necesarios en el DOM.");
+        return;
+    }
+
+    const toggleAddImageButton = () => {
+        const fileInputs = extraImagesDiv.querySelectorAll('input[type="file"]');
+        const lastInput = fileInputs[fileInputs.length - 1];
+        if (lastInput && lastInput.files && lastInput.files.length > 0) {
+            addImageButton.disabled = false;
+        } else {
+            addImageButton.disabled = true;
+        }
+    };
+
+    addImageButton.addEventListener('click', function () {
+
+        let newInputDiv = document.createElement('div');
+        newInputDiv.classList.add('col-12', 'mt-2', 'image-input');
+
+        let newInput = document.createElement('input');
+        newInput.classList.add('form-control');
+        newInput.type = 'file';
+        newInput.name = 'formFile[]';
+        newInput.accept = 'image/*';
+        newInput.required = true;
+
+        newInput.addEventListener('change', toggleAddImageButton);
+
+        let removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.classList.add('btn', 'btn-danger', 'mt-2');
+        removeButton.innerHTML = 'Eliminar';
+
+        // Evento para eliminar el input
+        removeButton.addEventListener('click', function () {
+            newInputDiv.remove();
+            toggleAddImageButton();
+        });
+
+        newInputDiv.appendChild(newInput);
+        newInputDiv.appendChild(removeButton);
+
+        extraImagesDiv.appendChild(newInputDiv);
+
+        addImageButton.disabled = true;
+    });
+
+    document.getElementById('form-editCar').addEventListener('submit', function (event) {
+        let extraInputs = extraImagesDiv.querySelectorAll('input[type="file"]');
+        extraInputs.forEach(function (input) {
+            if (!input.files || input.files.length === 0) {
+                input.setCustomValidity('Por favor, selecciona una imagen.');
+            } else {
+                input.setCustomValidity('');
+            }
+        });
+    });
+});
+
+
+
+//Bootstrap validations
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()

@@ -10,6 +10,8 @@ use App\Models\Types;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class CarsController extends Controller
 {
@@ -70,11 +72,6 @@ class CarsController extends Controller
         ]);
     }
 
-    public function parseImg($img) {
-        $timestamp = now()->format('Y-m-d_H-i-s') . '_' . round(microtime(true) * 1000);
-        return $timestamp . '_' . $img->getClientOriginalName();
-    }
-
     /**
      * Summary of addCar
      * @param \Illuminate\Http\Request $request
@@ -91,7 +88,7 @@ class CarsController extends Controller
         }
 
         $data['main_img'] = $this->parseImg($request->file('main_img'));
-        $request->file('main_img')->storeAs('img', $data['main_img'], 'public'); // Move the file to public/img  (storage/app/public/img)
+        $request->file('main_img')->storeAs('img', $data['main_img'], 'public');
 
         return Cars::addCar($data) 
                     ? redirect()->route('admin')->with('success', 'Vehículo añadido correctamente') 
@@ -125,5 +122,58 @@ class CarsController extends Controller
             : response()->json(['error' => 'Error al eliminar los coches o la marca.'], 500);
     }
     
+    public static function updateCar(Request $request): RedirectResponse {
+        $validatedData = self::validateUpdateCar($request);
+        $car = Cars::getCar($validatedData['id']);
+        if (!$car) {
+            redirect()->back()->with('error' , 'No se encuentra el coche seleccionado.');
+        }
+        $changes = self::validateChanges($validatedData, $car);
         
+        if (empty($changes)) {
+                return redirect()->back()->with('error', 'No ha habido cambios.');
+        }
+        if ($changes['main_img']) {
+            $changes['main_img'] = self::parseImg($request->file('main_img'));
+            $request->file('main_img')->storeAs('img', $changes['main_img'], 'public');
+            Storage::disk('public')->delete('img/'.$car->main_img);
+        }
+    
+    
+        return $car->updateCar($changes) ? 
+            redirect()->back()->with('success', 'Coche actualizado correctamente.') :
+            redirect()->back()->with('error' , 'Ha habido un error al actualizar el coche.');
+    }
+    
+    private static function validateUpdateCar($request) {
+        return $request->validate([
+            'id' => 'required|integer',
+            'name' => 'required|string',
+            'brand_id' => 'required|integer',
+            'type_id' => 'required|integer',
+            'color_id' => 'required|integer',
+            'year' => 'required|integer',
+            'main_img' => 'nullable|file',
+            'horsepower' => 'required|numeric',
+            'price' => 'required|numeric',
+            'sale' => 'required|integer'
+        ]);
+    }
+    
+    private static function validateChanges($validatedData, $car): array {
+        $changes = [];
+    
+        foreach ($validatedData as $key => $value) {
+            if ($car->$key != $value) {
+                $changes[$key] = $value; 
+            }
+        }
+
+        return $changes;
+    }
+
+    public static function parseImg($img) {
+        $timestamp = now()->format('Y-m-d_H-i-s') . '_' . round(microtime(true) * 1000);
+        return $timestamp . '_' . $img->getClientOriginalName();
+    }
 }

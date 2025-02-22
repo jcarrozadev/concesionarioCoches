@@ -44,6 +44,10 @@ Route::post('/admin/delete_color', [ColorsController::class, 'removeColor'])->na
 Route::post('/admin/delete_brand', [BrandsController::class, 'removeBrand'])->name('delete_brand');
 Route::post('/admin/sub_delete_brand', [CarsController::class, 'getCarsWithBrand'])->name('sub_delete_brand');
 
+// Routes Edit
+
+Route::put('/admin/updateCar', [CarsController::class, 'updateCar'])->name('updateCar');
+
 // Other routes
 
 Route::get('/datasheet/{id}', function ($id) {
