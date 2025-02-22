@@ -1,21 +1,31 @@
 @if ($errors->any())
-    @foreach ($errors->all() as $error)
-            <script>
-                swal({
-                    title: "¡Error!",
-                    text: "{{ $error }}",
-                    icon: "error",
-                });
-            </script>
-        @endforeach
-    @endif
-
-    @if (session('success'))
-        <script>
+    <script>
+        @foreach ($errors->all() as $error)
             swal({
-                title: "¡Correcto!",
-                text: "{{ session('success') }}",
-                icon: "success",
+                icon: 'error',
+                title: '¡Error!',
+                text: '{{ $error }}',
             });
-        </script>
-    @endif
+        @endforeach
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        swal({
+            icon: 'error',
+            title: '¡Error!',
+            text: '{{ session('error') }}',
+        });
+    </script>
+@endif
+
+@if (session('success'))
+    <script>
+        swal({
+            icon: 'success',
+            title: '¡Correcto!',
+            text: '{{ session('success') }}',
+        });
+    </script>
+@endif

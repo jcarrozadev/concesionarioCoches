@@ -6,11 +6,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form id="form-editType" class="row g-3 needs-validation" action="" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
+                <form id="form-editType" class="row g-3 needs-validation" action="{{ route('updateType') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
                     @csrf
+                    @method('PUT')
+                    <input id="editId" name="id" class="form-control" type="hidden">
+
                     <div class="col-12">
                         <label class="form-label" for="editTypeName">Tipo de coche *</label>
-                        <input id="editTypeName" name="typeName" class="form-control" type="text" placeholder="Añade el tipo de coche" required>
+                        <input id="editTypeName" name="name" class="form-control" type="text" placeholder="Añade el tipo de coche" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el tipo de coche.</div>
                     </div>
@@ -22,19 +25,3 @@
         </div>
     </div>
 </div>
-<script>
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>

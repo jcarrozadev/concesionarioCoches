@@ -99,7 +99,24 @@ deleteType.forEach(btn => {
     });
 });
 
+// Update type
+const editBtns = document.querySelectorAll('.edit-btn');
+editBtns.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        
+        let id = this.getAttribute('data-id');
+        let name = this.getAttribute('data-name');
 
+        document.getElementById('editId').value = id;
+        document.getElementById('editTypeName').value = name;
+
+    });
+});
+
+
+
+
+// Bootstrap validations 
 (function () {
     'use strict'
     var forms = document.querySelectorAll('.needs-validation')

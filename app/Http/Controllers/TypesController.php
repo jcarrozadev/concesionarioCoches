@@ -37,12 +37,46 @@ class TypesController extends Controller
         } else {
             return response()->json(['error' => 'Error al eliminar el tipo.'], 500);
         }
+    }
 
+    public static function updateType(Request $request): RedirectResponse{
+        if(!$validatedData = self::validateType($request)){
+            return redirect()->back()->with('error' , 'Los valores introducidos no son correctos.');
+        }
+        
+        $type = Types::getType($request->id);
+
+        if(!$type){
+            return redirect()->back()->with('error' , 'No se encuentra el tipo seleccionado.');
+        }
+        $changes = self::validateChanges($validatedData, $type);
+        
+        if (empty($changes)) {
+            return redirect()->back()->with('error', 'No hay nada que actualizar.');
+        }
+
+        return Types::updateType($type, $changes) ? redirect()->back()->with('success', 'Tipo actualizado correctamente.') : redirect()->back()->with('error' , 'Ha habido un error al actualizar el tipo.');
     }
 
     private static function validateType(Request $request): array {
         return $request->validate([
+            'id' => 'sometimes|string',
             'name' => 'required|string',
+        ],[
+            'name.required' => 'El nombre del tipo es obligatorio.'
         ]);
     }
+
+    private static function validateChanges($validatedData, $type): array | bool {
+        $changes = [];
+
+        foreach ($validatedData as $key => $value) {
+            if ($type->$key != $value) {
+                $changes[$key] = $value; 
+            }
+        }
+
+        return $changes;
+    }
+
 }
