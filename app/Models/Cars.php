@@ -101,8 +101,8 @@ class Cars extends Model
         return self::where('id', $id)->update(['enabled' => 0]);
     }
 
-    public function updateCar($changes): bool {
-        return $this->update($changes);
+    public static function updateCar($car, array $changes): bool {
+        return $car->update($changes);
     }
     
     

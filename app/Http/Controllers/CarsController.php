@@ -106,7 +106,7 @@ class CarsController extends Controller
                     ? response()->json(['success' => 'Coche eliminado correctamente.'])
                     : response()->json(['error' => 'Error al eliminar el coche.'], 500);
     }
-      
+
     /**
      * Summary of getCarsWithBrand
      * @param \Illuminate\Http\Request $request
@@ -131,16 +131,16 @@ class CarsController extends Controller
         $changes = self::validateChanges($validatedData, $car);
         
         if (empty($changes)) {
-                return redirect()->back()->with('error', 'No ha habido cambios.');
+            return redirect()->back()->with('error', 'No ha habido cambios.');
         }
-        if ($changes['main_img']) {
+        if (isset($changes['main_img'])) {
             $changes['main_img'] = self::parseImg($request->file('main_img'));
             $request->file('main_img')->storeAs('img', $changes['main_img'], 'public');
             Storage::disk('public')->delete('img/'.$car->main_img);
         }
     
     
-        return $car->updateCar($changes) ? 
+        return Cars::updateCar($car, $changes) ? 
             redirect()->back()->with('success', 'Coche actualizado correctamente.') :
             redirect()->back()->with('error' , 'Ha habido un error al actualizar el coche.');
     }
@@ -148,15 +148,15 @@ class CarsController extends Controller
     private static function validateUpdateCar($request) {
         return $request->validate([
             'id' => 'required|integer',
-            'name' => 'required|string',
-            'brand_id' => 'required|integer',
-            'type_id' => 'required|integer',
-            'color_id' => 'required|integer',
-            'year' => 'required|integer',
-            'main_img' => 'nullable|file',
-            'horsepower' => 'required|numeric',
-            'price' => 'required|numeric',
-            'sale' => 'required|integer'
+            'name' => 'sometimes|string',
+            'brand_id' => 'sometimes|integer',
+            'type_id' => 'sometimes|integer',
+            'color_id' => 'sometimes|integer',
+            'year' => 'sometimes|integer',
+            'main_img' => 'sometimes|file',
+            'horsepower' => 'sometimes|numeric',
+            'price' => 'sometimes|numeric',
+            'sale' => 'sometimes|integer'
         ]);
     }
     
@@ -174,6 +174,10 @@ class CarsController extends Controller
 
     public static function parseImg($img) {
         $timestamp = now()->format('Y-m-d_H-i-s') . '_' . round(microtime(true) * 1000);
-        return $timestamp . '_' . $img->getClientOriginalName();
+        $filename = $timestamp . '_' . $img->getClientOriginalName();
+        if(strlen($filename) >= 255){
+            $filename = $timestamp;
+        }
+        return $filename;
     }
 }
