@@ -6,6 +6,7 @@
 
 @section('content')
     <div class="containerTable">
+        @include('admin.components.modals.add.brand_add')
         @include('admin.components.button_add', ['action' => 'addBrand'])
         <div class="table-wrapper">
             <table id="table" class="display text-center datatable">
@@ -41,7 +42,6 @@
         </div>
     </div>
 
-    @include('admin.components.modals.add.brand_add')
     @include('admin.components.modals.edit.brand_edit')
     @include('admin.components.sweet_alert')
 
