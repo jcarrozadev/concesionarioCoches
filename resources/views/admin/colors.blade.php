@@ -37,7 +37,7 @@
                             <td>{{ $color->name }}</td>
                             <td>{{ $color->hex }}</td>
                             <td id="buttonFields">
-                                <button class="btn btn-secondary">Editar</button>
+                                @include('admin.components.button_edit', ['action' => 'editColor', 'id' => $color->id, 'name' => $color->name, 'hex' => $color->hex])
                                 <button class="btn btn-danger delete-color" data-color-id="{{ $color->id }}">Eliminar</button>
                             </td>
                         </tr>
@@ -46,6 +46,7 @@
             </table>
         </div>
     </div>
+    @include('admin.components.modals.edit.color_edit')
     @include('admin.components.sweet_alert')
         
 @endsection
@@ -54,7 +55,6 @@
 @endpush
 
 @push('js')
-    <script src="{{ asset('js/views/color_add.js') }}"></script>
     <script src="{{ asset('js/views/color.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 @endpush

@@ -46,4 +46,18 @@ class ColorsController extends Controller
                     ? response()->json(['success' => 'Color eliminado correctamente.'])
                     : response()->json(['error' => 'Error al eliminar el color.'], 500);
     }
+
+    public static function editColor(Request $request): mixed {
+        $data = $request->all();
+
+        $data = $request->validate([
+            'id' => 'required|integer',
+            'name' => 'required|string',
+            'hex' => 'required|string'
+        ]);
+
+        return Colors::editColor($data) 
+                    ? redirect()->route('colors')->with('success', 'Color editado correctamente.')
+                    : redirect()->route('colors')->with('error', 'Error al editar el color.');
+    }
 }

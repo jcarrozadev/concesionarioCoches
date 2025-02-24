@@ -15,7 +15,7 @@ class Cars extends Model
      * @return Collection<int, Cars>
      */
     public static function getCarsAll():Collection {
-        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name')
+        return self::select('cars.*', 'brands.id as brand_id', 'brands.name as brand_name', 'types.id as type_id', 'types.name as type_name', 'colors.id as color_id', 'colors.name as color_name')
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
                     ->join('types', 'cars.type_id', '=', 'types.id')
                     ->join('colors', 'cars.color_id', '=', 'colors.id')
@@ -99,6 +99,10 @@ class Cars extends Model
      */
     public static function removeCar($id): bool {
         return self::where('id', $id)->update(['enabled' => 0]);
+    }
+
+    public static function updateCar($car, array $changes): bool {
+        return $car->update($changes);
     }
 
     public static function getCarsWithType($id): Collection {
