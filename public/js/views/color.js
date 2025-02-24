@@ -52,3 +52,40 @@ delete_car.forEach(btn => {
             });
     });
 });
+
+// Edit color
+const editColor = document.querySelectorAll('.edit-btn');
+editColor.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        let id = this.getAttribute('data-id');
+        let name = this.getAttribute('data-name');
+        let color = this.getAttribute('data-color');
+
+        let input = document.getElementById('name');
+        let inputID = document.getElementById('id');
+        let inputColor = document.getElementById('color');
+
+        inputID.value = id;
+        input.value = name;
+        inputColor.value = color;
+
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })();
+});

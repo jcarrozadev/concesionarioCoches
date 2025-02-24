@@ -39,4 +39,17 @@ class Colors extends Model
     public static function removeColor($id): bool {
         return self::where('id', $id)->update(['enabled' => 0]);
     }
+
+    /**
+     * Summary of editColor
+     * @param mixed $data
+     * @return bool
+     */
+    public static function editColor($data) {
+        $id = $data['id'];
+        unset($data['id']);
+        
+        return self::where('id', $id)
+        ->update($data);
+    }
 }
