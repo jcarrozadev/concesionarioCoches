@@ -47,6 +47,7 @@ Route::post('/admin/sub_delete_type', [CarsController::class, 'getCarsWithType']
 // Routes Edit
 
 Route::put('/admin/edit_brand', [BrandsController::class, 'editBrand'])->name('editBrand');
+Route::put('/admin/updateType', [TypesController::class, 'updateType'])->name('updateType');
 
 // Other routes
 

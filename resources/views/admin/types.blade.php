@@ -31,19 +31,18 @@
                             <td>{{ $type->id }}</td>
                             <td>{{ $type->name }}</td>
                             <td id="buttonFields">
-                                <button class="btn btn-secondary">Editar</button>
-                                <button class="btn btn-danger delete-btn" data-type-id="{{ $type->id }}" data-type-name="{{ $type->name }}">Eliminar</button>
+                                @include('admin.components.button_edit', ['action' => 'editType', 'id' => $type->id, 'name' => $type->name])
+                                <button class="btn btn-danger delete-btn" data-type-id="{{ $type->id }}" data-type-name="{{ $type->name }}">Eliminar</button>                            
                             </td>
                         </tr>
                     @endforeach
-                        
-                    
                 </tbody>
             </table>
         </div>
     </div>
     
     @include('admin.components.modals.add.type_add')
+    @include('admin.components.modals.edit.type_edit')
     @include('admin.components.sweet_alert')
 
 @endsection
