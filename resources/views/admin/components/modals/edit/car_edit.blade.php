@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="col-12 text-end">
-                        <button type="submit" id="editSubmit" class="btn btn-primary">Editar Coche</button>
+                        <button type="submit" id="editSubmit" class="btn btn-changes">Editar Coche</button>
                     </div>
                 </form>
             </div>
