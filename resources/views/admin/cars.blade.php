@@ -18,10 +18,14 @@
                         <th class="text-center">Color</th>
                         <th class="text-center">Año</th>
                         <th class="text-center">CV</th>
+                        <th class="text-center">Precio</th>
                         <th class="text-center">Oferta</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                     <tr>
+                        <th>
+                            <input type="text" class="filter-input" placeholder="Buscar...">
+                        </th>
                         <th>
                             <input type="text" class="filter-input" placeholder="Buscar...">
                         </th>
@@ -59,6 +63,7 @@
                             <td>{{ $car->color_name }}</td>
                             <td>{{ $car->year }}</td>
                             <td>{{ $car->horsepower }} CV</td>
+                            <td>{{ $car->price }} €</td>
                             <td>
                                 @if ($car->sale == 1)
                                     Si
@@ -67,7 +72,20 @@
                                 @endif
                             </td>
                             <td id="buttonFields">
-                                <button class="btn btn-secondary">Editar</button>
+                                @include('admin.components.button_edit', [
+                                        'action' => 'editCar',
+                                        'car_id' => $car->id,
+                                        'car_name' => $car->name,
+                                        'car_brand_id' => $car->brand_id,
+                                        'car_type_id' => $car->type_id,
+                                        'car_color_id' => $car->color_id,
+                                        'car_year' => $car->year,
+                                        'car_horsepower' => $car->horsepower,
+                                        'car_price' => $car->price,
+                                        'car_main_img' => url('img/' . $car->main_img),
+                                        'car_sale' => $car->sale,
+                                        
+                                    ])
                                 <button class="btn btn-danger delete-car" data-car-id="{{ $car->id }}">Eliminar</button>
                             </td>
                         </tr>
@@ -77,6 +95,7 @@
         </div>
     </div>
     @include('admin.components.modals.add.car_add')
+    @include('admin.components.modals.edit.car_edit')
     @include('admin.components.sweet_alert')
 @endsection
 

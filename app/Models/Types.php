@@ -19,6 +19,10 @@ class Types extends Model
                     ->get();
     }
 
+    public static function getType($id): Types {
+        return self::find($id);
+    }
+
     public static function addType($data): Types {
         return self::create([
             'name' => $data['name'],
@@ -29,5 +33,9 @@ class Types extends Model
     public static function removeType($id): bool {
         return self::where('id', $id)
                     ->update(['enabled' => 0]) >= 0;
+    }
+    
+    public static function updateType($type, array $changes): bool {
+        return $type->update($changes);
     }
 }
