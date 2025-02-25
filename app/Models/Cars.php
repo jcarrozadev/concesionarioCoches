@@ -77,8 +77,8 @@ class Cars extends Model
      * @param mixed $data
      * @return Cars
      */
-    public static function addCar($data): Cars {
-        return self::create([
+    public static function addCar(array $data): int {
+        $car = self::create([
             'name' => $data['name'],
             'year' => $data['year'],
             'horsepower' => $data['horsepower'],
@@ -90,6 +90,8 @@ class Cars extends Model
             'enabled' => 1,
             'main_img' => $data['main_img']
         ]);
+
+        return $car->id;
     }
 
     /**
@@ -101,10 +103,21 @@ class Cars extends Model
         return self::where('id', $id)->update(['enabled' => 0]);
     }
 
+    /**
+     * Summary of updateCar
+     * @param mixed $car
+     * @param array $changes
+     * @return bool
+     */
     public static function updateCar($car, array $changes): bool {
         return $car->update($changes);
     }
 
+    /**
+     * Summary of getCarsWithType
+     * @param mixed $id
+     * @return Collection<int, Cars>
+     */
     public static function getCarsWithType($id): Collection {
         return self::select('types.name as type_name', 'cars.name as name')
                     ->where('type_id', $id) 
