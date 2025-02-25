@@ -8,7 +8,7 @@ deleteType.forEach(btn => {
         
 
         //Take cars to show information to user
-        fetch('/admin/sub_delete_type', {
+        fetch(takeCars, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ deleteType.forEach(btn => {
                     }
                     }).then(function(result) {
                         if (result) {
-                            fetch('/admin/delete_type', {
+                            fetch(deleteRoute, {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -113,9 +113,42 @@ editBtns.forEach(btn => {
     });
 });
 
+
+document.getElementById('editSubmit').addEventListener('click', function(event) {
+    event.preventDefault();
+    swal({
+        title: "¿Estás seguro?",
+        text: "Esta acción no se puede remover.",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar", 
+                value: null,
+                visible: true,
+                className: "btn-cancel",
+                closeModal: true
+            },
+            confirm: {
+                text: "Sí, ¡Modificar!",
+                value: true, 
+                visible: true,
+                className: "btn-confirm",
+                closeModal: true 
+            }
+        },
+        }).then(function(result) {
+            if (result) {
+                document.getElementById('form-editType').submit();
+            }
+        });
+});
+
+
+
 /////////// Validations Create Types ///////////
 const nameForm = document.getElementById("addTypeName");
 const submitButton = document.getElementById("btn-addtype");
+
 
 /**
  * Validation for name input

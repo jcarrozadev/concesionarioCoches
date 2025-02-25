@@ -3,7 +3,6 @@ const delete_car = document.querySelectorAll('.delete-color');
 delete_car.forEach(btn => {
     btn.addEventListener('click', function (e) {
         let id = this.getAttribute('data-color-id');
-        //console.log(id);
         let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
         swal({
             title: "¿Estás seguro de eliminar este color?",
@@ -27,7 +26,7 @@ delete_car.forEach(btn => {
             },
             }).then(function(result) {
                 if (result) {
-                    fetch("/admin/delete_color", {  // No pasamos ID en la URL
+                    fetch(deleteRoute, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
@@ -70,6 +69,35 @@ editColor.forEach(btn => {
         inputColor.value = color;
 
     });
+});
+
+document.getElementById('editSubmit').addEventListener('click', function(event) {
+    event.preventDefault();
+    swal({
+        title: "¿Estás seguro?",
+        text: "Esta acción no se puede remover.",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar", 
+                value: null,
+                visible: true,
+                className: "btn-cancel",
+                closeModal: true
+            },
+            confirm: {
+                text: "Sí, ¡Modificar!",
+                value: true, 
+                visible: true,
+                className: "btn-confirm",
+                closeModal: true 
+            }
+        },
+        }).then(function(result) {
+            if (result) {
+                document.getElementById('form-editColor').submit();
+            }
+        });
 });
 
 document.addEventListener('DOMContentLoaded', function() {
