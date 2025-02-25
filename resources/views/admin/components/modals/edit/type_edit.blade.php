@@ -18,7 +18,7 @@
                         <div class="invalid-feedback">Por favor, introduce el tipo de coche.</div>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-changes">Editar Tipo</button>
+                        <button type="submit" class="btn btn-changes" id="btn-edittype">Editar Tipo</button>
                     </div>
                 </form>
             </div>
