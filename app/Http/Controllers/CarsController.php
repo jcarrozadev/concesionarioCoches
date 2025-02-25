@@ -10,7 +10,9 @@ use App\Models\Types;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Gallery;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class CarsController extends Controller
 {
@@ -95,7 +97,7 @@ class CarsController extends Controller
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $imagePath = $this->parseImg($image);
-                    $image->storeAs('gallery', $imagePath, 'public');
+                    $image->storeAs('img', $imagePath, 'public');
                     Gallery::addImage($carId, $imagePath);
                 }
             }
@@ -159,26 +161,91 @@ class CarsController extends Controller
             $request->file('main_img')->storeAs('img', $changes['main_img'], 'public');
             Storage::disk('public')->delete('img/'.$car->main_img);
         }
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePath = self::parseImg($image);
+                $image->storeAs('img', $imagePath, 'public');
+                Gallery::addImage($car->id, $imagePath);
+            }
+        }
+        $galleryChanges = self::validateGalleryChanges($request, $car);
+        $changes = array_merge($changes, $galleryChanges);
     
     
-        return Cars::updateCar($car, $changes) ? 
-            redirect()->back()->with('success', 'Coche actualizado correctamente.') :
-            redirect()->back()->with('error' , 'Ha habido un error al actualizar el coche.');
+        if (Cars::updateCar($car, $changes)) {
+            foreach ($request->all() as $key => $value) {
+                if (str_starts_with($key, 'fileImg')) {
+                    $number = substr($key, 7);
+                    $imgField = 'img' . $number;
+                    $verificatedImg = Gallery::getImg($request->$imgField);
+                    // dd($verificatedImg);
+                    if ($request->hasFile($key)) {
+                        $image = $request->file($key);
+                        $imageName = self::parseImg($image);
+                        $image->storeAs('img', $imageName, 'public');
+                        if(!Gallery::updateImage($verificatedImg, $imageName)){ return redirect()->back()->with('error', 'Ha habido un error al actualizar la galería del coche.'); }
+
+                        Storage::disk('public')->delete('img/'.$request->$imgField);
+
+                    }
+                }
+            }
+        
+            return redirect()->back()->with('success', 'Coche actualizado correctamente.');
+        } else {
+            return redirect()->back()->with('error', 'Ha habido un error al actualizar el coche.');
+        }
     }
     
     private static function validateUpdateCar($request) {
-        return $request->validate([
-            'id' => 'required|integer',
-            'name' => 'sometimes|string',
-            'brand_id' => 'sometimes|integer',
-            'type_id' => 'sometimes|integer',
-            'color_id' => 'sometimes|integer',
-            'year' => 'sometimes|integer',
-            'main_img' => 'sometimes|file',
-            'horsepower' => 'sometimes|numeric',
-            'price' => 'sometimes|numeric',
-            'sale' => 'sometimes|integer'
-        ]);
+        $rules = [
+            'id' => 'required|string|max:255',
+            'name' => 'sometimes|string|max:255',
+            'brand_id' => 'sometimes|exists:brands,id',
+            'type_id' => 'sometimes|exists:types,id',
+            'color_id' => 'sometimes|exists:colors,id',
+            'horsepower' => 'sometimes|numeric|min:1',
+            'year' => 'sometimes|integer|min:1900|max:' . date('Y'),
+            'price' => 'sometimes|numeric|min:0',
+            'sale' => 'sometimes|boolean',
+            'main_img' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ];
+
+        foreach ($request->all() as $key => $value) {
+            if (str_starts_with($key, 'fileImg')) {
+                $rules[$key] = 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048';
+            }
+        }
+    
+        foreach ($request->all() as $key => $value) {
+            if (str_starts_with($key, 'img')) {
+                $rules[$key] = 'sometimes|string|max:255';
+            }
+        }
+    
+        $messages = [
+            'name.required' => 'El nombre del coche es obligatorio.',
+            'brand_id.required' => 'La marca del coche es obligatoria.',
+            'type_id.required' => 'El tipo del coche es obligatorio.',
+            'color_id.required' => 'El color del coche es obligatorio.',
+            'horsepower.required' => 'Los CV del coche son obligatorios.',
+            'year.required' => 'El año del coche es obligatorio.',
+            'price.required' => 'El precio del coche es obligatorio.',
+            'main_img.image' => 'La imagen principal debe ser un archivo de imagen válido.',
+            'main_img.max' => 'La imagen principal no debe ser mayor de 2MB.',
+            'fileImg*.image' => 'Cada archivo debe ser una imagen válida.',
+            'fileImg*.max' => 'Cada archivo no debe ser mayor de 2MB.',
+        ];
+    
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        return $validator->validated();
     }
     
     private static function validateChanges($validatedData, $car): array {
@@ -190,6 +257,29 @@ class CarsController extends Controller
             }
         }
 
+        return $changes;
+    }
+
+    private static function validateGalleryChanges($request, $car): array {
+        $changes = [];
+        foreach ($request->all() as $key => $value) {
+            if (str_starts_with($key, 'fileImg')) {
+                $number = substr($key, 7);
+                $imgField = 'img' . $number;
+
+                if ($request->hasFile($key)) {
+                    $image = $request->file($key);
+                    $imageName = self::parseImg($image);
+                    $image->storeAs('img', $imageName, 'public');
+
+                    $changes[$imgField] = $imageName;
+
+                    if (isset($car->$imgField)) {
+                        Storage::disk('public')->delete('img/' . $car->$imgField);
+                    }
+                }
+            }
+        }
         return $changes;
     }
 
