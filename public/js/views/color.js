@@ -3,7 +3,6 @@ const delete_car = document.querySelectorAll('.delete-color');
 delete_car.forEach(btn => {
     btn.addEventListener('click', function (e) {
         let id = this.getAttribute('data-color-id');
-        //console.log(id);
         let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
         swal({
             title: "¿Estás seguro de eliminar este color?",
@@ -27,7 +26,7 @@ delete_car.forEach(btn => {
             },
             }).then(function(result) {
                 if (result) {
-                    fetch("/admin/delete_color", {  // No pasamos ID en la URL
+                    fetch(deleteRoute, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',

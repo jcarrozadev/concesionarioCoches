@@ -8,7 +8,7 @@ deleteType.forEach(btn => {
         
 
         //Take cars to show information to user
-        fetch('/admin/sub_delete_type', {
+        fetch(takeCars, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ deleteType.forEach(btn => {
                     }
                     }).then(function(result) {
                         if (result) {
-                            fetch('/admin/delete_type', {
+                            fetch(deleteRoute, {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
