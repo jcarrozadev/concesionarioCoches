@@ -133,69 +133,76 @@ document.getElementById('editSubmit').addEventListener('click', function(event) 
 });
 
 
-
-
+////////////////// Add car with gallery image //////////////////
 document.addEventListener('DOMContentLoaded', function () {
-    const addImageButton = document.getElementById('editAddImage');
-    const extraImagesDiv = document.getElementById('editExtraImages');
+    const addImageButton = document.getElementById('addImage');
+    const extraImagesDiv = document.getElementById('addExtraImages');
+    const mainImageInput = document.getElementById('addFormFile');
 
-    if (!addImageButton || !extraImagesDiv) {
+    if (!addImageButton || !extraImagesDiv || !mainImageInput) {
         console.error("No se encontraron los elementos necesarios en el DOM.");
         return;
     }
 
-    const toggleAddImageButton = () => {
-        const fileInputs = extraImagesDiv.querySelectorAll('input[type="file"]');
-        const lastInput = fileInputs[fileInputs.length - 1];
-        if (lastInput && lastInput.files && lastInput.files.length > 0) {
-            addImageButton.disabled = false;
-        } else {
-            addImageButton.disabled = true;
-        }
-    };
+    mainImageInput.addEventListener('change', function () {
+        addImageButton.disabled = !this.files.length;
+    });
 
     addImageButton.addEventListener('click', function () {
+        const lastInput = extraImagesDiv.querySelector('input[type="file"]:last-of-type');
+        if (lastInput && (!lastInput.files || lastInput.files.length === 0)) {
+            lastInput.setCustomValidity('Por favor, selecciona una imagen.');
+            lastInput.reportValidity();
+            return;
+        }
 
-        let newInputDiv = document.createElement('div');
+        const newInputDiv = document.createElement('div');
         newInputDiv.classList.add('col-12', 'mt-2', 'image-input');
 
-        let newInput = document.createElement('input');
+        const newInput = document.createElement('input');
         newInput.classList.add('form-control');
         newInput.type = 'file';
-        newInput.name = 'formFile[]';
+        newInput.name = 'images[]';
         newInput.accept = 'image/*';
         newInput.required = true;
 
-        newInput.addEventListener('change', toggleAddImageButton);
-
-        let removeButton = document.createElement('button');
+        const removeButton = document.createElement('button');
         removeButton.type = 'button';
         removeButton.classList.add('btn', 'btn-danger', 'mt-2');
-        removeButton.innerHTML = 'Eliminar';
+        removeButton.textContent = 'Eliminar';
 
-        // Evento para eliminar el input
         removeButton.addEventListener('click', function () {
             newInputDiv.remove();
-            toggleAddImageButton();
+            addImageButton.disabled = extraImagesDiv.querySelectorAll('input[type="file"]').length === 0;
+        });
+
+        newInput.addEventListener('change', function () {
+            addImageButton.disabled = !this.files.length;
         });
 
         newInputDiv.appendChild(newInput);
         newInputDiv.appendChild(removeButton);
-
         extraImagesDiv.appendChild(newInputDiv);
 
         addImageButton.disabled = true;
     });
 
-    document.getElementById('form-editCar').addEventListener('submit', function (event) {
-        let extraInputs = extraImagesDiv.querySelectorAll('input[type="file"]');
+    document.getElementById('form-addCar').addEventListener('submit', function (event) {
+        const extraInputs = extraImagesDiv.querySelectorAll('input[type="file"]');
+        let isValid = true;
+
         extraInputs.forEach(function (input) {
             if (!input.files || input.files.length === 0) {
                 input.setCustomValidity('Por favor, selecciona una imagen.');
+                isValid = false;
             } else {
                 input.setCustomValidity('');
             }
         });
+
+        if (!isValid) {
+            event.preventDefault(); 
+        }
     });
 });
 

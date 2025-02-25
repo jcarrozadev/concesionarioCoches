@@ -185,7 +185,7 @@ nameForm.addEventListener("input", function () {
     checkFormValidity();
 });
 
-/////////// Validations Create Brand ///////////
+/////////// Validations Edit Brand ///////////
 const nameEditForm = document.getElementById("editBrandName");
 const submitEditButton = document.getElementById("btn-editbrand");
 
