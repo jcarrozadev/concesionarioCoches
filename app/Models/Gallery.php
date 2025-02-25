@@ -20,4 +20,18 @@ class Gallery extends Model
             ->where('gallery.car_id', $id)
             ->get();
     }
+
+    /**
+     * Summary of addImage
+     * @param int $carId
+     * @param string $imagePath
+     * @return void
+     */
+    public static function addImage($carId, string $imagePath): void
+    {
+        self::create([
+            'car_id' => $carId,
+            'img' => $imagePath,
+        ]);
+    }
 }
