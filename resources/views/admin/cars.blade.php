@@ -103,6 +103,9 @@
 @endpush
 
 @push('js')
+    <script>
+        const deleteRoute = "{{ route('delete_car') }}"; 
+    </script>
     <script src="{{ asset('js/views/car.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 @endpush

@@ -116,6 +116,35 @@ editBrand.forEach(btn => {
     });
 });
 
+document.getElementById('editSubmit').addEventListener('click', function(event) {
+    event.preventDefault();
+    swal({
+        title: "¿Estás seguro?",
+        text: "Esta acción no se puede remover.",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar", 
+                value: null,
+                visible: true,
+                className: "btn-cancel",
+                closeModal: true
+            },
+            confirm: {
+                text: "Sí, ¡Modificar!",
+                value: true, 
+                visible: true,
+                className: "btn-confirm",
+                closeModal: true 
+            }
+        },
+        }).then(function(result) {
+            if (result) {
+                document.getElementById('form-editBrand').submit();
+            }
+        });
+});
+
 /////////// Validations Create Brand ///////////
 const nameForm = document.getElementById("addBrandName");
 const submitButton = document.getElementById("btn-addbrand");
@@ -156,7 +185,7 @@ nameForm.addEventListener("input", function () {
     checkFormValidity();
 });
 
-/////////// Validations Create Brand ///////////
+/////////// Validations Edit Brand ///////////
 const nameEditForm = document.getElementById("editBrandName");
 const submitEditButton = document.getElementById("btn-editbrand");
 
