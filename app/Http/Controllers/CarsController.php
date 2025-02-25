@@ -10,7 +10,6 @@ use App\Models\Types;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Gallery;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class CarsController extends Controller
@@ -90,9 +89,21 @@ class CarsController extends Controller
         $data['main_img'] = $this->parseImg($request->file('main_img'));
         $request->file('main_img')->storeAs('img', $data['main_img'], 'public');
 
-        return Cars::addCar($data) 
-                    ? redirect()->route('admin')->with('success', 'Vehículo añadido correctamente') 
-                    : redirect()->route('admin')->with('error', 'Error al añadir el vehículo');
+        try {
+            $carId = Cars::addCar($data);
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    $imagePath = $this->parseImg($image);
+                    $image->storeAs('gallery', $imagePath, 'public');
+                    Gallery::addImage($carId, $imagePath);
+                }
+            }
+            return redirect()->route('admin')->with('success', 'Vehículo añadido correctamente');
+
+        } catch (\Exception $e) {
+            return redirect()->route('admin')->with('error', 'Error al añadir el vehículo: ' . $e->getMessage());
+        }
 
     }
 
