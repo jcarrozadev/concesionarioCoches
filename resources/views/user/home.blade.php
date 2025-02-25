@@ -73,4 +73,5 @@
 
 @push('js')
     <script src="{{ asset('js/user.js') }}"></script>
+    <script src="{{ asset('js/views/home.js') }}"></script>
 @endpush
