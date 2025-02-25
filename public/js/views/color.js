@@ -149,6 +149,7 @@ function checkFormValidityEdit() {
 nameEditForm.addEventListener("input", function () {
     validateNameEdit();
     checkFormValidityEdit();
+});
 
 document.getElementById('editSubmit').addEventListener('click', function(event) {
     event.preventDefault();
