@@ -17,7 +17,7 @@
                         <div class="invalid-feedback">Esta marca contiene un caracter no permitido.</div>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-changes" id="btn-edit">Editar Marca</button>
+                        <button type="submit" class="btn btn-changes" id="editSubmit">Editar Marca</button>
                     </div>
                 </form>
             </div>

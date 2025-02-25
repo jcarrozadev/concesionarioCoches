@@ -21,7 +21,7 @@
                         <div class="invalid-feedback">Por favor, selecciona un color.</div>
                     </div>        
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-changes">Añadir Color</button>
+                        <button type="submit" class="btn btn-changes" id="btn-addcolor">Añadir Color</button>
                     </div>
                 </form>
             </div>

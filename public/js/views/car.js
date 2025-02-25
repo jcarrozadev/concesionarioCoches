@@ -29,7 +29,7 @@ delete_car.forEach(btn => {
             },
             }).then(function(result) {
                 if (result) {
-                    fetch("/admin/delete_car", {  // No pasamos ID en la URL
+                    fetch(deleteRoute, {  // No pasamos ID en la URL
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
