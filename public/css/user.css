@@ -1,7 +1,7 @@
 body{
     padding: 0;
     margin: 0;
-    background-color: var(--neutral-light-gray);
+    background-color: var(--background-home);
 }
 
 .information-container{
@@ -124,11 +124,20 @@ nav{
     padding: 20px;
 }
 
+.title-section strong {
+    font-size: x-large;
+}
+
 .card:hover {
     cursor: pointer;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     transform: scale(1.01);
     transition: all 0.3s;
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px; /* Ajusta la altura según necesites */
 }
 
 .card-offer {
@@ -137,4 +146,25 @@ nav{
 
 /* END NAV */
 
+.price {
+    color: var(--primary-gold);
+}
+
+.restore {
+    background-color: var(--primary-gold);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.restore:hover {
+    background-color: var(--primary-gold);
+    color: var(--neutral-white);
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* BOOTSTRAP */
+
+.form-select, .form-control, .double_range_slider_box {
+    font-size: 0.9rem;
+}
 
