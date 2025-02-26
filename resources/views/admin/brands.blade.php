@@ -6,6 +6,9 @@
 
 @section('content')
     <div class="containerTable">
+        <div class="title">
+            <h3>Marcas</h3>
+        </div>
         @include('admin.components.modals.add.brand_add')
         @include('admin.components.button_add', ['action' => 'addBrand'])
         <div class="table-wrapper">
