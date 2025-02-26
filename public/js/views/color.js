@@ -112,7 +112,7 @@ nameForm.addEventListener("input", function () {
 });
 
 /////////// Validations Edit Color ///////////
-const nameEditForm = document.getElementById("editColorName");
+const nameEditForm = document.getElementById("name");
 const submitEditButton = document.getElementById("btn-editcolor");
 
 /**
