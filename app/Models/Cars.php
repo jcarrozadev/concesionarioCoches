@@ -29,7 +29,7 @@ class Cars extends Model
      * @return Collection<int, Cars>
      */
     public static function getCarsOffers():Collection{
-        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name')
+        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name', 'colors.hex as color_hex')
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
                     ->join('types', 'cars.type_id', '=', 'types.id')
                     ->join('colors', 'cars.color_id', '=', 'colors.id')
@@ -43,7 +43,7 @@ class Cars extends Model
      * @return Collection<int, Cars>
      */
     public static function getCarsNotOffers():Collection{
-        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name')
+        return self::select('cars.*', 'brands.name as brand_name', 'types.name as type_name', 'colors.name as color_name', 'colors.hex as color_hex')
                     ->join('brands', 'cars.brand_id', '=', 'brands.id')
                     ->join('types', 'cars.type_id', '=', 'types.id')
                     ->join('colors', 'cars.color_id', '=', 'colors.id')

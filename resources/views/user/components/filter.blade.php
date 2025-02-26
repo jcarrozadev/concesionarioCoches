@@ -53,7 +53,7 @@
         </div>
 
         <div class="col-md-2 mt-2 d-flex justify-content-end">
-            <button class="btn btn-warning restore">Restablecer</button>
+            <button class="btn restore">Restablecer</button>
         </div>
     </div>
 </div>
