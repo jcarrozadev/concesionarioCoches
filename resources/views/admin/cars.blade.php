@@ -73,19 +73,20 @@
                             </td>
                             <td id="buttonFields">
                                 @include('admin.components.button_edit', [
-                                        'action' => 'editCar',
-                                        'car_id' => $car->id,
-                                        'car_name' => $car->name,
-                                        'car_brand_id' => $car->brand_id,
-                                        'car_type_id' => $car->type_id,
-                                        'car_color_id' => $car->color_id,
-                                        'car_year' => $car->year,
-                                        'car_horsepower' => $car->horsepower,
-                                        'car_price' => $car->price,
-                                        'car_main_img' => url('img/' . $car->main_img),
-                                        'car_sale' => $car->sale,
-                                        
-                                    ])
+                                    'action' => 'editCar',
+                                    'car_id' => $car->id,
+                                    'car_name' => $car->name,
+                                    'car_brand_id' => $car->brand_id,
+                                    'car_type_id' => $car->type_id,
+                                    'car_color_id' => $car->color_id,
+                                    'car_year' => $car->year,
+                                    'car_horsepower' => $car->horsepower,
+                                    'car_price' => $car->price,
+                                    'car_main_img' => url('img/' . $car->main_img),
+                                    'car_sale' => $car->sale,
+                                    'car_gallery' => $car->gallery->map(fn($image) => url('img/' . $image->img))->toJson(),
+                                    'car_gallery_name' => $car->gallery->map(fn($image) => $image->img)->toJson(),                                
+                                ])
                                 <button class="btn btn-danger delete-car" data-car-id="{{ $car->id }}">Eliminar</button>
                             </td>
                         </tr>

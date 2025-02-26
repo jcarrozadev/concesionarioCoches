@@ -89,6 +89,7 @@
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, selecciona una imagen.</div>
                     </div>
+                    
                     {{-- <hr>
                     <div class="col-md-6 col-12">
                         <img src="img/6kfondo.jpeg" class="w-100" alt="">
@@ -99,7 +100,10 @@
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, selecciona una imagen.</div>
                     </div> --}}
-
+                    {{-- <hr class="mt-3"> --}}
+                    <div id="galleryImages" class="row g-3">
+                        
+                    </div>
                     <div id="editExtraImages"></div>
 
                     <div class="col-12">

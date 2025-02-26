@@ -34,4 +34,18 @@ class Gallery extends Model
             'img' => $imagePath,
         ]);
     }
+
+    public function car()
+    {
+        return $this->belongsTo(Cars::class, 'car_id');
+    }
+    public static function getImg($name){
+        return self::where('img', $name)
+                    ->first();
+    }
+    public static function updateImage($verificatedImg, $imageName){
+        $verificatedImg->img = $imageName;
+        return $verificatedImg->save();
+    }
+    
 }
