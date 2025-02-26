@@ -88,6 +88,8 @@ editCar.forEach(btn => {
         let price = this.getAttribute('data-price');
         let mainImg = this.getAttribute('data-mainImg');
         let sale = this.getAttribute('data-sale');
+        let carGallery = JSON.parse(this.getAttribute("data-gallery"));
+        let carImgGallery = JSON.parse(this.getAttribute('data-gallery-img'));
         
         document.getElementById('editIdCar').value = id;
         document.getElementById('editNameCar').value = name;
@@ -100,8 +102,104 @@ editCar.forEach(btn => {
         document.getElementById('mainImg').src = mainImg;
         sale==1 ? document.getElementById('editOfferCar').checked = true : document.getElementById('editOfferCar').checked = false;
 
+        const galleryImagesContainer = document.getElementById("galleryImages");
+        galleryImagesContainer.innerHTML = "";
+
+        let galleryContent = "";
+
+        for (let i = 0; i < Math.max(carGallery.length, carImgGallery.length); i++) {
+        const imageUrl = carGallery[i] || "";
+        const imgValue = carImgGallery[i] || "";
+
+        galleryContent += `
+            <div class="col-md-6 col-12">
+                <img src="${imageUrl}" class="w-100" alt="Imagen del coche">
+                <input type="hidden" value="${imgValue}" name="img${i + 1}">
+            </div>
+            <div class="col-md-6 col-12 d-flex flex-column align-items-center justify-content-center">
+                <label for="galleryFormFile${i + 1}" class="form-label">Cambiar imagen</label>
+                <input class="form-control" type="file" id="galleryFormFile${i + 1}" name="fileImg${i + 1}" accept="image/*">
+                <div class="valid-feedback">¡Se ve bien!</div>
+                <div class="invalid-feedback">Por favor, selecciona una imagen.</div>
+            </div>
+            `;
+        }
+
+        galleryImagesContainer.innerHTML = galleryContent;
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const editAddImageButton = document.getElementById('editAddImage');
+    const editExtraImagesDiv = document.getElementById('editExtraImages');
+
+    if (!editAddImageButton || !editExtraImagesDiv) {
+        console.error("No se encontraron los elementos necesarios en el DOM.");
+        return;
+    }
+
+
+
+    editAddImageButton.addEventListener('click', function () {
+        const lastInput = editExtraImagesDiv.querySelector('input[type="file"]:last-of-type');
+        if (lastInput && (!lastInput.files || lastInput.files.length === 0)) {
+            lastInput.setCustomValidity('Por favor, selecciona una imagen.');
+            lastInput.reportValidity();
+            return;
+        }
+
+        const newInputDiv = document.createElement('div');
+        newInputDiv.classList.add('col-12', 'mt-2', 'image-input');
+
+        const newInput = document.createElement('input');
+        newInput.classList.add('form-control');
+        newInput.type = 'file';
+        newInput.name = 'images[]';
+        newInput.accept = 'image/*';
+        newInput.required = true;
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.classList.add('btn', 'btn-danger', 'mt-2');
+        removeButton.textContent = 'Eliminar';
+
+        removeButton.addEventListener('click', function () {
+            newInputDiv.remove();
+            editAddImageButton.disabled = editExtraImagesDiv.querySelectorAll('input[type="file"]').length === 0;
+        });
+
+        newInput.addEventListener('change', function () {
+            editAddImageButton.disabled = !this.files.length;
+        });
+
+        newInputDiv.appendChild(newInput);
+        newInputDiv.appendChild(removeButton);
+        editExtraImagesDiv.appendChild(newInputDiv);
+
+        editAddImageButton.disabled = true;
+    });
+
+    document.getElementById('form-addCar').addEventListener('submit', function (event) {
+        const extraInputs = editExtraImagesDiv.querySelectorAll('input[type="file"]');
+        let isValid = true;
+
+        extraInputs.forEach(function (input) {
+            if (!input.files || input.files.length === 0) {
+                input.setCustomValidity('Por favor, selecciona una imagen.');
+                isValid = false;
+            } else {
+                input.setCustomValidity('');
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault(); 
+        }
+    });
+});
+
+
+
 
 document.getElementById('editSubmit').addEventListener('click', function(event) {
     event.preventDefault();

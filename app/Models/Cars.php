@@ -14,13 +14,14 @@ class Cars extends Model
      * Summary of getCarsAll
      * @return Collection<int, Cars>
      */
-    public static function getCarsAll():Collection {
-        return self::select('cars.*', 'brands.id as brand_id', 'brands.name as brand_name', 'types.id as type_id', 'types.name as type_name', 'colors.id as color_id', 'colors.name as color_name')
-                    ->join('brands', 'cars.brand_id', '=', 'brands.id')
-                    ->join('types', 'cars.type_id', '=', 'types.id')
-                    ->join('colors', 'cars.color_id', '=', 'colors.id')
-                    ->where('cars.enabled', 1)
-                    ->get();
+    public static function getCarsAll(): Collection {
+        return self::with('gallery')
+            ->join('brands', 'cars.brand_id', '=', 'brands.id')
+            ->join('types', 'cars.type_id', '=', 'types.id')
+            ->join('colors', 'cars.color_id', '=', 'colors.id')
+            ->where('cars.enabled', 1)
+            ->select('cars.*', 'brands.id as brand_id', 'brands.name as brand_name', 'types.id as type_id', 'types.name as type_name', 'colors.id as color_id', 'colors.name as color_name')
+            ->get();
     }
 
     /**
@@ -62,6 +63,7 @@ class Cars extends Model
             ->join('types', 'cars.type_id', '=', 'types.id')
             ->join('colors', 'cars.color_id', '=', 'colors.id')
             ->where('cars.id', $id)
+            ->with('gallery')
             ->first();
     }
 
@@ -125,5 +127,9 @@ class Cars extends Model
                     ->get();
     }
     
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class, 'car_id');
+    }
     
 }
