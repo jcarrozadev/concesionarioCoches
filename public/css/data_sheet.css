@@ -1,8 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 input[type="color"]{
     background-color: var(--neutral-dark-gray); 
     border: none;
+}
+img{
+    height: 650px; 
+    object-fit: cover; 
+    object-position: center;
+}
+@media (max-width: 1440px) {
+    .carousel{
+        width: 95% !important;
+    }
+    .information-container{
+        width: 95% !important;
+    }
+}
+@media (max-width: 1080px) {
+    img{
+        height: auto !important;
+    }
+}
+@media (max-width: 768px) {
+    img{
+        height: auto !important;
+    }
 }
