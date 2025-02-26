@@ -136,10 +136,28 @@ document.addEventListener("DOMContentLoaded", function () {
         nameFilter.value = '';
         colorFilter.value = 0;
         minPriceSlider.value = 0;
-        maxPriceSlider.value = 120000;
+        maxPriceSlider.value = maxCarPrice;
         minCvSlider.value = 0;
-        maxCvSlider.value = 500;
+        maxCvSlider.value = maxCarCv;
+        setupSlider(
+            document.getElementById("min_range_price"),
+            document.getElementById("max_range_price"),
+            document.getElementById("minvalue_price"),
+            document.getElementById("maxvalue_price"),
+            document.getElementById("range_track_price"),
+            0,
+            maxCarPrice
+        );
     
+        setupSlider(
+            document.getElementById("min_range_cv"),
+            document.getElementById("max_range_cv"),
+            document.getElementById("minvalue_cv"),
+            document.getElementById("maxvalue_cv"),
+            document.getElementById("range_track_cv"),
+            0,
+            maxCarCv
+        );
         applyFilters();
     });
     
