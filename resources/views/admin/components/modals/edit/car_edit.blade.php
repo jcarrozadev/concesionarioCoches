@@ -12,7 +12,7 @@
                     <input type="hidden" id="editIdCar" name="id" value="">
                     <div class="col-12">
                         <label class="form-label" for="editNameCar">Nombre del coche *</label>
-                        <input id="editNameCar" name="name" class="form-control" type="text" placeholder="Añade el nombre del coche" required>
+                        <input id="editNameCar" name="name" class="form-control" type="text" placeholder="Añade el nombre del coche">
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el nombre del coche.</div>
                     </div>
@@ -52,21 +52,21 @@
 
                     <div class="col-12">
                         <label class="form-label" for="editCvCar">CV del coche *</label>
-                        <input id="editCvCar" name="horsepower" class="form-control" type="number" step="0.01" min="1" placeholder="Añade los CV del coche" required>
+                        <input id="editCvCar" name="horsepower" class="form-control" type="number" step="0.01" min="1" placeholder="Añade los CV del coche">
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce los CV del coche.</div>
                     </div>
 
                     <div class="col-12">
                         <label class="form-label" for="editYearCar">Año del coche *</label>
-                        <input id="editYearCar" name="year" class="form-control" type="number" min="1900" max="2025" placeholder="Añade el año del coche" required>
+                        <input id="editYearCar" name="year" class="form-control" type="number" min="1900" max="2025" placeholder="Añade el año del coche">
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce un año válido.</div>
                     </div>
 
                     <div class="col-12">
                         <label class="form-label" for="editPriceCar">Precio del coche *</label>
-                        <input id="editPriceCar" name="price" step="0.01" class="form-control" type="number" min="1" placeholder="Añade el precio del coche" required>
+                        <input id="editPriceCar" name="price" step="0.01" class="form-control" type="number" min="1" placeholder="Añade el precio del coche">
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce un precio válido.</div>
                     </div>
