@@ -7,31 +7,50 @@
 @section('content')
     @include('user.components.filter')
     <section id="carsOffers" name="carsOffers">
-        <div class="text-center fs-3 title-section">
+        <div class="text-center title-section">
             <strong>Ofertas</strong>
         </div>
+
         <div class="container my-5">
             <div class="row g-3">
                 @foreach ($carsOffers as $car)
-                    <div class="col-md-3 car-offer" data-car-id="{{ $car->id }}" data-car-name="{{ $car->name }}" data-car-brand="{{ $car->brand_id }}" data-car-color="{{ $car->color_id }}" data-car-year="{{ $car->year }}" data-car-horsepower="{{ $car->horsepower }}" data-car-price="{{ $car->price }}">
-                        <div class="card card-offer" data-car-id="{{ $car->id }}">
-                            <div class="card-body text-center">
-                                <img src="{{ url('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" style="height: 150px; width: 100%; object-fit: cover;">
-                                <h5 class="card-title mt-2 fs-4">{{ $car->name }}</h5>
-                                <div class="row">
+                    <div class="col-md-3 container mt-5 car-offer" data-car-id="{{ $car->id }}" data-car-name="{{ $car->name }}" data-car-brand="{{ $car->brand_id }}" data-car-color="{{ $car->color_id }}" data-car-year="{{ $car->year }}" data-car-horsepower="{{ $car->horsepower }}" data-car-price="{{ $car->price }}">
+                        <div class="card card-offer" data-car-id="{{ $car->id }}" style="width: 18rem;">
+                            <img src="{{ url('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" class="card-img-top" style="height: 150px; width: 100%; object-fit: cover;">
+                            <div class="card-body">
+                                <h6 class="card-title">DESDE</h6>
+                                <p class="card-text">
+                                    <span style="font-size: 1.5rem; font-weight: bold;">29.850 €</span> 
+                                </p>
+                                <h5 class="card-subtitle mb-2 text-muted">{{ $car->brand_name . ' ' . $car->name }}</h5>
+                                <div class="row align-items-center align-middle">
                                     <div class="col-6">
-                                        <p class="card-text">Color: {{ $car->color_name }}</p>
-                                        <p class="card-text">Año: {{ $car->year }}</p>
+                                        <p class="card-text">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-palette align-middle"></i>
+                                                <input type="color" class="w-10 ms-2" style="border: none;" name="" id="" value="{{ $car->color_hex }}" disabled>
+                                            </div>
+                                        </p>
+                                        <p class="card-text">
+                                            <i class="fas fa-tachometer-alt"></i>
+                                            {{ $car->horsepower }} cv
+                                        </p>
                                     </div>
-                                    <div class="col-6">
-                                        <p class="card-text">Marca: {{ $car->brand_name }}</p>
-                                        <p class="card-text">CV: {{ $car->horsepower }}</p>
+                                    <div class="col-6" style="margin-top: 6.5%;">
+                                        <p class="card-text">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            {{ $car->year }}
+                                        </p>
+                                        <p class="card-text">
+                                            <i class="fas fa-car"></i>
+                                            {{ $car->brand_name }}
+                                        </p>
                                     </div>
                                 </div>
-                                <p class="fw-bold fs-5 mt-2">Precio: {{ $car->price }}€</p>
                             </div>
                         </div>
                     </div>
+                    
                 @endforeach
             </div>
         </div>
@@ -43,22 +62,39 @@
         <div class="container my-5">
             <div class="row g-3">
                 @foreach ($cars as $car)
-                    <div class="col-md-3 card-all" data-car-id="{{ $car->id }}" data-car-name="{{ $car->name }}" data-car-brand="{{ $car->brand_id }}" data-car-color="{{ $car->color_id }}" data-car-year="{{ $car->year }}" data-car-horsepower="{{ $car->horsepower }}" data-car-price="{{ $car->price }}">
-                        <div class="card" data-car-id="{{ $car->id }}">
-                            <div class="card-body text-center">
-                                <img src="{{ asset('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" style="height: 150px; width: 100%; object-fit: cover;">
-                                <h5 class="card-title mt-2 fs-4">{{ $car->name }}</h5>
-                                <div class="row">
+                    <div class="col-md-3 container mt-5 card-all" data-car-id="{{ $car->id }}" data-car-name="{{ $car->name }}" data-car-brand="{{ $car->brand_id }}" data-car-color="{{ $car->color_id }}" data-car-year="{{ $car->year }}" data-car-horsepower="{{ $car->horsepower }}" data-car-price="{{ $car->price }}">
+                        <div class="card" data-car-id="{{ $car->id }}" style="width: 18rem;">
+                            <img src="{{ url('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" class="card-img-top" style="height: 150px; width: 100%; object-fit: cover;">
+                            <div class="card-body">
+                                <h6 class="card-title">DESDE</h6>
+                                <p class="card-text">
+                                    <span style="font-size: 1.5rem; font-weight: bold;">29.850 €</span> 
+                                </p>
+                                <h5 class="card-subtitle mb-2 text-muted">{{ $car->brand_name . ' ' . $car->name }}</h5>
+                                <div class="row align-items-center align-middle">
                                     <div class="col-6">
-                                        <p class="card-text">Color: {{ $car->color_name }}</p>
-                                        <p class="card-text">Año: {{ $car->year }}</p>
+                                        <p class="card-text">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-palette align-middle"></i>
+                                                <input type="color" class="w-10 ms-2" style="border: none;" name="" id="" value="{{ $car->color_hex }}" disabled>
+                                            </div>
+                                        </p>
+                                        <p class="card-text">
+                                            <i class="fas fa-tachometer-alt"></i>
+                                            {{ $car->horsepower }} cv
+                                        </p>
                                     </div>
-                                    <div class="col-6">
-                                        <p class="card-text">Marca: {{ $car->brand_name }}</p>
-                                        <p class="card-text">CV: {{ $car->horsepower }}</p>
+                                    <div class="col-6" style="margin-top: 6.5%;">
+                                        <p class="card-text">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            {{ $car->year }}
+                                        </p>
+                                        <p class="card-text">
+                                            <i class="fas fa-car"></i>
+                                            {{ $car->brand_name }}
+                                        </p>
                                     </div>
                                 </div>
-                                <p class="fw-bold fs-5 mt-2">Precio: {{ $car->price }}€</p>
                             </div>
                         </div>
                     </div>
@@ -69,6 +105,8 @@
 @endsection
 
 @push('style')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endpush
 
 @push('js')

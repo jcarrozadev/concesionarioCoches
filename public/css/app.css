@@ -4,7 +4,7 @@
 
 :root {
     --primary-turquoise: #17A398;
-    --primary-gold: #CBB57F;
+    --primary-gold: #64c972;
 
     --neutral-white: #FFFFFF;
     --neutral-light-gray: #F5F5F5; /* Background */
@@ -15,6 +15,8 @@
     --extra-accent-gray: #818181;
     --extra-almost-black: #191919;
     
+    --background-home: linear-gradient(135deg, #F5F5F5, #c2c2c2);
+
 }
 
 /* Scrollbar */
