@@ -8,7 +8,7 @@ deleteType.forEach(btn => {
         
 
         //Take cars to show information to user
-        fetch('/admin/sub_delete_type', {
+        fetch(takeCars, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ deleteType.forEach(btn => {
                     }
                     }).then(function(result) {
                         if (result) {
-                            fetch('/admin/delete_type', {
+                            fetch(deleteRoute, {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -114,7 +114,117 @@ editBtns.forEach(btn => {
 });
 
 
+document.getElementById('editSubmit').addEventListener('click', function(event) {
+    event.preventDefault();
+    swal({
+        title: "¿Estás seguro?",
+        text: "Esta acción no se puede remover.",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar", 
+                value: null,
+                visible: true,
+                className: "btn-cancel",
+                closeModal: true
+            },
+            confirm: {
+                text: "Sí, ¡Modificar!",
+                value: true, 
+                visible: true,
+                className: "btn-confirm",
+                closeModal: true 
+            }
+        },
+        }).then(function(result) {
+            if (result) {
+                document.getElementById('form-editType').submit();
+            }
+        });
+});
 
+
+
+/////////// Validations Create Types ///////////
+const nameForm = document.getElementById("addTypeName");
+const submitButton = document.getElementById("btn-addtype");
+
+
+/**
+ * Validation for name input
+ * @returns 
+ */
+function validateName() {
+
+    const specialChars = /[!@#$%^&*(),.?":{}|<>]/g;
+    
+    if (nameForm.value === "") {
+        nameForm.classList.remove("is-valid", "is-invalid"); // Dont show error if empty
+        return false;
+    }
+
+    if (nameForm.value.trim() === "" || specialChars.test(nameForm.value)) {
+        nameForm.classList.add("is-invalid");
+        nameForm.classList.remove("is-valid");
+        return false;
+    } else {
+        nameForm.classList.add("is-valid");
+        nameForm.classList.remove("is-invalid");
+        return true;
+    }
+}
+
+/**
+ * Check if form is valid to enable submit button 
+ */
+function checkFormValidity() {
+    submitButton.disabled = !(validateName());
+}
+
+nameForm.addEventListener("input", function () {
+    validateName();
+    checkFormValidity();
+});
+
+/////////// Validations Edit Types ///////////
+const nameEditForm = document.getElementById("editTypeName");
+const submitEditButton = document.getElementById("btn-edittype");
+
+/**
+ * Validation for name input
+ * @returns 
+ */
+function validateNameEdit() {
+
+    const specialChars = /[!@#$%^&*(),.?":{}|<>]/g;
+    
+    if (nameEditForm.value === "") {
+        nameEditForm.classList.remove("is-valid", "is-invalid"); // Dont show error if empty
+        return false;
+    }
+
+    if (nameEditForm.value.trim() === "" || specialChars.test(nameEditForm.value)) {
+        nameEditForm.classList.add("is-invalid");
+        nameEditForm.classList.remove("is-valid");
+        return false;
+    } else {
+        nameEditForm.classList.add("is-valid");
+        nameEditForm.classList.remove("is-invalid");
+        return true;
+    }
+}
+
+/**
+ * Check if form is valid to enable submit button 
+ */
+function checkFormValidityEdit() {
+    submitEditButton.disabled = !(validateNameEdit());
+}
+
+nameEditForm.addEventListener("input", function () {
+    validateNameEdit();
+    checkFormValidityEdit();
+});
 
 // Bootstrap validations 
 (function () {

@@ -15,26 +15,10 @@
                         <div class="invalid-feedback">Por favor, introduce el tipo de coche.</div>
                     </div>
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-changes">Añadir Tipo</button>
+                        <button type="submit" class="btn btn-changes" id="btn-addtype">Añadir Tipo</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script>
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>
