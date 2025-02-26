@@ -12,11 +12,11 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 {{-- <img src="{{ url('/images/example.jpg') }}" alt="Example Image"> --}}
-                <img src="{{ url('/img/'.$car->main_img) }}" class="d-block w-100" alt="..." style="height: 400px; object-fit: cover; object-position: center;">            
+                <img src="{{ url('/img/'.$car->main_img) }}" class="d-block w-100" alt="..." >            
             </div>
             @foreach ($images as $image) 
                 <div class="carousel-item">
-                    <img src="{{ asset('img/'.$image->img) }}" class="d-block w-100" alt="..." style="height: 400px; object-fit: cover; object-position: center;">
+                    <img src="{{ asset('img/'.$image->img) }}" class="d-block w-100" alt="...">
                 </div>
             @endforeach
         </div>
