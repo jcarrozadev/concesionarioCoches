@@ -5,7 +5,14 @@
 @endsection
 
 @section('content')
-    @include('user.components.filter')
+    <div class="w-100 mx-auto mobilefilter">
+        <button class="btn btn-changes d-lg-none w-100 text-center mt-0" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+            Mostrar Filtro
+        </button>
+        <div class="collapse d-lg-block" id="filterCollapse">
+            @include('user.components.filter')
+        </div>
+    </div>
     <section id="carsOffers" name="carsOffers">
         <div class="text-center title-section">
             <strong>Ofertas</strong>
