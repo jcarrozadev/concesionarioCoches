@@ -1,8 +1,30 @@
-
-
 .car-offer {
     transition: all 0.3s ease;
 }
 .card-all {
     transition: all 0.3s ease;
+}
+.mobilefilter{
+    margin: 0;
+}
+@media (max-width: 768px) {
+    .mobilefilter{
+        margin: 0rem 0;
+    }
+}
+.btn-changes {
+    font-size: 0.9rem;
+    background-color: var(--neutral-dark-gray);
+    color: var(--neutral-white);
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--neutral-medium-gray);
+    border-radius: 0px;
+}
+
+.btn-changes:hover {
+    background-color: var(--neutral-dark-gray);
+    color: var(--neutral-white);
+    transform: scale(1.02);
+    transition: all 0.3s;
 }
