@@ -34,6 +34,14 @@ nav{
 
 /* END NAV */
 
+.title {
+    background-color: var(--neutral-dark-gray);
+    color: var(--neutral-white);
+    margin: 0;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
 .containerTable {
     width: 96%; 
     max-width: 100%; 

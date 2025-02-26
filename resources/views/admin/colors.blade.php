@@ -6,6 +6,9 @@
 
 @section('content')
     <div class="containerTable">
+        <div class="title">
+            <h3>Colores</h3>
+        </div>
         @include('admin.components.modals.add.color_add')
         @include('admin.components.button_add', ['action' => 'addColor'])
         <div class="table-wrapper">

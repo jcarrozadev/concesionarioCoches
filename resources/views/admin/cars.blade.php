@@ -6,6 +6,9 @@
 
 @section('content')
     <div class="containerTable">
+        <div class="title">
+            <h3>Vehículos</h3>
+        </div>
         @include('admin.components.button_add', ['action' => 'addCar'])
         <div class="table-wrapper">
             <table id="table" class="display text-center datatable">
