@@ -161,6 +161,17 @@ class CarsController extends Controller
             $request->file('main_img')->storeAs('img', $changes['main_img'], 'public');
             Storage::disk('public')->delete('img/'.$car->main_img);
         }
+
+        if($request->has('deleted_images')){
+            $deletedImages = $request->input('deleted_images');
+            foreach ($deletedImages as $imageName) {
+                if(Gallery::deleteImg($imageName))
+                    Storage::disk('public')->delete('img/'.$imageName);
+                else
+                    return redirect()->back()->with('error', 'Ha habido un error al eliminar las imágenes del vehículo.');
+            }
+        }
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imagePath = self::parseImg($image);
@@ -235,6 +246,11 @@ class CarsController extends Controller
             'main_img.max' => 'La imagen principal no debe ser mayor de 2MB.',
             'fileImg*.image' => 'Cada archivo debe ser una imagen válida.',
             'fileImg*.max' => 'Cada archivo no debe ser mayor de 2MB.',
+            'deleted_images' => 'sometimes|array',
+            'deleted_images.*' => 'sometimes|string|max:255',
+            'deleted_images.array' => 'Las imágenes borradas no presentan el formato esperado.',
+            'deleted_images.*.string' => 'Cada nombre de imagen borrada debe ser un texto.',
+            'deleted_images.*.max' => 'Cada nombre de imagen borrada no debe superar los 255 caracteres.',
         ];
     
         $validator = Validator::make($request->all(), $rules, $messages);

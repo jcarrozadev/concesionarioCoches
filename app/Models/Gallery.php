@@ -48,4 +48,9 @@ class Gallery extends Model
         return $verificatedImg->save();
     }
     
+    public static function deleteImg($imageName){
+        return self::where('img', '=', $imageName)
+                    ->delete();
+    }
+    
 }
