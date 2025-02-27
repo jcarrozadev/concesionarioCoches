@@ -157,12 +157,15 @@ class CarsController extends Controller
      */
     public static function updateCar(Request $request): RedirectResponse {
         $validatedData = self::validateUpdateCar($request);
+
         $car = Cars::getCar($validatedData['id']);
         if (!$car) {
             redirect()->back()->with('error' , 'No se encuentra el coche seleccionado.');
         }
         $changes = self::validateChanges($validatedData, $car);
-        
+        $galleryChanges = self::validateGalleryChanges($request, $car);
+        $changes = array_merge($changes, $galleryChanges);
+
         if (empty($changes)) {
             return redirect()->back()->with('error', 'No ha habido cambios.');
         }
@@ -189,8 +192,13 @@ class CarsController extends Controller
                 Gallery::addImage($car->id, $imagePath);
             }
         }
-        $galleryChanges = self::validateGalleryChanges($request, $car);
-        $changes = array_merge($changes, $galleryChanges);
+        if ($request->hasFile('editImages')) {
+            foreach ($request->file('editImages') as $image) {
+                $imagePath = self::parseImg($image);
+                $image->storeAs('img', $imagePath, 'public');
+                Gallery::addImage($car->id, $imagePath);
+            }
+        }
     
     
         if (Cars::updateCar($car, $changes)) {
@@ -235,8 +243,12 @@ class CarsController extends Controller
             'price' => 'sometimes|numeric|min:0',
             'sale' => 'sometimes|boolean',
             'main_img' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'editImages' => 'sometimes|array',
+            'editImages.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'deleted_images' => 'sometimes|array',
+            'deleted_images.*' => 'sometimes|string|max:255',
         ];
-
+    
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'fileImg')) {
                 $rules[$key] = 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048';
@@ -261,8 +273,9 @@ class CarsController extends Controller
             'main_img.max' => 'La imagen principal no debe ser mayor de 2MB.',
             'fileImg*.image' => 'Cada archivo debe ser una imagen válida.',
             'fileImg*.max' => 'Cada archivo no debe ser mayor de 2MB.',
-            'deleted_images' => 'sometimes|array',
-            'deleted_images.*' => 'sometimes|string|max:255',
+            'editImages.array' => 'Las imágenes adicionales no presentan el formato esperado.',
+            'editImages.*.image' => 'Cada imagen adicional debe ser un archivo de imagen válido.',
+            'editImages.*.max' => 'Cada imagen adicional no debe ser mayor de 2MB.',
             'deleted_images.array' => 'Las imágenes borradas no presentan el formato esperado.',
             'deleted_images.*.string' => 'Cada nombre de imagen borrada debe ser un texto.',
             'deleted_images.*.max' => 'Cada nombre de imagen borrada no debe superar los 255 caracteres.',
@@ -275,7 +288,7 @@ class CarsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+    
         return $validator->validated();
     }
     
@@ -321,6 +334,14 @@ class CarsController extends Controller
                         Storage::disk('public')->delete('img/' . $car->$imgField);
                     }
                 }
+            }
+        }
+        if ($request->hasFile('editImages')) {
+            foreach ($request->file('editImages') as $index => $image) {
+                $imageName = self::parseImg($image);
+                $image->storeAs('img', $imageName, 'public');
+    
+                $changes['editImages'][$index] = $imageName;
             }
         }
         return $changes;
