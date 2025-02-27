@@ -10,7 +10,7 @@
                     @method('PUT')
                     @csrf
                     <div class="col-12">
-                        <label class="form-label" for="editBrandName">Marca de coche *</label>
+                        <label class="form-label" for="editBrandName">Marca de coche <span class="modal_required">*</span></label>
                         <input id="id" name="id" class="form-control" type="text" value="" hidden>
                         <input id="editBrandName" name="name" class="form-control" type="text" value="" required>
                         <div class="valid-feedback">¡Se ve bien!</div>

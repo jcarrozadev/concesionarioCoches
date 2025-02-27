@@ -9,7 +9,7 @@
                 <form id="formAddType" class="row g-3 needs-validation" action="{{ route('addType') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="col-12">
-                        <label class="form-label" for="addTypeName">Tipo de coche *</label>
+                        <label class="form-label" for="addTypeName">Tipo de coche <span class="modal_required">*</span></label>
                         <input id="addTypeName" name="name" class="form-control" type="text" placeholder="Añade el tipo de coche" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el tipo de coche.</div>

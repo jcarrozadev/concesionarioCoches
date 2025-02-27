@@ -9,13 +9,13 @@
                 <form id="formAddColor" class="row g-3 needs-validation" action="{{ route(name: 'addColor') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="col-12">
-                        <label class="form-label" for="addColorName">Nombre del color *</label>
+                        <label class="form-label" for="addColorName">Nombre del color <span class="modal_required">*</span></label>
                         <input id="addColorName" name="name" class="form-control" type="text" placeholder="Añade el nombre del color" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el nombre del color.</div>
                     </div>
                     <div class="col-12">
-                        <label class="form-label" for="addColorHex">Color *</label>
+                        <label class="form-label" for="addColorHex">Color <span class="modal_required">*</span></label>
                         <input type="color" class="form-control form-control-color" id="hex" name="hex" value="#000000" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, selecciona un color.</div>
