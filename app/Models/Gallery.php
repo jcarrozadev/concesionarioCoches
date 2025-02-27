@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Gallery extends Model
 {
@@ -15,7 +16,7 @@ class Gallery extends Model
      * @param mixed $id
      * @return Collection<int, Gallery>
      */
-    public static function getImages($id): Collection {
+    public static function getImages(mixed $id): Collection {
         return self::select('img')
             ->where('gallery.car_id', $id)
             ->get();
@@ -35,20 +36,42 @@ class Gallery extends Model
         ]);
     }
 
-    public function car()
+    /**
+     * Summary of car
+     * @return BelongsTo<Cars, Gallery>
+     */
+    public function car():BelongsTo
     {
         return $this->belongsTo(Cars::class, 'car_id');
     }
-    public static function getImg($name){
+
+    /**
+     * Summary of getImg
+     * @param mixed $name
+     * @return Gallery|null
+     */
+    public static function getImg($name):Gallery|null{
         return self::where('img', $name)
                     ->first();
     }
-    public static function updateImage($verificatedImg, $imageName){
+
+    /**
+     * Summary of updateImage
+     * @param mixed $verificatedImg
+     * @param mixed $imageName
+     * @return mixed
+     */
+    public static function updateImage($verificatedImg, $imageName):mixed {
         $verificatedImg->img = $imageName;
         return $verificatedImg->save();
     }
     
-    public static function deleteImg($imageName){
+    /**
+     * Summary of deleteImg
+     * @param mixed $imageName
+     * @return bool|null
+     */
+    public static function deleteImg(mixed $imageName):bool|null{
         return self::where('img', '=', $imageName)
                     ->delete();
     }

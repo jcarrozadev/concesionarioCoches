@@ -1,4 +1,5 @@
-//Delete brand
+///////////////////////////////////////////////Delete brand
+
 const deleteBrand = document.querySelectorAll('.delete-btn');
 
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
@@ -6,7 +7,6 @@ deleteBrand.forEach(btn => {
     btn.addEventListener('click', function (e) {
         let id = this.getAttribute('data-brand-id');
         let name = this.getAttribute('data-brand-name');
-        
 
         //Take cars to show information to user
         fetch(takeCars, {
@@ -100,7 +100,8 @@ deleteBrand.forEach(btn => {
     });
 });
 
-//Edit brand
+//////////////////////////////////////////////////////////////////////////Edit brand
+
 const editBrand = document.querySelectorAll('.edit-btn');
 editBrand.forEach(btn => {
     btn.addEventListener('click', function (e) {
@@ -145,7 +146,7 @@ document.getElementById('editSubmit').addEventListener('click', function(event) 
         });
 });
 
-/////////// Validations Create Brand ///////////
+//////////////////////////////////////////////////////////////// Validations Create Brand ///////////
 const nameForm = document.getElementById("addBrandName");
 const submitButton = document.getElementById("btn-addbrand");
 
@@ -185,7 +186,7 @@ nameForm.addEventListener("input", function () {
     checkFormValidity();
 });
 
-/////////// Validations Edit Brand ///////////
+//////////////////////////////////////////////////////////////////////// Validations Edit Brand ///////////
 const nameEditForm = document.getElementById("editBrandName");
 const submitEditButton = document.getElementById("btn-editbrand");
 
@@ -225,6 +226,7 @@ nameEditForm.addEventListener("input", function () {
     checkFormValidityEdit();
 });
 
+///////////////////////////////////////////////////////////////////////// Bootstrap ///////////
 (function () {
     'use strict'
     var forms = document.querySelectorAll('.needs-validation')

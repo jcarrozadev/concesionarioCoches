@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     
+    //////////////////////////////////////////////////////////// Datatables
     const tables = document.querySelectorAll('.datatable');
 
     tables.forEach(table => {

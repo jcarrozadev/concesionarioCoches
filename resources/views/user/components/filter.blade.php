@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-2 mt-2">
             <select class="form-select" id="brandFilter">
-                <option selected hidden disabled>Marca</option>
+                <option selected hidden disabled value="0">Marca</option>
                 <option value="0">Todas</option>
                 @foreach ($brands as $brand)
                     <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-2 mt-2">
             <select class="form-select" id="colorFilter">
-                <option selected hidden disabled>Color</option>
+                <option selected hidden disabled value="0">Color</option>
                 <option value="0">Todos</option>
                 @foreach ($colors as $color)
                     <option value="{{ $color->id }}">{{ $color->name }}</option>

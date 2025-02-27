@@ -23,7 +23,7 @@ class Colors extends Model
      * @param mixed $data
      * @return Colors
      */
-    public static function addColor($data): Colors {
+    public static function addColor(mixed $data): Colors {
         return self::create([
             'name' => $data['name'],
             'hex' => $data['hex'],
@@ -36,7 +36,7 @@ class Colors extends Model
      * @param mixed $id
      * @return bool
      */
-    public static function removeColor($id): bool {
+    public static function removeColor(mixed $id): bool {
         return self::where('id', $id)->update(['enabled' => 0]);
     }
 
@@ -45,7 +45,7 @@ class Colors extends Model
      * @param mixed $data
      * @return bool
      */
-    public static function editColor($data) {
+    public static function editColor(mixed $data):bool {
         $id = $data['id'];
         unset($data['id']);
         

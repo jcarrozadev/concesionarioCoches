@@ -5,25 +5,26 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarsController;
 use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\TypesController;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Response;
 
-Route::get('/', function () {
+Route::get('/', function ():View {
     return CarsController::getCars();
 })->name('home');
 
-Route::get('/admin', function () {
+Route::get('/admin', function ():View {
     return CarsController::getCarsAdmin();
 })->name('admin');
 
-Route::get('/admin/brands', function () {
+Route::get('/admin/brands', function ():View {
     return BrandsController::getBrands();
 })->name('brands');
 
-Route::get('/admin/types', function () {
+Route::get('/admin/types', function ():View {
     return TypesController::getTypes();
 })->name('types');
 
-Route::get('/admin/colors', function () {
+Route::get('/admin/colors', function ():View {
     return ColorsController::getColors();
 })->name('colors');
 
