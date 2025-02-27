@@ -21,7 +21,7 @@ class Cars extends Model
             ->join('types', 'cars.type_id', '=', 'types.id')
             ->join('colors', 'cars.color_id', '=', 'colors.id')
             ->where('cars.enabled', 1)
-            ->select('cars.*', 'brands.id as brand_id', 'brands.name as brand_name', 'types.id as type_id', 'types.name as type_name', 'colors.id as color_id', 'colors.name as color_name')
+            ->select('cars.*', 'brands.id as brand_id', 'brands.name as brand_name', 'types.id as type_id', 'types.name as type_name', 'colors.id as color_id', 'colors.name as color_name', 'colors.hex as color_hex')
             ->get();
     }
 
