@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    Admin Panel | Colores
+    AllStarsAutos | Panel Colores
 @endsection
 
 @section('content')

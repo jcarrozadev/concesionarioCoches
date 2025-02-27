@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    Admin Panel | Tipos
+    AllStarsAutos | Panel Tipos
 @endsection
 
 @section('content')
