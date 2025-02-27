@@ -18,14 +18,12 @@ return new class extends Migration
             ['name' => 'Seat', 'enabled' => 1],
         ]);
 
-        // Insertar colores
         DB::table('colors')->insert([
             ['name' => 'Azul', 'hex' => '#4287f5', 'enabled' => 1],
             ['name' => 'Amarillo', 'hex' => '#f5e642', 'enabled' => 1],
             ['name' => 'Rojo', 'hex' => '#f54242', 'enabled' => 1],
         ]);
 
-        // Insertar tipos
         DB::table('types')->insert([
             ['name' => 'SUV', 'enabled' => 1],
             ['name' => 'Deportivo', 'enabled' => 1],
@@ -33,7 +31,6 @@ return new class extends Migration
             ['name' => 'Caravana', 'enabled' => 1],
         ]);
 
-        // Insertar coches
         DB::table('cars')->insert([
             ['name' => 'A1', 'brand_id' => 1, 'color_id' => 1, 'type_id' => 1, 'year' => 2019, 'main_img' => 'audi_a1.jpg', 'horsepower' => 150, 'price' => 250000.44, 'sale' => 1, 'enabled' => 1],
             ['name' => 'A3', 'brand_id' => 1, 'color_id' => 2, 'type_id' => 2, 'year' => 2018, 'main_img' => 'audi_a3.jpg', 'horsepower' => 200, 'price' => 32415, 'sale' => 1, 'enabled' => 1],
