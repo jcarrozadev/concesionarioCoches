@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    ////////////////////////////////////// Add car //////////////////////////////////////
     const formAddCar = document.getElementById('form-addCar');
     if (formAddCar) {
         setupFormValidationAdd(formAddCar, document.querySelector('#form-addCar button[type="submit"]'));
@@ -35,8 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function validateFieldAdd(input) {
-        // Tu función validateField para el formulario de creación
-        // (La misma lógica que tenías en validateField)
         const value = input.value.trim();
         const inputId = input.id;
         let isValid = true;
@@ -89,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return isValid;
     }
+
     ////////////////// Add car with gallery image //////////////////
     const addImageButton = document.getElementById('addImage');
     const extraImagesDiv = document.getElementById('addExtraImages');
@@ -161,8 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
         
     }
 
-
-
     document.getElementById('form-addCar').addEventListener('submit', function (event) {
         const extraInputs = extraImagesDiv.querySelectorAll('input[type="file"]');
         let isValid = true;
@@ -178,71 +176,71 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
         }
     });
-    ////////////////// Edit car //////////////////
+    ////////////////// Edit car with gallery image //////////////////
     const editAddImageButton = document.getElementById('editAddImage');
-const editExtraImagesDiv = document.getElementById('editExtraImages');
-const editMainImageInput = document.getElementById('editFormFile');
+    const editExtraImagesDiv = document.getElementById('editExtraImages');
+    const editMainImageInput = document.getElementById('editFormFile');
 
-if (!editAddImageButton || !editExtraImagesDiv || !editMainImageInput) {
-    console.error("No se encontraron los elementos necesarios en el DOM.");
-    return;
-}
-
-editMainImageInput.addEventListener('change', function () {
-    checkEditButtonState();
-});
-
-editAddImageButton.addEventListener('click', function () {
-    editAddImageButton.disabled = true;
-
-    const newInputDiv = document.createElement('div');
-    newInputDiv.classList.add('col-12', 'mt-2', 'image-input');
-    const newInput = document.createElement('input');
-    newInput.classList.add('form-control');
-    newInput.type = 'file';
-    newInput.name = 'editImages[]';
-    newInput.accept = 'image/*';
-    newInput.required = true;
-
-    const removeButton = document.createElement('button');
-    removeButton.type = 'button';
-    removeButton.classList.add('btn', 'btn-danger', 'mt-2');
-    removeButton.textContent = 'Eliminar';
-
-    removeButton.addEventListener('click', function () {
-        newInputDiv.remove();
-        checkEditButtonState();
-    });
-
-    newInput.addEventListener('change', function () {
-        checkEditButtonState();
-    });
-
-    newInputDiv.appendChild(newInput);
-    newInputDiv.appendChild(removeButton);
-    editExtraImagesDiv.appendChild(newInputDiv);
-
-    checkEditButtonState();
-});
-
-function checkEditButtonState() {
-    const extraInputs = editExtraImagesDiv.querySelectorAll('input[name="editImages[]"]');
-
-    let count = 0;
-    let countInputs = 0;
-    extraInputs.forEach(input => {
-        countInputs++;
-        if (input.files.length > 0) {
-            count++;
-        }
-    });
-
-    if (count == countInputs || editMainImageInput.files.length > 0) {
-        editAddImageButton.disabled = false;
-    } else {
-        editAddImageButton.disabled = true;
+    if (!editAddImageButton || !editExtraImagesDiv || !editMainImageInput) {
+        console.error("No se encontraron los elementos necesarios en el DOM.");
+        return;
     }
-}
+
+    editMainImageInput.addEventListener('change', function () {
+        checkEditButtonState();
+    });
+
+    editAddImageButton.addEventListener('click', function () {
+        editAddImageButton.disabled = true;
+
+        const newInputDiv = document.createElement('div');
+        newInputDiv.classList.add('col-12', 'mt-2', 'image-input');
+        const newInput = document.createElement('input');
+        newInput.classList.add('form-control');
+        newInput.type = 'file';
+        newInput.name = 'editImages[]';
+        newInput.accept = 'image/*';
+        newInput.required = true;
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.classList.add('btn', 'btn-danger', 'mt-2');
+        removeButton.textContent = 'Eliminar';
+
+        removeButton.addEventListener('click', function () {
+            newInputDiv.remove();
+            checkEditButtonState();
+        });
+
+        newInput.addEventListener('change', function () {
+            checkEditButtonState();
+        });
+
+        newInputDiv.appendChild(newInput);
+        newInputDiv.appendChild(removeButton);
+        editExtraImagesDiv.appendChild(newInputDiv);
+
+        checkEditButtonState();
+    });
+
+    function checkEditButtonState() {
+        const extraInputs = editExtraImagesDiv.querySelectorAll('input[name="editImages[]"]');
+
+        let count = 0;
+        let countInputs = 0;
+        extraInputs.forEach(input => {
+            countInputs++;
+            if (input.files.length > 0) {
+                count++;
+            }
+        });
+
+        if (count == countInputs || editMainImageInput.files.length > 0) {
+            editAddImageButton.disabled = false;
+        } else {
+            editAddImageButton.disabled = true;
+        }
+    }
 });
 
 ////////////////// Delete car //////////////////
@@ -276,7 +274,7 @@ delete_car.forEach(btn => {
             },
         }).then(function (result) {
             if (result) {
-                fetch(deleteRoute, {  // No pasamos ID en la URL
+                fetch(deleteRoute, {  
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -302,11 +300,7 @@ delete_car.forEach(btn => {
     });
 });
 
-
-
-
-
-////////////////// Edit car //////////////////
+////////////////// Edit Car //////////////////
 
 const editCar = document.querySelectorAll('.edit-btn');
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
@@ -364,7 +358,7 @@ editCar.forEach(btn => {
 
         galleryImagesContainer.innerHTML = galleryContent;
 
-        setupFormValidationEdit(document.getElementById('form-editCar'), document.querySelector('#form-editCar button[type="submit"]'));
+        setupFormValidationEdit(document.getElementById('form-editCar'), document.querySelector('#form-editCar button[type="submit"]')); // Initialize validation
     });
 });
 
@@ -373,12 +367,10 @@ document.getElementById('galleryImages').addEventListener('click', function (e) 
         console.log('click en eliminar');
 
         const imgName = e.target.getAttribute('data-img-name');
-        const imageBlock = e.target.closest('.image-block'); // Selecciona el contenedor común
+        const imageBlock = e.target.closest('.image-block'); 
 
-        // Eliminar el bloque completo
         imageBlock.remove();
 
-        // Añadir el nombre de la imagen eliminada a un campo oculto
         const deletedImagesInput = document.createElement('input');
         deletedImagesInput.type = 'hidden';
         deletedImagesInput.name = 'deleted_images[]';
@@ -405,7 +397,6 @@ function setupFormValidationEdit(form, submitButton) {
         input.addEventListener('change', validateForm);
     });
 
-    // Ejecutar la validación inicial después de cargar los valores
     inputs.forEach(validateFieldEdit);
     validateForm();
 
@@ -510,7 +501,7 @@ document.getElementById('editSubmit').addEventListener('click', function (event)
             inputs.forEach(input => {
                 validateField(input);
             });
-            validateForm(); // Asegúrate de que el formulario se valide al abrir el modal
+            validateForm(); 
         });
     }
 });

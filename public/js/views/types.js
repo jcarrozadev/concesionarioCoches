@@ -1,11 +1,10 @@
-//Delete Type
+///////////////////////////////////////////////////////////// Delete Type
 const deleteType = document.querySelectorAll('.delete-btn');
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 deleteType.forEach(btn => {
     btn.addEventListener('click', function (e) {
         let id = this.getAttribute('data-type-id');
         let name = this.getAttribute('data-type-name');
-        
 
         //Take cars to show information to user
         fetch(takeCars, {
@@ -99,7 +98,7 @@ deleteType.forEach(btn => {
     });
 });
 
-// Update type
+//////////////////////////////////////////////////////////// Edit type
 const editBtns = document.querySelectorAll('.edit-btn');
 editBtns.forEach(btn => {
     btn.addEventListener('click', function (e) {
@@ -145,7 +144,7 @@ document.getElementById('editSubmit').addEventListener('click', function(event) 
 
 
 
-/////////// Validations Create Types ///////////
+///////////////////////////////////////////////////////////// Validations Create Types ///////////
 const nameForm = document.getElementById("addTypeName");
 const submitButton = document.getElementById("btn-addtype");
 
@@ -186,7 +185,7 @@ nameForm.addEventListener("input", function () {
     checkFormValidity();
 });
 
-/////////// Validations Edit Types ///////////
+/////////////////////////////////////////////////////////////////////// Validations Edit Types ///////////
 const nameEditForm = document.getElementById("editTypeName");
 const submitEditButton = document.getElementById("btn-edittype");
 
@@ -226,7 +225,7 @@ nameEditForm.addEventListener("input", function () {
     checkFormValidityEdit();
 });
 
-// Bootstrap validations 
+/////////////////////////////////////////////////////////////// Bootstrap validations 
 (function () {
     'use strict'
     var forms = document.querySelectorAll('.needs-validation')

@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////////////////// Delete color
 const delete_car = document.querySelectorAll('.delete-color');
 
 delete_car.forEach(btn => {
@@ -52,7 +53,7 @@ delete_car.forEach(btn => {
     });
 });
 
-// Edit color
+///////////////////////////////////////////////////////////////////////////////////////// Edit color
 const editColor = document.querySelectorAll('.edit-btn');
 editColor.forEach(btn => {
     btn.addEventListener('click', function (e) {
@@ -111,7 +112,7 @@ nameForm.addEventListener("input", function () {
     checkFormValidity();
 });
 
-/////////// Validations Edit Color ///////////
+////////////////////////////////////////////////////////////////////// Validations Edit Color ///////////
 const nameEditForm = document.getElementById("name");
 const submitEditButton = document.getElementById("btn-editcolor");
 
@@ -182,6 +183,7 @@ document.getElementById('editSubmit').addEventListener('click', function(event) 
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    /////// Bootstrap validation
     (function () {
         'use strict'
         var forms = document.querySelectorAll('.needs-validation')

@@ -25,7 +25,7 @@ class Brands extends Model
      * @param mixed $id
      * @return bool
      */
-    public static function removeBrand($id): bool {
+    public static function removeBrand(mixed $id): bool {
         return self::where('id', $id)
                     ->update(['enabled' => 0]) >= 0;
     }
@@ -35,7 +35,7 @@ class Brands extends Model
      * @param mixed $data
      * @return Brands
      */
-    public static function addBrand($data): Brands {
+    public static function addBrand(mixed $data): Brands {
         return self::create([
             'name' => $data['name'],
             'enabled' => 1
@@ -47,7 +47,7 @@ class Brands extends Model
      * @param mixed $data
      * @return bool
      */
-    public static function editBrand($data) {
+    public static function editBrand(mixed $data):bool {
         $id = $data['id'];
         unset($data['id']);
         

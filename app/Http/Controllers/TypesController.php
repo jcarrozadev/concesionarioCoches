@@ -18,6 +18,11 @@ class TypesController extends Controller
         return view('admin.types', ['types' => Types::getTypesAll()]);
     }
 
+    /**
+     * Summary of addType
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
     public static function addType(Request $request): RedirectResponse {
 
         $validatedData = self::validateType($request);
@@ -29,6 +34,11 @@ class TypesController extends Controller
         }
     }
 
+    /**
+     * Summary of removeType
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
     public static function removeType(Request $request): mixed {
         $typeDeleted = Types::removeType($request->type_id);
         
@@ -39,6 +49,11 @@ class TypesController extends Controller
         }
     }
 
+    /**
+     * Summary of updateType
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
     public static function updateType(Request $request): RedirectResponse{
         if(!$validatedData = self::validateType($request)){
             return redirect()->back()->with('error' , 'Los valores introducidos no son correctos.');
@@ -58,6 +73,11 @@ class TypesController extends Controller
         return Types::updateType($type, $changes) ? redirect()->back()->with('success', 'Tipo actualizado correctamente.') : redirect()->back()->with('error' , 'Ha habido un error al actualizar el tipo.');
     }
 
+    /**
+     * Summary of validateType
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     private static function validateType(Request $request): array {
         return $request->validate([
             'id' => 'sometimes|string',
@@ -67,6 +87,12 @@ class TypesController extends Controller
         ]);
     }
 
+    /**
+     * Summary of validateChanges
+     * @param mixed $validatedData
+     * @param mixed $type
+     * @return array
+     */
     private static function validateChanges($validatedData, $type): array | bool {
         $changes = [];
 

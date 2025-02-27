@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cars extends Model
 {
@@ -127,7 +128,11 @@ class Cars extends Model
                     ->get();
     }
     
-    public function gallery()
+    /**
+     * Summary of gallery
+     * @return HasMany<Gallery, Cars>
+     */
+    public function gallery(): HasMany
     {
         return $this->hasMany(Gallery::class, 'car_id');
     }
