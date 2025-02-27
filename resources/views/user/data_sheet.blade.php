@@ -4,7 +4,7 @@
 @endpush
 
 @section('title')
-    Ficha técnica
+    AllStarsAutos | {{ $car->brand_name.' '.$car->name }}
 @endsection
 
 @section('content')

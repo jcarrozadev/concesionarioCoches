@@ -28,3 +28,13 @@
     transform: scale(1.02);
     transition: all 0.3s;
 }
+
+.discount-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #dc3545; 
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
