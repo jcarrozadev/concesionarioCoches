@@ -243,10 +243,10 @@ class CarsController extends Controller
             'price' => 'sometimes|numeric|min:0',
             'sale' => 'sometimes|boolean',
             'main_img' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'editImages' => 'sometimes|array', // Validar que es un array de archivos
-            'editImages.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // Validar cada archivo
-            'deleted_images' => 'sometimes|array', // Validar que es un array de cadenas
-            'deleted_images.*' => 'sometimes|string|max:255', // Validar cada cadena
+            'editImages' => 'sometimes|array',
+            'editImages.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'deleted_images' => 'sometimes|array',
+            'deleted_images.*' => 'sometimes|string|max:255',
         ];
     
         foreach ($request->all() as $key => $value) {
