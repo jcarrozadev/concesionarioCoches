@@ -2,8 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     ////////////////////////////////////// Add car //////////////////////////////////////
     const formAddCar = document.getElementById('form-addCar');
     if (formAddCar) {
-        setupFormValidationAdd(formAddCar, document.querySelector('#form-addCar button[type="submit"]'));
-    }
+    setupFormValidationAdd(formAddCar, document.querySelector('#form-addCar button[type="submit"]'));
+
+    function resetFormValidation() {
+        const inputs = formAddCar.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.classList.remove('is-invalid', 'is-valid');
+            input.dataset.touched = 'false'; // Resetea el estado de interacción
+        });
+    }}
 
     function setupFormValidationAdd(form, submitButton) {
         const inputs = form.querySelectorAll('input, select');
@@ -19,12 +26,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         inputs.forEach(input => {
-            input.addEventListener('input', validateForm);
-            input.addEventListener('change', validateForm);
+            input.dataset.touched = 'false'; 
+            input.addEventListener('input', function() {
+                input.dataset.touched = 'true'; 
+                validateForm();
+            });
+            input.addEventListener('change', function() {
+                input.dataset.touched = 'true'; 
+                validateForm();
+            });
         });
-
-        inputs.forEach(validateFieldAdd);
-        validateForm(); // Initial validation
 
         form.addEventListener('submit', function (event) {
             if (!form.checkValidity()) {
@@ -36,6 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function validateFieldAdd(input) {
+        if (input.dataset.touched === 'false') {
+            return true; 
+        }
+
         const value = input.value.trim();
         const inputId = input.id;
         let isValid = true;
