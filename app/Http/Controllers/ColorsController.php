@@ -47,7 +47,12 @@ class ColorsController extends Controller
                     : response()->json(['error' => 'Error al eliminar el color.'], 500);
     }
 
-    public static function editColor(Request $request): mixed {
+    /**
+     * Summary of editColor
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
+    public static function editColor(Request $request): RedirectResponse {
         $data = $request->all();
 
         $data = $request->validate([

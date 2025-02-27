@@ -52,7 +52,7 @@ nav{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Hacer que la tabla no se desborde */
+/* Prevent the table from overflowing */
 .table-wrapper {
     overflow-x: auto; 
 }
@@ -64,7 +64,7 @@ nav{
     font-size: 0.8rem; 
 }
 
-/* Encabezados Tabla */
+/* Table Headers */
 #table thead tr:first-child {
     background-color: var(--neutral-dark-gray);
     color: var(--neutral-white);
@@ -72,7 +72,7 @@ nav{
     text-align: center;
 }
 
-/* Inputs de búsqueda */
+/* Search inputs */
 #table thead tr:nth-child(2) input {
     width: 85%;
     padding: 0.3rem;
@@ -89,13 +89,13 @@ nav{
     width: 30%;
 }
 
-/* Botones */
+/* Buttons */
 .btn {
     font-size: 0.8rem;
     padding: 5px 10px;
 }
 
-/* Estilos para la paginación */
+/* Styles for pagination */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     font-size: 0.875rem;
     border: 0.0625rem solid transparent;
@@ -121,14 +121,14 @@ nav{
     background-color: var(--primary-blue) !important;
 }
 
-/* Estilo para la información de paginación */
+/* Style for pagination information */
 .dataTables_info {
     font-size: 0.8125rem;
     color: var(--neutral-medium-gray);
     margin-top: 0.625rem;
 }
 
-/* Buscar general del Datatable */
+/* General search for Datatable */
 .dataTables_filter {
     margin: 1rem;
 }
@@ -153,7 +153,7 @@ nav{
     box-shadow: 0 0 0.125rem var(--neutral-medium-gray);
 }
 
-/* Mostrar X registros */
+/* Show X records */
 .dataTables_length {
     margin: 1rem;
 }

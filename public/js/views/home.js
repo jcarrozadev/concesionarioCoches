@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    /////////////////// Filters Dinamic ///////////////////////
     let offerCars = document.querySelectorAll('.car-offer');
     let allCars = document.querySelectorAll('.card-all');
     let combinedCars = [...offerCars, ...allCars];
@@ -87,14 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    
     const brandFilter = document.getElementById('brandFilter');
     const nameFilter = document.getElementById('nameFilter');
     const colorFilter = document.getElementById('colorFilter');
-    
-    
-    
-
     const filters = [brandFilter, nameFilter, colorFilter, minPriceSlider, maxPriceSlider, minCvSlider, maxCvSlider];
     
     filters.forEach(filter => {
@@ -160,8 +156,6 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         applyFilters();
     });
-    
-
     
     brandFilter.value = 0;
     nameFilter.value = '';

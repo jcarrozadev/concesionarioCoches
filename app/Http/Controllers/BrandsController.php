@@ -77,7 +77,7 @@ class BrandsController extends Controller
      * @param mixed $validatedData
      * @return array
      */
-    private static function compareBrand($request, $validatedData) {
+    private static function compareBrand(mixed $request, mixed $validatedData): array {
         $data = $request->all();
         $dataDB = Brands::find($data['id']);
     

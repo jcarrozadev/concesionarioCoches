@@ -36,7 +36,7 @@ class CarsController extends Controller
      * @param mixed $id
      * @return View
      */
-    public static function getCar($id): View {
+    public static function getCar(mixed $id): View {
 
         $car = Cars::getCar($id);
         $images = Gallery::getImages($id);
@@ -60,7 +60,7 @@ class CarsController extends Controller
      * Summary of validateCar
      * @param mixed $request
      */
-    private function validateCar($request) {
+    private function validateCar(mixed $request) {
         return $request->validate([
             'name' => 'required|string',
             'brand_id' => 'required|integer',
@@ -135,6 +135,11 @@ class CarsController extends Controller
             : response()->json(['error' => 'Sin datos.'], 500);
     }
     
+    /**
+     * Summary of getCarsWithType
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
     public static function getCarsWithType(Request $request): mixed {
         $carsDeleted = Cars::getCarsWithType($request->type_id);
         return ($carsDeleted)
@@ -145,6 +150,11 @@ class CarsController extends Controller
             : response()->json(['error' => 'Error al eliminar los coches o la marca.'], 500);
     }
     
+    /**
+     * Summary of updateCar
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
     public static function updateCar(Request $request): RedirectResponse {
         $validatedData = self::validateUpdateCar($request);
         $car = Cars::getCar($validatedData['id']);
@@ -208,7 +218,12 @@ class CarsController extends Controller
         }
     }
     
-    private static function validateUpdateCar($request) {
+    /**
+     * Summary of validateUpdateCar
+     * @param mixed $request
+     * @return array|RedirectResponse
+     */
+    private static function validateUpdateCar(mixed $request): array|RedirectResponse {
         $rules = [
             'id' => 'required|string|max:255',
             'name' => 'sometimes|string|max:255',
@@ -264,7 +279,13 @@ class CarsController extends Controller
         return $validator->validated();
     }
     
-    private static function validateChanges($validatedData, $car): array {
+    /**
+     * Summary of validateChanges
+     * @param mixed $validatedData
+     * @param mixed $car
+     * @return array
+     */
+    private static function validateChanges(mixed $validatedData, mixed $car): array {
         $changes = [];
     
         foreach ($validatedData as $key => $value) {
@@ -276,7 +297,13 @@ class CarsController extends Controller
         return $changes;
     }
 
-    private static function validateGalleryChanges($request, $car): array {
+    /**
+     * Summary of validateGalleryChanges
+     * @param mixed $request
+     * @param mixed $car
+     * @return string[]
+     */
+    private static function validateGalleryChanges(mixed $request, mixed $car): array {
         $changes = [];
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'fileImg')) {
@@ -299,7 +326,12 @@ class CarsController extends Controller
         return $changes;
     }
 
-    public static function parseImg($img) {
+    /**
+     * Summary of parseImg
+     * @param mixed $img
+     * @return string
+     */
+    public static function parseImg($img):string {
         $timestamp = now()->format('Y-m-d_H-i-s') . '_' . round(microtime(true) * 1000);
         $filename = $timestamp . '_' . $img->getClientOriginalName();
         if(strlen($filename) >= 255){

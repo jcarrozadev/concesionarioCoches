@@ -48,7 +48,7 @@ nav{
 .double_range_slider_box {
     display: inline;
     width: 100%;
-    max-width: 300px; /* Ajusta según necesidad */
+    max-width: 300px; /* Adjust as needed */
     padding: 20px;
 }
 
@@ -77,7 +77,7 @@ nav{
     height: 5px;
     background: none;
     -webkit-appearance: none;
-    pointer-events: none; /* Evita interacción directa */
+    pointer-events: none; /* Prevents direct interaction */
 }
 
 .slider_range::-webkit-slider-thumb {
@@ -87,7 +87,7 @@ nav{
     background: var(--primary-gold);
     border-radius: 50%;
     cursor: pointer;
-    pointer-events: auto; /* Permite mover los controles */
+    pointer-events: auto; /* Allows moving the controls */
     position: relative;
 }
 
@@ -137,7 +137,7 @@ nav{
 
 .card-img-top {
     object-fit: cover;
-    height: 200px; /* Ajusta la altura según necesites */
+    height: 200px; 
 }
 
 .card-offer {
