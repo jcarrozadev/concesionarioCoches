@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    Admin Panel | Marcas
+    AllStarsAutos | Panel Marcas
 @endsection
 
 @section('content')
