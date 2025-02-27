@@ -119,6 +119,10 @@ nav{
 
 /* END FILTER */
 
+.card-subtitle {
+    font-size: 1.1rem;
+}
+
 .title-section {
     background-color: var(--neutral-medium-gray);
     padding: 20px;

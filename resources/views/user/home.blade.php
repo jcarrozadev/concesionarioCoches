@@ -25,11 +25,11 @@
                         <div class="card card-offer" data-car-id="{{ $car->id }}" >
                             <img src="{{ url('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" class="card-img-top" style="height: 150px; width: 100%; object-fit: cover;">
                             <div class="card-body">
-                                <h6 class="card-title">DESDE</h6>
+                                <h7 class="card-title">DESDE</h7>
                                 <p class="card-text">
                                     <span style="font-size: 1.5rem; font-weight: bold;">{{ $car->price }} €</span> 
                                 </p>
-                                <h5 class="card-subtitle mb-2 text-muted">{{ $car->brand_name . ' ' . $car->name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $car->brand_name . ' ' . $car->name }}</h6>
                                 <div class="row align-items-center align-middle">
                                     <div class="col-12">
                                         <p class="card-text">
