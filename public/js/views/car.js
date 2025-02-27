@@ -88,8 +88,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (inputId === 'addFormFile') {
-            if (value === '') {
+            if (input.files.length === 0) {
                 isValid = false;
+            } else {
+                const file = input.files[0];
+                const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'];
+                const maxSize = 2048 * 1024; // 2048 KB in bytes
+    
+                if (!allowedMimes.includes(file.type)) {
+                    isValid = false;
+                }
+    
+                if (file.size > maxSize) {
+                    isValid = false;
+                }
             }
         }
 
