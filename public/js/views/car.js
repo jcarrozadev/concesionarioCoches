@@ -347,24 +347,44 @@ editCar.forEach(btn => {
             const imgValue = carImgGallery[i] || "";
 
             galleryContent += `
-                <div class="col-md-6 col-12">
-                    <img src="${imageUrl}" class="w-100" alt="Imagen del coche">
-                    <input type="hidden" value="${imgValue}" name="img${i + 1}">
-                </div>
-                <div class="col-md-6 col-12 d-flex flex-column align-items-center justify-content-center">
-                    <label for="galleryFormFile${i + 1}" class="form-label">Cambiar imagen</label>
-                    <input class="form-control" type="file" id="galleryFormFile${i + 1}" name="fileImg${i + 1}" accept="image/*">
-                    <div class="valid-feedback">¡Se ve bien!</div>
-                    <div class="invalid-feedback">Por favor, selecciona una imagen.</div>
-                </div>
-            `;
-        }
+                <div class="row g-3 image-block"> <!-- Contenedor común -->
+                    <div class="col-md-6 col-12">
+                        <img src="${imageUrl}" class="w-100" alt="Imagen del coche">
+                        <input type="hidden" value="${imgValue}" name="img${i + 1}">
+                    </div>
+                    <div class="col-md-6 col-12 d-flex flex-column align-items-center justify-content-center">
+                        <label for="galleryFormFile${i + 1}" class="form-label">Cambiar imagen</label>
+                        <input class="form-control" type="file" id="galleryFormFile${i + 1}" name="fileImg${i + 1}" accept="image/*">
+                        <div class="valid-feedback">¡Se ve bien!</div>
+                        <div class="invalid-feedback">Por favor, selecciona una imagen.</div>
+                        <button type="button" class="btn btn-danger btn-sm mt-2 delete-image-gallery" data-img-name="${imgValue}">Eliminar</button>
+                    </div>
+                </div>`;
+            }
 
         galleryImagesContainer.innerHTML = galleryContent;
 
-        // Llamar a la función de validación después de cargar los datos
         setupFormValidationEdit(document.getElementById('form-editCar'), document.querySelector('#form-editCar button[type="submit"]'));
     });
+});
+
+document.getElementById('galleryImages').addEventListener('click', function (e) {
+    if (e.target && e.target.classList.contains('delete-image-gallery')) {
+        console.log('click en eliminar');
+
+        const imgName = e.target.getAttribute('data-img-name');
+        const imageBlock = e.target.closest('.image-block'); // Selecciona el contenedor común
+
+        // Eliminar el bloque completo
+        imageBlock.remove();
+
+        // Añadir el nombre de la imagen eliminada a un campo oculto
+        const deletedImagesInput = document.createElement('input');
+        deletedImagesInput.type = 'hidden';
+        deletedImagesInput.name = 'deleted_images[]';
+        deletedImagesInput.value = imgName;
+        document.getElementById('form-editCar').appendChild(deletedImagesInput);
+    }
 });
 
 function setupFormValidationEdit(form, submitButton) {
