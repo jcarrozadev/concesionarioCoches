@@ -9,7 +9,7 @@
                 <form id="form-addBrand" class="row g-3 needs-validation" action="{{ route('addBrand') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="col-12">
-                        <label class="form-label" for="addBrandName">Marca de coche *</label>
+                        <label class="form-label" for="addBrandName">Marca de coche <span class="modal_required">*</span></label>
                         <input id="addBrandName" name="name" class="form-control" type="text" placeholder="Añade la marca de coche" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el nombre de la marca.</div>

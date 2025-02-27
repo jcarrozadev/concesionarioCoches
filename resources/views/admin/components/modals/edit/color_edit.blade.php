@@ -10,14 +10,14 @@
                     @method('PUT')
                     @csrf
                     <div class="col-12">
-                        <label class="form-label" for="editColorName">Nombre del color *</label>
+                        <label class="form-label" for="editColorName">Nombre del color <span class="modal_required">*</span></label>
                         <input id="id" name="id" class="form-control" type="text" hidden>
                         <input id="name" name="name" class="form-control" type="text" placeholder="" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el nombre del color.</div>
                     </div>
                     <div class="col-12">
-                        <label class="form-label" for="editColorHex">Color *</label>
+                        <label class="form-label" for="editColorHex">Color <span class="modal_required">*</span></label>
                         <input type="color" class="form-control form-control-color" id="color" name="hex" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, selecciona un color.</div>

@@ -12,7 +12,7 @@
                     <input id="editId" name="id" class="form-control" type="hidden">
 
                     <div class="col-12">
-                        <label class="form-label" for="editTypeName">Tipo de coche *</label>
+                        <label class="form-label" for="editTypeName">Tipo de coche <span class="modal_required">*</span></label>
                         <input id="editTypeName" name="name" class="form-control" type="text" placeholder="Añade el tipo de coche" required>
                         <div class="valid-feedback">¡Se ve bien!</div>
                         <div class="invalid-feedback">Por favor, introduce el tipo de coche.</div>
