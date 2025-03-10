@@ -21,7 +21,7 @@
         <div class="container my-5">
             <div class="row g-3">
                 @foreach ($carsOffers as $car)
-                    <div class="col-sm-12 col-md-4 col-lg-3 car-offer" data-car-id="{{ $car->id }}" data-car-name="{{ $car->name }}" data-car-brand="{{ $car->brand_id }}" data-car-color="{{ $car->color_id }}" data-car-year="{{ $car->year }}" data-car-horsepower="{{ $car->horsepower }}" data-car-price="{{ $car->price }}">
+                    <div class="col-sm-12 col-md-4 col-lg-3 car-offer" data-car-id="{{ $car->getId() }}" data-car-name="{{ $car->name }}" data-car-brand="{{ $car->brand_id }}" data-car-color="{{ $car->color_id }}" data-car-year="{{ $car->year }}" data-car-horsepower="{{ $car->horsepower }}" data-car-price="{{ $car->price }}">
                         <div class="card card-offer" data-car-id="{{ $car->id }}" >
                             <span class="discount-tag">Oferta</span>
                             <img src="{{ url('img/' . $car->main_img) }}" alt="{{ $car->brand_name . $car->name }}" class="card-img-top" style="height: 150px; width: 100%; object-fit: cover;">
@@ -36,7 +36,7 @@
                                         <p class="card-text">
                                             <div class="d-flex align-items-center">
                                                 <i class="fas fa-palette align-middle"></i>
-                                                <input type="color" class="w-10 ms-2" style="border: none;" name="" id="" value="{{ $car->color_hex }}" disabled>
+                                                <input type="color" class="w-10 ms-2" style="border: none;" name="" id="" value="{{ $car->hex }}" disabled>
                                             </div>
                                         </p>
                                         <p class="card-text">
@@ -83,7 +83,7 @@
                                         <p class="card-text">
                                             <div class="d-flex align-items-center">
                                                 <i class="fas fa-palette align-middle"></i>
-                                                <input type="color" class="w-10 ms-2" style="border: none;" name="" id="" value="{{ $car->color_hex }}" disabled>
+                                                <input type="color" class="w-10 ms-2" style="border: none;" name="" id="" value="{{ $car->hex }}" disabled>
                                             </div>
                                         </p>
                                         <p class="card-text">
