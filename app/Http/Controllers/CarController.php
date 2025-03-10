@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarUpdateRequest;
+use App\Http\Requests\CarAddRequest;
 use App\Models\Cars;
 use App\Models\Gallery;
 use Illuminate\Contracts\View\View;
@@ -14,21 +16,23 @@ class CarController extends Controller
 {
 
     public ?int $id = NULL;
-    public ?string $brand_id = NULL;
-    public ?string $brand_name = NULL;
-    public ?string $type_id = NULL;
-    public ?string $type_name = NULL;
-    public ?string $color_id = NULL;
-    public ?string $color_name = NULL;
-    public ?string $hex = NULL;
+    public BrandController $brand;
+    public TypeController $type;
+    public ColorController $color;
+    public ?Collection $gallery = NULL;
     public ?string $name = NULL;
     public ?int $year = NULL;
     public ?float $horsepower = NULL;
     public ?float $price = NULL;
     public ?string $main_img = NULL;
     public ?string $sale = NULL;
-    public ?Collection $gallery = NULL;
+    
 
+    public function __construct() {
+        $this->brand = New BrandController();
+        $this->type = New TypeController();
+        $this->color = New ColorController();
+    }
 
     /**
      * Summary of getCar
@@ -52,13 +56,13 @@ class CarController extends Controller
      */
     private function setCar($car):void {
         $this->id = $car->id;
-        $this->brand_id = $car->brand_id;
-        $this->brand_name = $car->brand_name;
-        $this->type_id = $car->type_id;
-        $this->type_name = $car->type_name;
-        $this->color_id = $car->color_id;
-        $this->color_name = $car->color_name;
-        $this->hex = $car->hex;
+        $this->brand->id = $car->brand_id;
+        $this->brand->name = $car->brand_name;
+        $this->type->id = $car->type_id;
+        $this->type->name = $car->type_name;
+        $this->color->id = $car->color_id;
+        $this->color->name = $car->color_name;
+        $this->color->hex = $car->hex;
         $this->name = $car->name;
         $this->year = $car->year;
         $this->horsepower = $car->horsepower;
@@ -70,45 +74,61 @@ class CarController extends Controller
 
     /**
      * Summary of addCar
-     * @param \Illuminate\Http\Request $request
+     * @param CarAddRequest $request
      * @return RedirectResponse
      */
-    public function addCar(Request $request): RedirectResponse {
+    public function addCar(CarAddRequest $request): RedirectResponse {
 
-        $data = $request->all();
+
+        $car = $this->createAddRequest($request);
+
+        if($car){
+            return redirect()->route('admin')->with('success', 'Vehículo añadido correctamente');
+        }
+
+        return redirect()->route('admin')->with('error', 'Error al añadir el vehículo');
         
+
+    }
+
+    private function createAddRequest(CarAddRequest $request): bool{
+
+        $data = $request->validated();   
         $utility = New UtilitiesController();
-        $validate = new ValidateController();
 
-        $data = $validate->validateCar($request);
-        
-        if ($data instanceof RedirectResponse) {
-            return $data;
-        }
+        $this->name = $data['name'];
+        $this->year = $data['year'];
+        $this->horsepower=$data['horsepower'];
+        $this->price = $data['price'];
+        $this->sale = $data['sale'] ?? 0;
+        $this->brand->id = $data['brand_id'];
+        $this->type->id = $data['brand_id'];
+        $this->color->id = $data['brand_id'];
 
-        if(!isset($data['sale'])) {
-            $data['sale'] = 0;
-        }
 
         $data['main_img'] = $utility->parseImg($request->file('main_img'));
+        $this->main_img = $data['main_img'];
         $request->file('main_img')->storeAs('img', $data['main_img'], 'public');
 
-        try {
-            $carId = Cars::addCar($data);
+        $carId = Cars::addCar($this);
 
+        if($carId){
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $imagePath = $utility->parseImg($image);
                     $image->storeAs('img', $imagePath, 'public');
-                    Gallery::addImage($carId, $imagePath);
+                    $imgGallery = new GalleryController();
+                    $imgGallery->car_id = $carId;
+                    $imgGallery->img = $imagePath;
+
+                    Gallery::addImage($carId, $imgGallery->img);
                 }
             }
-            return redirect()->route('admin')->with('success', 'Vehículo añadido correctamente');
-
-        } catch (\Exception $e) {
-            return redirect()->route('admin')->with('error', 'Error al añadir el vehículo: ' . $e->getMessage());
+        }else{
+            return false;
         }
 
+        return true;
     }
 
     /**
@@ -116,8 +136,11 @@ class CarController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function removeCar(Request $request): mixed {
-        return Cars::removeCar($request->car_id) 
+    public function removeCar(): mixed {
+        
+        $this->id = Request::input('car_id');
+
+        return Cars::removeCar($this->id) 
                     ? response()->json(['success' => 'Coche eliminado correctamente.'])
                     : response()->json(['error' => 'Error al eliminar el coche.'], 500);
     }
@@ -127,81 +150,144 @@ class CarController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return RedirectResponse
      */
-    public function updateCar(Request $request): RedirectResponse {
-        
-        $validatedData = new ValidateController();
+    public function updateCar(CarUpdateRequest $request): RedirectResponse {
         $utility = New UtilitiesController();
+
+        $car = $this->createUpdateRequest($request);
+
+        return $car ?  redirect()->back()->with('success', 'Coche actualizado correctamente.'): 
+                        redirect()->back()->with('error', 'Ha habido un error al actualizar el coche.');
+
+    }
+
+    private function createUpdateRequest(CarUpdateRequest $request): bool{
+        $validatedData = $request->validated();
+        $validateController = new ValidateController();
         
-        $data = $validatedData->validateUpdateCar($request);
-        if ($data instanceof RedirectResponse) {
-            return $data;
+        if ($validatedData instanceof RedirectResponse) {
+            return false;
         }
     
-        $car = Cars::getCar($validatedData->validateUpdateCar(['id']));
+        $car = Cars::getCar($validatedData['id']);
         if (!$car) {
-            redirect()->back()->with('error' , 'No se encuentra el coche seleccionado.');
+            return false;
         }
-        $changes = $validatedData->validateChanges($validatedData, $car);
-        $galleryChanges = $validatedData->validateGalleryChanges($request, $car);
+        $this->id = $car->id;
+
+        $changes = $validateController->validateChanges($validatedData, $car); 
+
+        $galleryChanges = $validateController->validateGalleryChanges($request, $car); 
         $changes = array_merge($changes, $galleryChanges);
         if (empty($changes)) {
-            return redirect()->back()->with('error', 'No ha habido cambios.');
+            return false;
         }
-        if (isset($changes['main_img'])) {
-            $changes['main_img'] = $utility->parseImg($request->file('main_img'));
-            $request->file('main_img')->storeAs('img', $changes['main_img'], 'public');
-            Storage::disk('public')->delete('img/'.$car->main_img);
-        }
+
+        $this->setChangesToCar($changes, $request, $car);
 
         if($request->has('deleted_images')){
             $deletedImages = $request->input('deleted_images');
             foreach ($deletedImages as $imageName) {
-                if(Gallery::deleteImg($imageName))
+                $imgGallery = new GalleryController();
+                $imgGallery->img = $imageName;
+                if(Gallery::deleteImg($imgGallery->img))
                     Storage::disk('public')->delete('img/'.$imageName);
                 else
-                    return redirect()->back()->with('error', 'Ha habido un error al eliminar las imágenes del vehículo.');
+                    return false;
             }
         }
-
+        $utility = new UtilitiesController();
         if ($request->hasFile('images')) {
+            
             foreach ($request->file('images') as $image) {
+                $imgGallery = new GalleryController();
                 $imagePath = $utility->parseImg($image);
                 $image->storeAs('img', $imagePath, 'public');
-                Gallery::addImage($car->id, $imagePath);
+                $imgGallery->img = $imagePath;
+                Gallery::addImage($this->id, $imgGallery->img);
             }
         }
         if ($request->hasFile('editImages')) {
             foreach ($request->file('editImages') as $image) {
+                $imgGallery = new GalleryController();
                 $imagePath = $utility->parseImg($image);
                 $image->storeAs('img', $imagePath, 'public');
-                Gallery::addImage($car->id, $imagePath);
+                $imgGallery->img = $imagePath;
+                Gallery::addImage($this->id, $imgGallery->img);
             }
         }
     
     
-        if (Cars::updateCar($car, $changes)) {
+        if (Cars::updateCar($car, $this)) {
             foreach ($request->all() as $key => $value) {
                 if (str_starts_with($key, 'fileImg')) {
+                    $imgGallery = new GalleryController();
                     $number = substr($key, 7);
                     $imgField = 'img' . $number;
-                    $verificatedImg = Gallery::getImg($request->$imgField);
-                    // dd($verificatedImg);
+                    $imgGallery->img = $request->imgField;
+                    $verificatedImg = Gallery::getImg($imgGallery->img);
                     if ($request->hasFile($key)) {
                         $image = $request->file($key);
                         $imageName = $utility->parseImg($image);
+                        $imgGallery->img = $imageName;
                         $image->storeAs('img', $imageName, 'public');
-                        if(!Gallery::updateImage($verificatedImg, $imageName)){ return redirect()->back()->with('error', 'Ha habido un error al actualizar la galería del coche.'); }
+                        if(!Gallery::updateImage($verificatedImg, $imgGallery)) 
+                            return false; 
 
                         Storage::disk('public')->delete('img/'.$request->$imgField);
-
                     }
                 }
             }
-        
-            return redirect()->back()->with('success', 'Coche actualizado correctamente.');
-        } else {
-            return redirect()->back()->with('error', 'Ha habido un error al actualizar el coche.');
         }
+        return true;
+    }
+
+    private function setChangesToCar(array $changes, CarUpdateRequest $request, Cars $car): void{
+        foreach ($changes as $key => $value) {
+            switch ($key) {
+                case 'main_img':
+                    $utility = new UtilitiesController();
+                    $value = $utility->parseImg($request->file('main_img'));
+                    $request->file('main_img')->storeAs('img', $value, 'public');
+                    Storage::disk('public')->delete('img/'.$car->main_img);
+                    $this->main_img = $value;
+                    break;
+    
+                case 'name':
+                    $this->name = $value;
+                    break;
+    
+                case 'year':
+                    $this->year = $value;
+                    break;
+    
+                case 'horsepower':
+                    $this->horsepower = $value;
+                    break;
+    
+                case 'price':
+                    $this->price = $value;
+                    break;
+    
+                case 'sale':
+                    $this->sale = $value;
+                    break;
+    
+                case 'brand_id':
+                    $this->brand->id = $value;
+                    break;
+    
+                case 'type_id':
+                    $this->type->id = $value;
+                    break;
+    
+                case 'color_id':
+                    $this->color->id = $value;
+                    break;
+    
+                default:
+                    break;
+            }
+        }    
     }
 
     // Getters and Setters
@@ -212,62 +298,6 @@ class CarController extends Controller
 
     public function setId(?int $id): void {
         $this->id = $id;
-    }
-
-    public function getBrandId(): ?string {
-        return $this->brand_id;
-    }
-
-    public function setBrandId(?string $brand_id): void {
-        $this->brand_id = $brand_id;
-    }
-
-    public function getBrandName(): ?string {
-        return $this->brand_name;
-    }
-
-    public function setBrandName(?string $brand_name): void {
-        $this->brand_name = $brand_name;
-    }
-
-    public function getTypeId(): ?string {
-        return $this->type_id;
-    }
-
-    public function setTypeId(?string $type_id): void {
-        $this->type_id = $type_id;
-    }
-
-    public function getTypeName(): ?string {
-        return $this->type_name;
-    }
-
-    public function setTypeName(?string $type_name): void {
-        $this->type_name = $type_name;
-    }
-
-    public function getColorId(): ?string {
-        return $this->color_id;
-    }
-
-    public function setColorId(?string $color_id): void {
-        $this->color_id = $color_id;
-    }
-
-    public function getColorName(): ?string {
-        return $this->color_name;
-    }
-
-    public function setColorName(?string $color_name): void {
-        $this->color_name = $color_name;
-    }
-
-    public function getHex(): ?string {
-        return $this->hex;
-    }
-
-    public function setHex(?string $hex): void {
-        $this->hex = $hex;
     }
 
     public function getName(): ?string {

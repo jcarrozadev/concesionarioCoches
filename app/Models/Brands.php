@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\BrandController;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,14 +31,9 @@ class Brands extends Model
                     ->update(['enabled' => 0]) >= 0;
     }
     
-    /**
-     * Summary of addBrand
-     * @param mixed $data
-     * @return Brands
-     */
-    public static function addBrand(mixed $data): Brands {
+    public static function addBrand(BrandController $request): Brands {
         return self::create([
-            'name' => $data['name'],
+            'name' => $request->name,
             'enabled' => 1
         ]);
     }

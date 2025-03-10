@@ -2,20 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TypeRequest;
 use Illuminate\Contracts\View\View;
 use App\Models\Types;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
-
-class TypesController extends Controller
+class TypeController extends Controller
 {
-    /**
-     * Summary of getTypes
-     * @return View
-     */
-    public static function getTypes(): View {
-        return view('admin.types', ['types' => Types::getTypesAll()]);
+
+    public ?int $id = NULL;
+    
+    public ?string $name = NULL;
+    
+
+    public function __construct(?Types $type = null) {
+        if ($type) {
+            $this->id = $type->id;
+            $this->name = $type->name;
+        }
+    }
+
+    public function getTypes(): Collection {
+
+        return Types::all()->map(function ($type) {
+            return new TypeController($type);
+        });
+        
     }
 
     /**
@@ -23,11 +37,8 @@ class TypesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return RedirectResponse
      */
-    public static function addType(Request $request): RedirectResponse {
-
-        $validatedData = self::validateType($request);
-    
-        if (Types::addType($validatedData)) {
+    public function addType(TypeRequest $request): RedirectResponse {
+        if (Types::addType($request->validated())) {
             return redirect()->route('types')->with('success', 'Tipo añadido correctamente');
         } else {
             return redirect()->route('types')->with('error', 'Error al añadir el tipo');
@@ -39,7 +50,7 @@ class TypesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public static function removeType(Request $request): mixed {
+    public function removeType(Request $request): mixed {
         $typeDeleted = Types::removeType($request->type_id);
         
         if ($typeDeleted) {
@@ -54,8 +65,8 @@ class TypesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return RedirectResponse
      */
-    public static function updateType(Request $request): RedirectResponse{
-        if(!$validatedData = self::validateType($request)){
+    public function updateType(TypeRequest $request): RedirectResponse{
+        if(!$validatedData = $request->validated()){
             return redirect()->back()->with('error' , 'Los valores introducidos no son correctos.');
         }
         
@@ -74,26 +85,12 @@ class TypesController extends Controller
     }
 
     /**
-     * Summary of validateType
-     * @param \Illuminate\Http\Request $request
-     * @return array
-     */
-    private static function validateType(Request $request): array {
-        return $request->validate([
-            'id' => 'sometimes|string',
-            'name' => 'required|string',
-        ],[
-            'name.required' => 'El nombre del tipo es obligatorio.'
-        ]);
-    }
-
-    /**
      * Summary of validateChanges
      * @param mixed $validatedData
      * @param mixed $type
      * @return array
      */
-    private static function validateChanges($validatedData, $type): array | bool {
+    private function validateChanges($validatedData, $type): array | bool {
         $changes = [];
 
         foreach ($validatedData as $key => $value) {
@@ -103,6 +100,23 @@ class TypesController extends Controller
         }
 
         return $changes;
+    }
+
+    // Getters and Setters
+
+    public function getId(): ?int {
+        return $this->id;
+    }
+
+    public function setId(?int $id): void {
+        $this->id = $id;
+    }
+    public function getName(): ?string {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void {
+        $this->name = $name;
     }
 
 }

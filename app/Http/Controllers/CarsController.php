@@ -2,46 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brands;
 use Illuminate\Http\Request;
 use App\Models\Cars;
-use App\Models\Colors;
-use App\Models\Types;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 
 class CarsController extends Controller
 {
-    // private bool $sale = false;
+    private string $type;
 
-    public function __construct() {}
-
-    /**
-     * Summary of getCars
-     * @return View
-     */
-    public function getCars(): View {
-
-        $brands = Brands::getBrandsAll();
-        $colors = Colors::getColorsAll();
-
-        $carsController = $this->setCarsAll();
-        $carsSaleController = $this->setCarsSale();
-        
-        return view('user.home', ['cars' => $carsController, 'carsOffers' => $carsSaleController, 'brands' => $brands, 'colors' => $colors]);
+    public function __construct(string $type = 'all') {
+        $this->type = $type;
     }
 
-    /**
-     * Summary of getCarsAdmin
-     * @return View
-     */
-    public function getCarsAdmin(): View {
-        $cars = $this->setCarsAll();
-        $brands = Brands::getBrandsAll();
-        $colors = Colors::getColorsAll();
-        $types = Types::getTypesAll();
-
-        return view('admin.cars', ['cars' => $cars, 'brands' => $brands, 'colors' => $colors, 'types' => $types]);
+    public function setCars() {
+        if ($this->type === 'all') {
+            return $this->setCarsAll();
+        } elseif ($this->type === 'sale') {
+            return $this->setCarsSale();
+        }
     }
 
     /**
@@ -53,13 +31,13 @@ class CarsController extends Controller
             $carController = new CarController();
             
             $carController->setId($car->id);
-            $carController->setBrandId($car->brand_id);
-            $carController->setBrandName($car->brand_name);
-            $carController->setTypeId($car->type_id);
-            $carController->setTypeName($car->type_name);
-            $carController->setColorId($car->color_id);
-            $carController->setColorName($car->color_name);
-            $carController->setHex($car->color_hex);
+            $carController->brand->setId($car->brand_id);
+            $carController->brand->setName($car->brand_name);
+            $carController->type->setId($car->type_id);
+            $carController->type->setName($car->type_name);
+            $carController->color->setId($car->color_id);
+            $carController->color->setName($car->color_name);
+            $carController->color->setHex($car->color_hex);
             $carController->setName($car->name);
             $carController->setYear($car->year);
             $carController->setHorsepower($car->horsepower);
@@ -83,13 +61,13 @@ class CarsController extends Controller
             $carSaleController = new CarController();
             
             $carSaleController->setId($car->id);
-            $carSaleController->setBrandId($car->brand_id);
-            $carSaleController->setTypeId($car->type_id);
-            $carSaleController->setColorId($car->color_id);
-            $carSaleController->setBrandName($car->brand_name);
-            $carSaleController->setTypeName($car->type_name);
-            $carSaleController->setColorName($car->color_name);
-            $carSaleController->setHex($car->color_hex);
+            $carSaleController->brand->setId($car->brand_id);
+            $carSaleController->brand->setName($car->brand_name);
+            $carSaleController->type->setId($car->type_id);
+            $carSaleController->type->setName($car->type_name);
+            $carSaleController->color->setId($car->color_id);
+            $carSaleController->color->setName($car->color_name);
+            $carSaleController->color->setHex($car->color_hex);
             $carSaleController->setName($car->name);
             $carSaleController->setYear($car->year);
             $carSaleController->setHorsepower($car->horsepower);

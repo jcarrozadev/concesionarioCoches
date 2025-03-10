@@ -61,9 +61,9 @@
                         <tr>
                             <td>{{ $car->id }}</td>
                             <td>{{ $car->name }}</td>
-                            <td>{{ $car->brand_name }}</td>
-                            <td>{{ $car->type_name }}</td>
-                            <td>{{ $car->color_name }}</td>
+                            <td>{{ $car->brand->name }}</td>
+                            <td>{{ $car->type->name }}</td>
+                            <td>{{ $car->color->name }}</td>
                             <td>{{ $car->year }}</td>
                             <td>{{ $car->horsepower }} CV</td>
                             <td>{{ $car->price }} €</td>
@@ -79,9 +79,9 @@
                                     'action' => 'editCar',
                                     'car_id' => $car->id,
                                     'car_name' => $car->name,
-                                    'car_brand_id' => $car->brand_id,
-                                    'car_type_id' => $car->type_id,
-                                    'car_color_id' => $car->color_id,
+                                    'car_brand_id' => $car->brand->id,
+                                    'car_type_id' => $car->type->id,
+                                    'car_color_id' => $car->color->id,
                                     'car_year' => $car->year,
                                     'car_horsepower' => $car->horsepower,
                                     'car_price' => $car->price,
