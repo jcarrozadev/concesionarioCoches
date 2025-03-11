@@ -116,24 +116,58 @@ class CarFilter {
         let maxPrice = parseFloat(this.maxPriceSlider.value);
         let minCv = parseFloat(this.minCvSlider.value);
         let maxCv = parseFloat(this.maxCvSlider.value);
-
+    
+        let visibleOffers = 0;
+        let visibleAll = 0;
+    
         this.combinedCars.forEach(element => {
             let carBrand = element.getAttribute('data-car-brand');
             let carName = element.getAttribute('data-car-name').toLowerCase().trim();
             let carColor = element.getAttribute('data-car-color');
             let carPrice = parseFloat(element.getAttribute('data-car-price'));
             let carCv = parseFloat(element.getAttribute('data-car-horsepower'));
-
+    
             const matchesBrand = (brandValue == carBrand || brandValue == 0);
             const matchesName = (nameValue === '' || carName.startsWith(nameValue));
             const matchesColor = (colorValue == carColor || colorValue == 0);
             const matchesPrice = (minPrice <= carPrice && carPrice <= maxPrice);
             const matchesCv = (minCv <= carCv && carCv <= maxCv);
-
-            element.style.display = (matchesBrand && matchesName && matchesColor && matchesPrice && matchesCv) ? 'block' : 'none';
+    
+            const isVisible = matchesBrand && matchesName && matchesColor && matchesPrice && matchesCv;
+            element.style.display = isVisible ? 'block' : 'none';
+    
+            if (isVisible) {
+                if (element.classList.contains('car-offer')) {
+                    visibleOffers++;
+                } else if (element.classList.contains('card-all')) {
+                    visibleAll++;
+                }
+            }
         });
+    
+        this.toggleNoCarsMessage('carsOffers', 'No hay coches en oferta disponibles.', visibleOffers);
+        this.toggleNoCarsMessage('carsAll', 'No hay coches disponibles.', visibleAll);
     }
-
+    
+    toggleNoCarsMessage(sectionId, message, visibleCount) {
+        let section = document.getElementById(sectionId);
+        if (!section) return;
+    
+        let noCarsMessage = section.querySelector('.no-cars-message');
+        
+        if (visibleCount === 0) {
+            if (!noCarsMessage) {
+                noCarsMessage = document.createElement('p');
+                noCarsMessage.classList.add('no-cars-message', 'text-center', 'fs-5', 'fw-bold', 'mb-5', 'pb-3');
+                noCarsMessage.textContent = message;
+                section.appendChild(noCarsMessage);
+            }
+        } else {
+            if (noCarsMessage) {
+                noCarsMessage.remove();
+            }
+        }
+    }
     restoreFilters() {
         this.brandFilter.value = 0;
         this.nameFilter.value = '';

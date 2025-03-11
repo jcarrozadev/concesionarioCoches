@@ -38,17 +38,13 @@ class CarValidator {
 
         if (inputId === 'addFormFile' || inputId === 'editFormFile') {
             const fileInput = input.files[0];
-            if (input.files.length === 0 || !fileInput) {
+            if (!fileInput) {
                 isValid = false;
             } else {
                 const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'];
                 const maxSize = 2048 * 1024; // 2048 KB in bytes
 
-                if (!allowedMimes.includes(fileInput.type)) {
-                    isValid = false;
-                }
-
-                if (fileInput.size > maxSize) {
+                if (!allowedMimes.includes(fileInput.type) || fileInput.size > maxSize) {
                     isValid = false;
                 }
             }
@@ -70,8 +66,10 @@ class CarValidator {
         let formIsValid = true;
 
         inputs.forEach(input => {
-            if (!CarValidator.validateField(input)) {
-                formIsValid = false;
+            if (input.value.trim() !== '' || input.classList.contains('is-invalid')) {
+                if (!CarValidator.validateField(input)) {
+                    formIsValid = false;
+                }
             }
         });
 

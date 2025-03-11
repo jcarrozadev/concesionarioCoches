@@ -1,4 +1,3 @@
-import CarValidator from "/js/CarValidator";
 document.addEventListener('DOMContentLoaded', function () {
     ////////////////////////////////////// Add car //////////////////////////////////////
     const formAddCar = document.getElementById('form-addCar');
@@ -9,23 +8,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const inputs = formAddCar.querySelectorAll('input, select');
         inputs.forEach(input => {
             input.classList.remove('is-invalid', 'is-valid');
-            input.dataset.touched = 'false'; 
+            input.dataset.touched = 'false'; // Resetea el estado de interacción
         });
     }}
 
     function setupFormValidationAdd(form, submitButton) {
         const inputs = form.querySelectorAll('input, select');
-    
+
         function validateForm() {
             let formIsValid = true;
             inputs.forEach(input => {
-                if (!CarValidator.validateField(input)) { // Validate fields with CarValidator
+                if (!validateFieldAdd(input)) {
                     formIsValid = false;
                 }
             });
             submitButton.disabled = !formIsValid;
         }
-    
+
         inputs.forEach(input => {
             input.dataset.touched = 'false'; 
             input.addEventListener('input', function() {
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 validateForm();
             });
         });
-    
+
         form.addEventListener('submit', function (event) {
             if (!form.checkValidity()) {
                 event.preventDefault();
@@ -45,6 +44,76 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             form.classList.add('was-validated');
         });
+    }
+
+    function validateFieldAdd(input) {
+        if (input.dataset.touched === 'false') {
+            return true; 
+        }
+
+        const value = input.value.trim();
+        const inputId = input.id;
+        let isValid = true;
+
+        if (input.hasAttribute('required') && value === '') {
+            isValid = false;
+        }
+
+        if (inputId === 'addNameCar') {
+            const regex = /^[a-zA-Z0-9\s]+$/;
+            if (!regex.test(value)) {
+                isValid = false;
+            }
+        }
+
+        if (inputId === 'addYearCar') {
+            const year = parseInt(value, 10);
+            if (isNaN(year) || year < 1990 || year > 2025) {
+                isValid = false;
+            }
+        }
+
+        if (inputId === 'addCvCar') {
+            const number = parseFloat(value);
+            if (isNaN(number) || number < 1) {
+                isValid = false;
+            }
+        }
+
+        if (inputId === 'addPriceCar') {
+            const number = parseFloat(value);
+            if (isNaN(number) || number < 1) {
+                isValid = false;
+            }
+        }
+
+        if (inputId === 'addFormFile') {
+            if (input.files.length === 0) {
+                isValid = false;
+            } else {
+                const file = input.files[0];
+                const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'];
+                const maxSize = 2048 * 1024; // 2048 KB in bytes
+    
+                if (!allowedMimes.includes(file.type)) {
+                    isValid = false;
+                }
+    
+                if (file.size > maxSize) {
+                    isValid = false;
+                }
+            }
+        }
+
+        if (isValid) {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+        } else {
+            input.classList.remove('is-valid');
+            input.classList.add('is-invalid');
+        }
+
+        return isValid;
     }
 
     ////////////////// Add car with gallery image //////////////////
@@ -343,8 +412,7 @@ function setupFormValidationEdit(form, submitButton) {
     function validateForm() {
         let formIsValid = true;
         inputs.forEach(input => {
-            // Usar CarValidator para validar cada campo
-            if (!CarValidator.validateField(input)) {
+            if (!validateFieldEdit(input)) {
                 formIsValid = false;
             }
         });
@@ -356,7 +424,7 @@ function setupFormValidationEdit(form, submitButton) {
         input.addEventListener('change', validateForm);
     });
 
-    inputs.forEach(input => CarValidator.validateField(input));  // Validar los campos iniciales
+    inputs.forEach(validateFieldEdit);
     validateForm();
 
     form.addEventListener('submit', function (event) {
@@ -367,6 +435,64 @@ function setupFormValidationEdit(form, submitButton) {
         form.classList.add('was-validated');
     });
 }
+
+function validateFieldEdit(input) {
+    const value = input.value.trim();
+    const inputId = input.id;
+    let isValid = true;
+
+    if (input.hasAttribute('required') && value === '') {
+        isValid = false;
+    }
+
+    if (inputId === 'editNameCar') {
+        const regex = /^[a-zA-Z0-9\s]+$/;
+        if (!regex.test(value)) {
+            isValid = false;
+        }
+    }
+
+    if (inputId === 'editYearCar') {
+        const year = parseInt(value, 10);
+        if (isNaN(year) || year < 1990 || year > 2025) {
+            isValid = false;
+        }
+    }
+
+    if (inputId === 'editCvCar') {
+        const number = parseFloat(value);
+        if (isNaN(number) || number < 1) {
+            isValid = false;
+        }
+    }
+
+    if (inputId === 'editPriceCar') {
+        const number = parseFloat(value);
+        if (isNaN(number) || number < 1) {
+            isValid = false;
+        }
+    }
+
+    if (inputId === 'editFormFile') {
+        const mainImg = document.getElementById('mainImg');
+        if (mainImg && mainImg.src) {
+            isValid = true;
+        } else if (value === '') {
+            isValid = false;
+        }
+    }
+
+    if (isValid) {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+    } else {
+        input.classList.remove('is-valid');
+        input.classList.add('is-invalid');
+    }
+
+    return isValid;
+}
+
 document.getElementById('editSubmit').addEventListener('click', function (event) {
     event.preventDefault();
     swal({
