@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\TypeController;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,23 +20,16 @@ class Types extends Model
                     ->get();
     }
 
-    /**
-     * Summary of getType
-     * @param mixed $id
-     * @return Collection<int, Types>
-     */
-    public static function getType($id): Types {
-        return self::find($id);
-    }
 
     /**
      * Summary of addType
      * @param mixed $data
      * @return Types
      */
-    public static function addType($data): Types {
+    public static function addType(TypeController $request): Types {
+
         return self::create([
-            'name' => $data['name'],
+            'name' => $request->name,
             'enabled' => 1
         ]);
     }
@@ -45,18 +39,30 @@ class Types extends Model
      * @param mixed $id
      * @return bool
      */
-    public static function removeType($id): bool {
+    public static function removeType(int $id): bool {
         return self::where('id', $id)
-                    ->update(['enabled' => 0]) >= 0;
+                    ->update(['enabled' => 0]) > 0;
     }
     
-    /**
-     * Summary of updateType
-     * @param mixed $type
-     * @param array $changes
-     * @return bool
-     */
-    public static function updateType($type, array $changes): bool {
-        return $type->update($changes);
+    
+    public static function updateType(TypeController $request): bool {
+    
+        $type = self::where('id', $request->id)->first();
+
+        if (!$type) {
+            return false;
+        }
+
+        $updatedData = [];
+    
+        if ($type->name !== $request->name && !is_null($request->name)) {
+            $updatedData['name'] = $request->name;
+        }
+    
+        if (empty($updatedData)) {
+            return false;
+        }
+    
+        return $type->update($updatedData);
     }
 }

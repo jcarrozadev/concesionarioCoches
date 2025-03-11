@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\BrandController;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,39 +20,49 @@ class Brands extends Model
         return self::where('enabled', 1)
                     ->get();
     }
+
+    public static function getBrand(int $id): Brands {
+        return self::where('id', $id)
+                    ->first();
+    }
     
     /**
      * Summary of removeBrand
      * @param mixed $id
      * @return bool
      */
-    public static function removeBrand(mixed $id): bool {
-        return self::where('id', $id)
+    public static function removeBrand(BrandController $request): bool {
+        return self::where('id', $request->id)
                     ->update(['enabled' => 0]) >= 0;
     }
     
-    /**
-     * Summary of addBrand
-     * @param mixed $data
-     * @return Brands
-     */
-    public static function addBrand(mixed $data): Brands {
+    public static function addBrand(BrandController $request): Brands {
         return self::create([
-            'name' => $data['name'],
+            'name' => $request->name,
             'enabled' => 1
         ]);
     }
 
-    /**
-     * Summary of editBrand
-     * @param mixed $data
-     * @return bool
-     */
-    public static function editBrand(mixed $data):bool {
-        $id = $data['id'];
-        unset($data['id']);
+    public static function editBrand(BrandController $request): bool {
+
+        $brand = self::where('id', $request->id)->first();
+
+        if (!$brand) {
+            return false;
+        }
+    
+        $updatedData = [];
+    
+        if ($brand->name !== $request->name && !is_null($request->name)) {
+            $updatedData['name'] = $request->name;
+        }
         
-        return self::where('id', $id)
-        ->update($data);
+    
+        if (empty($updatedData)) {
+            return false;
+        }
+    
+        return $brand->update($updatedData);
+
     }
 }

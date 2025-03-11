@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -50,8 +52,8 @@ class Gallery extends Model
      * @param mixed $name
      * @return Gallery|null
      */
-    public static function getImg($name):Gallery|null{
-        return self::where('img', $name)
+    public static function getImg(string $request):Gallery|null{
+        return self::where('img', $request)
                     ->first();
     }
 
@@ -61,9 +63,9 @@ class Gallery extends Model
      * @param mixed $imageName
      * @return mixed
      */
-    public static function updateImage($verificatedImg, $imageName):mixed {
-        $verificatedImg->img = $imageName;
-        return $verificatedImg->save();
+    public static function updateImage($verificatedImg, string $request): bool{
+        $changes['img'] = $request;
+        return $verificatedImg->update($changes);
     }
     
     /**

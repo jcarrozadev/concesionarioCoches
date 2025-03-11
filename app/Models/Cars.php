@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\CarController;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -80,18 +81,18 @@ class Cars extends Model
      * @param mixed $data
      * @return Cars
      */
-    public static function addCar(array $data): int {
+    public static function addCar(CarController $request): int {
         $car = self::create([
-            'name' => $data['name'],
-            'year' => $data['year'],
-            'horsepower' => $data['horsepower'],
-            'sale' => $data['sale'],
-            'brand_id' => $data['brand_id'],
-            'type_id' => $data['type_id'],
-            'color_id' => $data['color_id'],
-            'price' => $data['price'],
+            'name' => $request->name,
+            'year' => $request->year,
+            'horsepower' => $request->horsepower,
+            'sale' => $request->sale,
+            'brand_id' => $request->brand->id,
+            'type_id' => $request->type->id,
+            'color_id' => $request->color->id,
+            'price' => $request->price,
             'enabled' => 1,
-            'main_img' => $data['main_img']
+            'main_img' => $request->main_img
         ]);
 
         return $car->id;
@@ -102,8 +103,8 @@ class Cars extends Model
      * @param mixed $id
      * @return bool
      */
-    public static function removeCar($id): bool {
-        return self::where('id', $id)->update(['enabled' => 0]);
+    public static function removeCar(int $request): bool {
+        return self::where('id', $request)->update(['enabled' => 0]);
     }
 
     /**
@@ -112,9 +113,28 @@ class Cars extends Model
      * @param array $changes
      * @return bool
      */
-    public static function updateCar($car, array $changes): bool {
-        return $car->update($changes);
+    public static function updateCar($car, CarController $controller): bool {
+        
+        $updatedData = [
+            'name' => $controller->getName(),
+            'year' => $controller->getYear(),
+            'horsepower' => $controller->getHorsepower(),
+            'price' => $controller->getPrice(),
+            'main_img' => $controller->getMainImg(),
+            'sale' => $controller->getSale(),
+            'brand_id' => $controller->brand->id,
+            'type_id' => $controller->type->id,
+            'color_id' => $controller->color->id,
+        ];
+    
+        
+        $updatedData = array_filter($updatedData, function ($value) {
+            return !is_null($value);
+        });
+    
+        return $car->update($updatedData);
     }
+    
 
     /**
      * Summary of getCarsWithType
