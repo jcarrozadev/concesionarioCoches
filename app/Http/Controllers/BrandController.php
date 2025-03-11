@@ -25,7 +25,7 @@ class BrandController extends Controller
 
     public function getBrands(): Collection {
 
-        return Brands::all()->map(function ($brand) {
+        return Brands::getBrandsAll()->map(function ($brand) {
             return new BrandController($brand);
         });
         
@@ -53,10 +53,15 @@ class BrandController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function removeBrand(Request $request): mixed {
-        $brandDeleted = Brands::removeBrand($request->brand_id);
+    public function removeBrand(): mixed {
         
-        if ($brandDeleted) {
+        $id = request()->input('brand_id');
+        if(!isset($id))
+            return response()->json(['error' => 'Error al eliminar la marca.'], 500);
+        
+        $this->id = $id;
+        
+        if (Brands::removeBrand($this)) {
             return response()->json(['success' => 'Marca eliminada correctamente.']);
         } else {
             return response()->json(['error' => 'Error al eliminar la marca.'], 500);
@@ -64,39 +69,25 @@ class BrandController extends Controller
 
     }
 
-    /**
-     * Summary of compareBrand
-     * @param mixed $request
-     * @param mixed $validatedData
-     * @return array
-     */
-    private function compareBrand(mixed $request, mixed $validatedData): array {
-        $data = $request->all();
-        $dataDB = Brands::find($data['id']);
-    
-        $dataNew = [];
-
-        $dataNew['id'] = $data['id'];
-    
-        if ($validatedData['name'] !== $dataDB->name) {
-            $dataNew['name'] = $validatedData['name'];
-        }
-    
-        return $dataNew;
-    }    
-
-    /**
-     * Summary of editBrand
-     * @param \Illuminate\Http\Request $request
-     * @return RedirectResponse
-     */
     public function editBrand(BrandRequest $request): RedirectResponse {
         $validatedData = $request->validated();
         $validatedData['id'] = $request->id;
 
-        $data = self::compareBrand($request, $validatedData);
+        if(!$validatedData = $request->validated()){
+            return redirect()->back()->with('error' , 'Los valores introducidos no son correctos.');
+        }
 
-        if (Brands::editBrand($data)) {
+        if(isset($request->id))
+            $this->id = $request->id;
+        else
+            return redirect()->back()->with('error' , 'Error inseperado.');
+
+        if(isset($request->name))
+            $this->name = $request->name;
+        else
+            return redirect()->back()->with('error' , 'Error inseperado.');
+
+        if (Brands::editBrand($this)) {
             return redirect()->route('brands')->with('success', 'Marca editada correctamente');
         } else {
             return redirect()->route('brands')->with('error', 'Error al editar la marca');

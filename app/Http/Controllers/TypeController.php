@@ -26,7 +26,7 @@ class TypeController extends Controller
 
     public function getTypes(): Collection {
 
-        return Types::all()->map(function ($type) {
+        return Types::getTypesAll()->map(function ($type) {
             return new TypeController($type);
         });
         
@@ -38,7 +38,11 @@ class TypeController extends Controller
      * @return RedirectResponse
      */
     public function addType(TypeRequest $request): RedirectResponse {
-        if (Types::addType($request->validated())) {
+
+        $data = $request->validated();
+        $this->name = $data['name'];
+        
+        if (Types::addType($this)) {
             return redirect()->route('types')->with('success', 'Tipo añadido correctamente');
         } else {
             return redirect()->route('types')->with('error', 'Error al añadir el tipo');
@@ -50,10 +54,14 @@ class TypeController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function removeType(Request $request): mixed {
-        $typeDeleted = Types::removeType($request->type_id);
-        
-        if ($typeDeleted) {
+    public function removeType(): mixed {
+        $id = request()->input('type_id');
+        if (!isset($id)) {
+            return response()->json(['error' => 'ID de tipo no proporcionado.'], 400);
+        }
+        $this->id = $id;
+
+        if (Types::removeType($this->id)) {
             return response()->json(['success' => 'Tipo eliminado correctamente.']);
         } else {
             return response()->json(['error' => 'Error al eliminar el tipo.'], 500);
@@ -69,37 +77,19 @@ class TypeController extends Controller
         if(!$validatedData = $request->validated()){
             return redirect()->back()->with('error' , 'Los valores introducidos no son correctos.');
         }
-        
-        $type = Types::getType($request->id);
 
-        if(!$type){
-            return redirect()->back()->with('error' , 'No se encuentra el tipo seleccionado.');
-        }
-        $changes = self::validateChanges($validatedData, $type);
-        
-        if (empty($changes)) {
-            return redirect()->back()->with('error', 'No hay nada que actualizar.');
-        }
+        if(isset($request->id))
+            $this->id = $request->id;
+        else
+            return redirect()->back()->with('error' , 'Error inseperado.');
 
-        return Types::updateType($type, $changes) ? redirect()->back()->with('success', 'Tipo actualizado correctamente.') : redirect()->back()->with('error' , 'Ha habido un error al actualizar el tipo.');
-    }
+        if(isset($request->name))
+            $this->name = $request->name;
+        else
+            return redirect()->back()->with('error' , 'Error inseperado.');
 
-    /**
-     * Summary of validateChanges
-     * @param mixed $validatedData
-     * @param mixed $type
-     * @return array
-     */
-    private function validateChanges($validatedData, $type): array | bool {
-        $changes = [];
 
-        foreach ($validatedData as $key => $value) {
-            if ($type->$key != $value) {
-                $changes[$key] = $value; 
-            }
-        }
-
-        return $changes;
+        return Types::updateType($this) ? redirect()->back()->with('success', 'Tipo actualizado correctamente.') : redirect()->back()->with('error' , 'Ha habido un error al actualizar el tipo.');
     }
 
     // Getters and Setters

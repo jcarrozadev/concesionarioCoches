@@ -10,8 +10,8 @@ class ColorUpdateRequest extends FormRequest
     {
         return [
             'id' => 'required|integer',
-            'name' => 'required|string',
-            'hex' => 'required|string'
+            'name' => 'sometimes|string',
+            'hex' => 'sometimes|string'
         ];
     }
 }

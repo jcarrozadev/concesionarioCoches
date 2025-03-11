@@ -28,7 +28,7 @@ class ColorController extends Controller
     }
     
     public function getColors(): Collection{
-        return Colors::all()->map(function ($color) {
+        return Colors::getColorsAll()->map(function ($color) {
             return new ColorController($color);
         });
     }
@@ -39,19 +39,22 @@ class ColorController extends Controller
      * @return RedirectResponse
      */
     public function addColor(ColorAddRequest $request): RedirectResponse {
-        return Colors::addColor($request->validated()) 
+
+        $data = $request->validated();
+        $this->name = $data['name'];
+        $this->hex = $data['hex'];
+
+        return Colors::addColor($this) 
                     ? redirect()->route('colors')->with('success', 'Color añadido correctamente') 
                     : redirect()->route('colors')->with('error', 'Error al añadir el color');
 
     }
 
-    /**
-     * Summary of removeColor
-     * @param \Illuminate\Http\Request $request
-     * @return mixed|\Illuminate\Http\JsonResponse
-     */
-    public function removeColor(Request $request): mixed {
-        return Colors::removeColor($request->color_id) 
+    public function removeColor(): mixed {
+
+        $this->id = request()->input('color_id');
+
+        return Colors::removeColor($this) 
                     ? response()->json(['success' => 'Color eliminado correctamente.'])
                     : response()->json(['error' => 'Error al eliminar el color.'], 500);
     }
@@ -62,7 +65,14 @@ class ColorController extends Controller
      * @return RedirectResponse
      */
     public function editColor(ColorUpdateRequest $request): RedirectResponse {
-        return Colors::editColor($request->validated()) 
+
+        $request->validated();
+        $this->id = $request->id;
+        $this->name = $request->name;
+        $this->hex = $request->hex;
+
+
+        return Colors::editColor($this) 
                     ? redirect()->route('colors')->with('success', 'Color editado correctamente.')
                     : redirect()->route('colors')->with('error', 'Error al editar el color.');
     }

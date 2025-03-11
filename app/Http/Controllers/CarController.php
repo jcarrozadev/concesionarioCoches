@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CarUpdateRequest;
 use App\Http\Requests\CarAddRequest;
+use App\Http\Requests\CarUpdateRequest;
 use App\Models\Cars;
 use App\Models\Gallery;
 use Illuminate\Contracts\View\View;
@@ -102,8 +102,8 @@ class CarController extends Controller
         $this->price = $data['price'];
         $this->sale = $data['sale'] ?? 0;
         $this->brand->id = $data['brand_id'];
-        $this->type->id = $data['brand_id'];
-        $this->color->id = $data['brand_id'];
+        $this->type->id = $data['type_id'];
+        $this->color->id = $data['color_id'];
 
 
         $data['main_img'] = $utility->parseImg($request->file('main_img'));
@@ -153,14 +153,13 @@ class CarController extends Controller
     public function updateCar(CarUpdateRequest $request): RedirectResponse {
         $utility = New UtilitiesController();
 
-        $car = $this->createUpdateRequest($request);
 
-        return $car ?  redirect()->back()->with('success', 'Coche actualizado correctamente.'): 
+        return $this->createUpdateRequest($request) ?  redirect()->back()->with('success', 'Coche actualizado correctamente.'): 
                         redirect()->back()->with('error', 'Ha habido un error al actualizar el coche.');
 
     }
 
-    private function createUpdateRequest(CarUpdateRequest $request): bool{
+    private function createUpdateRequest($request): bool{
         $validatedData = $request->validated();
         $validateController = new ValidateController();
         

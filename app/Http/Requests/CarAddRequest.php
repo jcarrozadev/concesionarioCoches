@@ -19,16 +19,12 @@ class CarAddRequest extends FormRequest
             'type_id' => 'required|integer',
             'color_id' => 'required|integer',
             'year' => 'required|integer',
-            'main_img' => 'required|file',
+            'main_img' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'horsepower' => 'required|numeric',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'images' => 'sometimes|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
-
-        foreach ($this->all() as $key => $value) {
-            if (str_starts_with($key, 'images')) {
-                $rules[$key] = 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048';
-            }
-        }
 
         return $rules;
     }
@@ -45,6 +41,8 @@ class CarAddRequest extends FormRequest
             'price.required' => 'El precio del coche es obligatorio.',
             'main_img.image' => 'La imagen principal debe ser un archivo de imagen válido.',
             'main_img.max' => 'La imagen principal no debe ser mayor de 2MB.',
+            'images*' => 'Error en la imagenes secundarias.',
+            'images.*' => 'No están permitidas alguna de las imagenes subidas.',
             'fileImg*.image' => 'Cada archivo debe ser una imagen válida.',
             'fileImg*.max' => 'Cada archivo no debe ser mayor de 2MB.',
             'img*.image' => 'Cada archivo debe ser una imagen válida.',
