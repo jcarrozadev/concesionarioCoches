@@ -43,6 +43,7 @@ class CarAddRequest extends FormRequest
             'main_img.max' => 'La imagen principal no debe ser mayor de 2MB.',
             'images*' => 'Error en la imagenes secundarias.',
             'images.*' => 'No están permitidas alguna de las imagenes subidas.',
+            'images*.max' => 'Cada archivo no debe ser mayor de 2MB.',
             'fileImg*.image' => 'Cada archivo debe ser una imagen válida.',
             'fileImg*.max' => 'Cada archivo no debe ser mayor de 2MB.',
             'img*.image' => 'Cada archivo debe ser una imagen válida.',
