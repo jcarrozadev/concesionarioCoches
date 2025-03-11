@@ -59,5 +59,5 @@
         const deleteRoute = "{{ route('delete_type') }}"; 
     </script>
     <script src="{{ asset('js/admin.js') }}"></script>
-    <script src="{{ asset('js/views/types.js') }}"></script>
+    <script type="module" src="{{ asset('js/views/types.js') }}"></script>
 @endpush
