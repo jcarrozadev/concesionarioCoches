@@ -1,4 +1,4 @@
-import Validator from '../BrandTypeValidator.js';
+import BrandTypeValidator from '../BrandTypeValidator.js';
 ///////////////////////////////////////////////Delete brand
 
 const deleteBrand = document.querySelectorAll('.delete-btn');
@@ -149,8 +149,8 @@ document.getElementById('editSubmit').addEventListener('click', function(event) 
 
 //Validators
 document.addEventListener('DOMContentLoaded', function() {
-    new Validator("#form-addBrand", "#btn-addbrand", "#addBrandName");
-    new Validator("#form-editBrand", "#editSubmit", "#editBrandName");
+    new BrandTypeValidator("#form-addBrand", "#btn-addbrand", "#addBrandName");
+    new BrandTypeValidator("#form-editBrand", "#editSubmit", "#editBrandName");
 });
 
 ///////////////////////////////////////////////////////////////////////// Bootstrap ///////////

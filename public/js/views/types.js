@@ -1,4 +1,4 @@
-import Validator from '/js/BrandTypeValidator.js';
+import BrandTypeValidator from '/js/BrandTypeValidator.js';
 ///////////////////////////////////////////////////////////// Delete Type
 const deleteType = document.querySelectorAll('.delete-btn');
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
@@ -145,8 +145,8 @@ document.getElementById('editSubmit').addEventListener('click', function(event) 
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const createTypeValidator = new Validator("#formAddType", "#btn-addtype", "#addTypeName");
-    const editTypeValidator = new Validator("#form-editType", "#editSubmit", "#editTypeName");
+    new BrandTypeValidator("#formAddType", "#btn-addtype", "#addTypeName");
+    new BrandTypeValidator("#form-editType", "#editSubmit", "#editTypeName");
 });
 
 /////////////////////////////////////////////////////////////// Bootstrap validations 
