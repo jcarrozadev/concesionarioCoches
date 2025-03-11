@@ -62,5 +62,5 @@
         const deleteRoute = "{{ route('delete_color') }}"; 
     </script>
     <script src="{{ asset('js/admin.js') }}"></script>
-    <script src="{{ asset('js/views/color.js') }}"></script>
+    <script type="module" src="{{ asset('js/views/color.js') }}"></script>
 @endpush
