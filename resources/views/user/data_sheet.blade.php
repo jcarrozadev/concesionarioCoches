@@ -4,7 +4,7 @@
 @endpush
 
 @section('title')
-    AllStarsAutos | {{ $car->brand_name.' '.$car->name }}
+    AllStarsAutos | {{ $car->brand->name.' '.$car->name }}
 @endsection
 
 @section('content')
@@ -30,11 +30,11 @@
         </button>
     </div>
     <div class="information-container w-75 mx-auto mt-1">
-        <h2 class="fs-4">{{ $car->brand_name.' '.$car->name }}</h2>
+        <h2 class="fs-4">{{ $car->brand->name.' '.$car->name }}</h2>
         <div class="d-flex flex-row align-items-center justify-content-between text-center">
             <div>
                 <p class="fw-bold">Tipo</p>
-                <p>{{ $car->type_name }}</p>
+                <p>{{ $car->type->name }}</p>
             </div>
             <div>
                 <p class="fw-bold">Año</p>
@@ -48,8 +48,7 @@
         <div class="d-flex flex-row align-items-center justify-content-between text-center">
             <div>
                 <p class="fw-bold">Color</p>
-                <p><input type="color" class="w-100" name="" id="" value="{{ $car->hex }}" disabled></p>
-                {{-- <p>{{ $car->color_name }}</p> --}}
+                <p><input type="color" class="w-100" name="" id="" value="{{ $car->color->hex }}" disabled></p>
             </div>
             <div>
                 <p class="fw-bold">Precio</p>

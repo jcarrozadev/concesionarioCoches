@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\ColorController;
 use Illuminate\Database\Eloquent\Model;
 
 class Colors extends Model
@@ -23,21 +24,16 @@ class Colors extends Model
      * @param mixed $data
      * @return Colors
      */
-    public static function addColor(mixed $data): Colors {
+    public static function addColor(ColorController $request): Colors {
         return self::create([
-            'name' => $data['name'],
-            'hex' => $data['hex'],
+            'name' => $request->name,
+            'hex' => $request->hex,
             'enabled' => 1
         ]);
     }
 
-    /**
-     * Summary of removeColor
-     * @param mixed $id
-     * @return bool
-     */
-    public static function removeColor(mixed $id): bool {
-        return self::where('id', $id)->update(['enabled' => 0]);
+    public static function removeColor(ColorController $request): bool {
+        return self::where('id', $request->id)->update(['enabled' => 0]);
     }
 
     /**
@@ -45,11 +41,27 @@ class Colors extends Model
      * @param mixed $data
      * @return bool
      */
-    public static function editColor(mixed $data):bool {
-        $id = $data['id'];
-        unset($data['id']);
+    public static function editColor(ColorController $request):bool {
+        $color = self::where('id', $request->id)->first();
+
+        if (!$color) {
+            return false;
+        }
+    
+        $updatedData = [];
+    
+        if ($color->name !== $request->name && !is_null($request->name)) {
+            $updatedData['name'] = $request->name;
+        }
         
-        return self::where('id', $id)
-        ->update($data);
+        if ($color->hex !== $request->hex && !is_null($request->hex)) {
+            $updatedData['hex'] = $request->hex;
+        }
+    
+        if (empty($updatedData)) {
+            return false;
+        }
+    
+        return $color->update($updatedData);
     }
 }
