@@ -8,16 +8,16 @@ use Illuminate\Support\Collection;
 
 class CarsController extends Controller
 {
-    private string $type;
+    private int $type; // 1 == allCars | 2 == saleCars
 
-    public function __construct(string $type = 'all') {
+    public function __construct(int $type = 1) {
         $this->type = $type;
     }
 
     public function setCars() {
-        if ($this->type === 'all') {
+        if ($this->type === 1) {
             return $this->setCarsAll();
-        } elseif ($this->type === 'sale') {
+        } elseif ($this->type === 2) {
             return $this->setCarsSale();
         }
     }

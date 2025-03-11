@@ -222,14 +222,14 @@ class CarController extends Controller
                     $imgGallery = new GalleryController();
                     $number = substr($key, 7);
                     $imgField = 'img' . $number;
-                    $imgGallery->img = $request->imgField;
+                    $imgGallery->img = $request->$imgField;
                     $verificatedImg = Gallery::getImg($imgGallery->img);
                     if ($request->hasFile($key)) {
                         $image = $request->file($key);
                         $imageName = $utility->parseImg($image);
                         $imgGallery->img = $imageName;
                         $image->storeAs('img', $imageName, 'public');
-                        if(!Gallery::updateImage($verificatedImg, $imgGallery)) 
+                        if(!Gallery::updateImage($verificatedImg, $imgGallery->img)) 
                             return false; 
 
                         Storage::disk('public')->delete('img/'.$request->$imgField);
@@ -241,52 +241,28 @@ class CarController extends Controller
     }
 
     private function setChangesToCar(array $changes, CarUpdateRequest $request, Cars $car): void{
+
+        $fillable = ['name', 'year', 'horsepower', 'price', 'main_img', 'sale', 'brand_id', 'type_id', 'color_id'];
+
         foreach ($changes as $key => $value) {
-            switch ($key) {
-                case 'main_img':
+            if (in_array($key, $fillable)) {
+                if ($key === 'main_img') {
                     $utility = new UtilitiesController();
                     $value = $utility->parseImg($request->file('main_img'));
                     $request->file('main_img')->storeAs('img', $value, 'public');
-                    Storage::disk('public')->delete('img/'.$car->main_img);
+                    Storage::disk('public')->delete('img/'.$this->main_img);
                     $this->main_img = $value;
-                    break;
-    
-                case 'name':
-                    $this->name = $value;
-                    break;
-    
-                case 'year':
-                    $this->year = $value;
-                    break;
-    
-                case 'horsepower':
-                    $this->horsepower = $value;
-                    break;
-    
-                case 'price':
-                    $this->price = $value;
-                    break;
-    
-                case 'sale':
-                    $this->sale = $value;
-                    break;
-    
-                case 'brand_id':
+                } elseif ($key === 'brand_id') {
                     $this->brand->id = $value;
-                    break;
-    
-                case 'type_id':
+                } elseif ($key === 'type_id') {
                     $this->type->id = $value;
-                    break;
-    
-                case 'color_id':
+                } elseif ($key === 'color_id') {
                     $this->color->id = $value;
-                    break;
-    
-                default:
-                    break;
+                } else {
+                    $this->{$key} = $value;
+                }
             }
-        }    
+        }
     }
 
     // Getters and Setters

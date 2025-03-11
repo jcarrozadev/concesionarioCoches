@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Response;
 
 Route::get('/', function ():View {
     
-    $car = new CarsController('all');
-    $carOffers = new CarsController('sale');
+    $car = new CarsController(1);
+    $carOffers = new CarsController(2);
     $brand = new BrandController();
     $brands = $brand->getBrands();
     $color = new ColorController();
@@ -31,9 +31,9 @@ Route::get('/', function ():View {
 
 })->name('home');
 
-Route::get('/admin', function () {
+Route::get('/admin', function ():View {
 
-    $car = new CarsController('all');
+    $car = new CarsController(1);
     $cars = $car->setCars();
 
     $brand = new BrandController();
@@ -51,7 +51,7 @@ Route::get('/admin', function () {
     
 })->name('admin');
 
-Route::get('/admin/brands', function () {
+Route::get('/admin/brands', function ():View {
     
     $brand = new BrandController();
     $brands = $brand->getBrands();
@@ -60,7 +60,7 @@ Route::get('/admin/brands', function () {
 
 })->name('brands');
 
-Route::get('/admin/types', function () {
+Route::get('/admin/types', function ():View {
     
     $type = new TypeController();
     $types = $type->getTypes();
@@ -69,7 +69,7 @@ Route::get('/admin/types', function () {
 
 })->name('types');
 
-Route::get('/admin/colors', function () {
+Route::get('/admin/colors', function ():View {
     
     $color = new ColorController();
     $colors = $color->getColors();

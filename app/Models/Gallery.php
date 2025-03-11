@@ -63,9 +63,9 @@ class Gallery extends Model
      * @param mixed $imageName
      * @return mixed
      */
-    public static function updateImage($verificatedImg, GalleryController $request):mixed {
-        $verificatedImg->img = $$request->img;
-        return $verificatedImg->save();
+    public static function updateImage($verificatedImg, string $request): bool{
+        $changes['img'] = $request;
+        return $verificatedImg->update($changes);
     }
     
     /**
