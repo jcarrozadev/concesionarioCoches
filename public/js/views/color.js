@@ -1,3 +1,4 @@
+import ColorValidator from '/js/ColorValidator.js';
 ////////////////////////////////////////////////////////////////// Delete color
 const delete_car = document.querySelectorAll('.delete-color');
 
@@ -73,86 +74,12 @@ editColor.forEach(btn => {
 });
 
 ///////////////////////////////////////////////////////////////// Validations /////////////////////////////////////////////////////////////////
-const nameForm = document.getElementById("addColorName");
-const submitButton = document.getElementById("btn-addcolor");
-
-/**
- * Validation for name input
- * @returns 
- */
-function validateName() {
-
-    const specialChars = /[!@#$%^&*(),.?":{}|<>]/g;
-    
-    if (nameForm.value === "") {
-        nameForm.classList.remove("is-valid", "is-invalid"); // Dont show error if empty
-        return false;
-    }
-
-    if (nameForm.value.trim() === "" || specialChars.test(nameForm.value)) {
-        nameForm.classList.add("is-invalid");
-        nameForm.classList.remove("is-valid");
-        return false;
-    } else {
-        nameForm.classList.add("is-valid");
-        nameForm.classList.remove("is-invalid");
-        return true;
-    }
-}
-
-/**
- * Check if form is valid to enable submit button 
- */
-function checkFormValidity() {
-    submitButton.disabled = !(validateName());
-}
-
-nameForm.addEventListener("input", function () {
-    validateName();
-    checkFormValidity();
+document.addEventListener('DOMContentLoaded', function() {
+    new ColorValidator('#formAddColor', '#btn-addcolor', '#addColorName');
+    new ColorValidator('#form-editColor', '#btn-editcolor', '#name');
 });
 
-////////////////////////////////////////////////////////////////////// Validations Edit Color ///////////
-const nameEditForm = document.getElementById("name");
-const submitEditButton = document.getElementById("btn-editcolor");
-
-/**
- * Validation for name input
- * @returns 
- */
-function validateNameEdit() {
-
-    const specialChars = /[!@#$%^&*(),.?":{}|<>]/g;
-    
-    if (nameEditForm.value === "") {
-        nameEditForm.classList.remove("is-valid", "is-invalid"); // Dont show error if empty
-        return false;
-    }
-
-    if (nameEditForm.value.trim() === "" || specialChars.test(nameEditForm.value)) {
-        nameEditForm.classList.add("is-invalid");
-        nameEditForm.classList.remove("is-valid");
-        return false;
-    } else {
-        nameEditForm.classList.add("is-valid");
-        nameEditForm.classList.remove("is-invalid");
-        return true;
-    }
-}
-
-/**
- * Check if form is valid to enable submit button 
- */
-function checkFormValidityEdit() {
-    submitEditButton.disabled = !(validateNameEdit());
-}
-
-nameEditForm.addEventListener("input", function () {
-    validateNameEdit();
-    checkFormValidityEdit();
-});
-
-document.getElementById('editSubmit').addEventListener('click', function(event) {
+document.getElementById('btn-editcolor').addEventListener('click', function(event) {
     event.preventDefault();
     swal({
         title: "¿Estás seguro?",
